@@ -1,2 +1,2 @@
-# writting-lab
+# Writting lab
 Proyecto de tesis de Nelson
