@@ -1,14 +1,15 @@
-import './assets/main.css'
-
+import { registerPlugins } from '@/plugins'
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 
 import App from './App.vue'
-import router from './router'
+
+import packageJson from '../package.json';
 
 const app = createApp(App)
 
-app.use(createPinia())
-app.use(router)
+app.config.globalProperties.$name = packageJson.name
+app.config.globalProperties.$version = packageJson.version;
+
+registerPlugins(app)
 
 app.mount('#app')
