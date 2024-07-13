@@ -27,6 +27,10 @@
 
     <v-spacer class="my-6"></v-spacer>
 
+    <ProfileSettingsCourses></ProfileSettingsCourses>
+
+    <v-spacer class="my-6"></v-spacer>
+
     <ProfileSettingsPassword></ProfileSettingsPassword>
 
     <v-spacer class="my-6"></v-spacer>
