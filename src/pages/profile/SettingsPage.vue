@@ -1,0 +1,3 @@
+<template>
+  <ProfileSettings></ProfileSettings>
+</template>
