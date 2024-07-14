@@ -12,7 +12,7 @@
         <v-text-field
           prepend-inner-icon="mdi-badge-account"
           placeholder="Username"
-          variant="outlined"
+          v-model="username"
           density="compact"
         ></v-text-field>
 
@@ -36,7 +36,6 @@
           :type="visible ? 'text' : 'password'"
           prepend-inner-icon="mdi-lock-outline"
           placeholder="Enter your password"
-          variant="outlined"
           v-model="password"
           density="compact"
         ></v-text-field>
@@ -66,9 +65,11 @@
 </template>
 
 <script>
+import { useUserStore } from "@/stores/userStore";
 import { genMailto } from "@/lib/mailto";
 
 export default {
+  name: "AccountLogIn",
   data: () => ({
     username: "",
     password: "",
@@ -78,14 +79,14 @@ export default {
 
   computed: {
     enable() {
-      return this.username !== "" || this.password !== ""
-    }
-
+      return this.username !== "" || this.password !== "";
+    },
   },
 
   methods: {
     logInUser() {
-      console.log(this.password, this.username);
+      const userStore = useUserStore();
+      userStore.registerUser(this.password, this.username);
     },
   },
 };

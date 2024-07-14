@@ -40,7 +40,7 @@
 
           <v-stepper-window>
             <v-stepper-window-item value="1">
-              <v-card flat>
+              <v-card>
                 <v-container fluid>
                   <v-row>
                     <v-col cols="6">
