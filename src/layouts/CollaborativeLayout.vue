@@ -39,19 +39,22 @@
     </v-app-bar>
 
     <v-navigation-drawer
+      location="right"
       v-model="drawer"
       width="260"
-      location="right"
       temporary
       floating
     >
       <template v-slot:prepend>
         <v-list-item
-          :prepend-avatar="profile"
           :subtitle="nickname"
           :title="username"
           lines="two"
-        ></v-list-item>
+        >
+          <template v-slot:prepend>
+            <Avatar></Avatar>
+          </template>
+        </v-list-item>
       </template>
 
       <v-divider></v-divider>
@@ -78,6 +81,8 @@
 </template>
 
 <script>
+import Avatar from "@/components/decoration/Avatar.vue";
+
 export default {
   data: () => ({
     drawer: true,
