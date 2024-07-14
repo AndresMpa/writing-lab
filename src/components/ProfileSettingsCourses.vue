@@ -40,20 +40,8 @@
     <v-divider class="mb-2"></v-divider>
 
     <v-card-actions class="ma-2">
-      <v-btn
-        :disabled="disablePassword"
-        variant="plain"
-        class="ml-auto"
-        text="Discard"
-      ></v-btn>
-
-      <v-btn
-        :variant="disablePassword ? 'outlined' : 'flat'"
-        :disabled="disablePassword"
-        color="primary"
-        class="ml-4"
-        text="Save"
-      ></v-btn>
+      <v-btn variant="plain" class="ml-auto" text="Discard"></v-btn>
+      <v-btn color="primary" variant="flat" class="ml-4" text="Save"></v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -62,7 +50,6 @@
 export default {
   data: () => ({
     nextCourses: null,
-    previousCourses: null,
     courses: [
       "Course 1",
       "Course 2",
