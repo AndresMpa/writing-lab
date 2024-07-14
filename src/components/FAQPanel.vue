@@ -15,9 +15,9 @@
 export default {
   props: {
     items: {
-      type: [String],
-      required: true
-    }
-  }
+      type: [Array, null],
+      required: true,
+    },
+  },
 };
 </script>
