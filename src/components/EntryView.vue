@@ -34,6 +34,5 @@ export default {
   props: {
     item: Object,
   },
-  data: () => ({}),
 };
 </script>

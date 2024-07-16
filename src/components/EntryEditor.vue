@@ -2,8 +2,12 @@
   <v-container fluid>
     <v-row no-gutters class="mb-3">
       <v-col>
-        <v-card class="mx-auto">
-          <v-toolbar :elevation="8">
+        <v-card class="mx-auto" :loading="loading">
+          <v-toolbar
+            :elevation="8"
+            :color="lock ? 'primary' : ''"
+            density="compact"
+          >
             <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
                 <v-btn icon v-bind="props" @click="notificationLeaving">
@@ -17,7 +21,7 @@
 
             <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
+                <v-btn icon v-bind="props" @click="notificationDeleting">
                   <v-icon> mdi-trash-can </v-icon>
                 </v-btn>
               </template>
@@ -30,86 +34,20 @@
               <template v-slot:activator="{ props }">
                 <v-btn icon v-bind="props" @click="lock = !lock">
                   <v-icon>
-                    {{ lock ? "mdi-lock" : "mdi-lock-open-variant" }}</v-icon
+                    {{ lock ? "mdi-lock-open-variant" : "mdi-lock" }}</v-icon
                   >
                 </v-btn>
               </template>
-              <span>Lock/Unlock</span>
+              <span> {{ lock ? "Unlock" : "Lock" }}</span>
             </v-tooltip>
 
             <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
+                <v-btn icon v-bind="props" @click="notificationSaveDraft">
                   <v-icon> mdi-content-save </v-icon>
                 </v-btn>
               </template>
               <span>Save</span>
-            </v-tooltip>
-
-            <v-divider vertical inset></v-divider>
-
-            <v-spacer></v-spacer>
-
-            <v-divider vertical inset></v-divider>
-
-            <v-tooltip location="bottom">
-              <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
-                  <v-icon> mdi-content-cut </v-icon>
-                </v-btn>
-              </template>
-              <span>Cut</span>
-            </v-tooltip>
-
-            <v-tooltip location="bottom">
-              <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
-                  <v-icon> mdi-content-copy </v-icon>
-                </v-btn>
-              </template>
-              <span>Copy</span>
-            </v-tooltip>
-
-            <v-tooltip location="bottom">
-              <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
-                  <v-icon> mdi-content-paste </v-icon>
-                </v-btn>
-              </template>
-              <span>Paste</span>
-            </v-tooltip>
-
-            <v-divider vertical inset></v-divider>
-
-            <v-spacer></v-spacer>
-
-            <v-divider vertical inset></v-divider>
-
-            <v-tooltip location="bottom">
-              <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
-                  <v-icon> mdi-format-bold </v-icon>
-                </v-btn>
-              </template>
-              <span>Bold</span>
-            </v-tooltip>
-
-            <v-tooltip location="bottom">
-              <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
-                  <v-icon> mdi-format-italic </v-icon>
-                </v-btn>
-              </template>
-              <span>Italic</span>
-            </v-tooltip>
-
-            <v-tooltip location="bottom">
-              <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
-                  <v-icon> mdi-format-underline </v-icon>
-                </v-btn>
-              </template>
-              <span>Underline</span>
             </v-tooltip>
 
             <v-divider vertical inset></v-divider>
@@ -142,13 +80,13 @@
       </v-col>
     </v-row>
 
-    <EntryEditorNotification :notificationData="actions" />
+    <EntryEditorNotification />
 
     <v-row no-gutters>
       <v-col>
         <v-textarea
+          v-model="title"
           :disabled="lock"
-          :model-value="title"
           placeholder="Add your title"
           class="mx-auto my-1"
           variant="underlined"
@@ -164,14 +102,15 @@
     <v-row no-gutters>
       <v-col>
         <v-textarea
+          v-model="post"
           :disabled="lock"
-          :model-value="post"
           placeholder="Write..."
           variant="underlined"
           autocomplete="on"
           name="textarea"
           class="mx-auto"
-          rows="15"
+          auto-grow
+          rows="21"
           no-resize
           counter
         ></v-textarea>
@@ -181,33 +120,50 @@
 </template>
 
 <script>
+import { useEditorStore } from "@/stores/editorStore";
+
 export default {
   data: () => ({
-    actions: null,
     lock: false,
-    title: "",
-    post: "",
   }),
+  computed: {
+    loading() {
+      this.editorStore.loading;
+    },
+    title: {
+      get() {
+        return this.editorStore.title;
+      },
+      set(value) {
+        this.editorStore.title = value;
+      },
+    },
+    post: {
+      get() {
+        return this.editorStore.post;
+      },
+      set(value) {
+        this.editorStore.post = value;
+      },
+    },
+  },
   methods: {
     notificationLeaving() {
-      this.actions = {
-        title: "Warning",
-        description:
-          "You are leaving the editor, your progress will not be saved",
-        icon: "mdi-warning",
-        action: this.$router.back(),
-      };
+      this.editorStore.notificationLeaving();
     },
-
+    notificationDeleting() {
+      this.editorStore.notificationDeleting();
+    },
+    notificationSaveDraft() {
+      this.editorStore.notificationSaveDraft();
+    },
     notificationPublish() {
-      this.actions = {
-        title: "Your about to publish",
-        description:
-          "Congrats! You are about to publish this post, remember to save before to publishing it",
-        icon: "mdi-check-decagram",
-        action: this.$router.back(),
-      };
+      this.editorStore.notificationPublish();
     },
+  },
+  created() {
+    this.editorStore = useEditorStore();
+    this.editorStore.loadDraft();
   },
 };
 </script>

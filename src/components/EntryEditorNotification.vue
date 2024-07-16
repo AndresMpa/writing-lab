@@ -1,34 +1,48 @@
 <template>
-  <v-dialog v-model="dialogBell" width="auto">
+  <v-dialog
+    v-model="dialog"
+    transition="dialog-bottom-transition"
+    max-width="500"
+    persistent
+  >
     <v-card
-      :prepend-icon="notificationData.icon"
-      :title="notificationData.title"
-      :text="notificationData.text"
-      max-width="400"
+      :title="actions.title"
+      :text="actions.description"
+      :append-icon="actions.icon"
+      max-width="450"
     >
       <template v-slot:actions>
         <v-btn
-          @click="dialogBell = !dialogBell"
+          @click="actions.action"
+          :color="actions.color"
+          :text="actions.label"
           class="ms-auto"
-          text="Continue"
         ></v-btn>
-        <v-btn
-          @click="dialogBell = !dialogBell"
-          class="ms-auto"
-          text="Close"
-        ></v-btn>
+  <v-btn text @click="closeDialog">Cancel</v-btn>
       </template>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+import { useEditorStore } from "@/stores/editorStore";
+
 export default {
-  props: {
-    notificationData: [Object],
+  computed: {
+    actions() {
+      return this.editorStore.actions;
+    },
+    dialog() {
+      return this.editorStore.dialog;
+    },
   },
-  data: () => ({
-    dialogBell: false,
-  }),
+  methods: {
+    closeDialog() {
+      this.editorStore.closeDialog();
+    },
+  },
+  created() {
+    this.editorStore = useEditorStore();
+  },
 };
 </script>
