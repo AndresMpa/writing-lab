@@ -77,6 +77,23 @@ const routes = [
       },
     ],
   },
+
+  {
+    path: "/entry",
+    component: () => import("@/layouts/SimpleLayout.vue"),
+    children: [
+      {
+        path: "/draft",
+        name: "draft",
+        component: () => import("@/pages/entry/DraftPage.vue"),
+      },
+      {
+        path: "/:id",
+        name: "entry",
+        component: () => import("@/pages/entry/PostPage.vue"),
+      },
+    ],
+  },
   {
     path: "/aw",
     component: DefaultLayout,
