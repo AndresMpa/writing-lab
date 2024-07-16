@@ -68,6 +68,8 @@
 import { useUserStore } from "@/stores/userStore";
 import { genMailto } from "@/lib/mailto";
 
+const userStore = useUserStore();
+
 export default {
   name: "AccountLogIn",
   data: () => ({
@@ -84,9 +86,8 @@ export default {
   },
 
   methods: {
-    logInUser() {
-      const userStore = useUserStore();
-      userStore.registerUser(this.password, this.username);
+    async logInUser() {
+      await userStore.initAccount(this.username, this.password);
     },
   },
 };

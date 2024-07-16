@@ -10,22 +10,6 @@
     <template v-slot:append>
       <div v-if="userSession" class="mx-2">
         <v-btn
-          prepend-icon="mdi-account-circle"
-          :to="{ name: 'login' }"
-          variant="plain"
-        >
-          Sign in
-        </v-btn>
-        <v-btn
-          prepend-icon="mdi-badge-account"
-          :to="{ name: 'createAccount' }"
-          variant="outlined"
-        >
-          Sign up
-        </v-btn>
-      </div>
-      <div v-else class="mx-2">
-        <v-btn
           :to="{ name: 'faq' }"
           prepend-icon="mdi-head-question"
           variant="plain"
@@ -65,17 +49,45 @@
             <CollaborativeRouter></CollaborativeRouter>
           </v-menu>
         </v-btn>
-        <ProfileBubble></ProfileBubble>
+        <ProfileBubble :profile="profile"></ProfileBubble>
+      </div>
+      <div v-else class="mx-2">
+        <v-btn
+          prepend-icon="mdi-account-circle"
+          :to="{ name: 'login' }"
+          variant="plain"
+        >
+          Sign in
+        </v-btn>
+        <v-btn
+          prepend-icon="mdi-badge-account"
+          :to="{ name: 'createAccount' }"
+          variant="outlined"
+        >
+          Sign up
+        </v-btn>
       </div>
     </template>
   </v-app-bar>
 </template>
 
 <script>
+import { useUserStore } from "@/stores/userStore";
+
 export default {
   data: () => ({
     userSession: false,
+    profile: null,
   }),
+  created() {
+    const userStore = useUserStore();
+
+    this.profile = userStore.userData;
+
+    if (userStore.userId !== null) {
+      this.userSession = true;
+    }
+  },
 };
 </script>
 

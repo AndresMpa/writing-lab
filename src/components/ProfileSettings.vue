@@ -27,29 +27,16 @@
 </template>
 
 <script>
+import { useUserStore } from "@/stores/userStore";
+
 export default {
-  name: "SettingsProfile",
   data: () => ({
     loading: false,
+    profileData: null,
   }),
-  computed: {
-    profileData() {
-      const data = {
-        username: "Jane Doe",
-        nickname: "jDoe4",
-        courses: [
-          "Course 1",
-          "Course 2",
-          "Course 3",
-          "Course 4",
-          "Course 5",
-          "Course 6",
-          "Course 7",
-          "Course 8",
-        ],
-      };
-      return data;
-    },
+  created() {
+    const userStore = useUserStore();
+    this.profileData = userStore.userData;
   },
 };
 </script>

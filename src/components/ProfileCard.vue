@@ -1,7 +1,7 @@
 <template>
   <v-banner stacked>
     <template v-slot:prepend>
-      <Avatar :size="60"></Avatar>
+      <Avatar :size="60" :profile="profile"></Avatar>
     </template>
 
     <v-banner-text>

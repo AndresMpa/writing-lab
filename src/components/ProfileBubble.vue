@@ -1,6 +1,6 @@
 <template>
   <v-btn size="small" icon>
-    <Avatar></Avatar>
+    <Avatar :profile="profile"></Avatar>
     <v-menu
       activator="parent"
       location="bottom end"
@@ -25,4 +25,13 @@
 
 <script>
 import Avatar from "@/components/decoration/Avatar.vue";
+
+export default {
+  props: {
+    profile: {
+      type: Object,
+      required: true,
+    },
+  },
+};
 </script>

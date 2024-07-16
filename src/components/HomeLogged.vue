@@ -21,7 +21,7 @@
   </v-card>
 </template>
 
-<script setup></script>
+<script></script>
 
 <style scoped lang="sass">
 .greeter-title

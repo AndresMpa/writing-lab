@@ -47,12 +47,12 @@
     >
       <template v-slot:prepend>
         <v-list-item
-          :subtitle="nickname"
-          :title="username"
+          :subtitle="profile.nickname"
+          :title="profile.username"
           lines="two"
         >
           <template v-slot:prepend>
-            <Avatar></Avatar>
+            <Avatar :profile="profile"></Avatar>
           </template>
         </v-list-item>
       </template>
@@ -82,12 +82,19 @@
 
 <script>
 import Avatar from "@/components/decoration/Avatar.vue";
+import { usePostStore } from "@/stores/postStore";
+import { useUserStore } from "@/stores/userStore";
+
+const postStore = usePostStore();
 
 export default {
   data: () => ({
     drawer: true,
+    profile: null,
+    userSession: false,
+    selectedCourse: null,
     items: [
-      { title: "All Course", filter: "" },
+      { title: "All Course", filter: null },
       { title: "Course 1", filter: "C1" },
       { title: "Course 2", filter: "C2" },
       { title: "Course 3", filter: "C3" },
@@ -97,16 +104,21 @@ export default {
       { title: "Course 7", filter: "C7" },
       { title: "Course 8", filter: "C8" },
     ],
-    selectedCourse: null,
-    profile: "https://randomuser.me/api/portraits/women/80.jpg",
-    username: "Jane Doe",
-    nickname: "jDoe4",
   }),
-
   methods: {
     updateSelectedCourse(index) {
       this.selectedCourse = this.items[index];
+      postStore.setLevel(this.items[index].filter);
     },
+  },
+  created() {
+    const userStore = useUserStore();
+
+    this.profile = userStore.userData;
+
+    if (userStore.userId !== null) {
+      this.userSession = true;
+    }
   },
 };
 </script>

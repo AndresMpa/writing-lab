@@ -3,7 +3,7 @@
     <v-container class="mx-auto pt-6" fluid>
       <v-row>
         <v-col>
-          <HomeLoged></HomeLoged>
+          <HomeLogged></HomeLogged>
         </v-col>
         <v-col>
           <v-card class="my-12 py-12">
@@ -37,18 +37,19 @@
 </template>
 
 <script>
+import { useUserStore } from "@/stores/userStore";
+
 export default {
   data: () => ({
-    userSession: true,
+    userSession: false,
   }),
+  created() {
+    const userStore = useUserStore();
+    if (userStore.userId !== null) {
+      this.userSession = true;
+    }
+  },
 };
 </script>
 
-<style scoped lang="sass">
-.home-page
-  background-image: linear-gradient(to left top, #1970c6, #007ccd, #0088d3, #0094d7, #009fdb, #47aae1, #67b4e6, #81bfec, #adccf2, #cfdbf7, #eaecfb, #ffffff), url('../assets/img/deco_alt.png')
-  background-position: center, bottom right
-  background-repeat: no-repeat, no-repeat
-  background-size: cover, auto
-  background-attachment: fixed
-</style>
+<style scoped lang="sass"></style>

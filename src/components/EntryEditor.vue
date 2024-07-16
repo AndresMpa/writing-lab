@@ -6,7 +6,7 @@
           <v-toolbar :elevation="8">
             <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
+                <v-btn icon v-bind="props" @click="notificationLeaving">
                   <v-icon> mdi-door-open </v-icon>
                 </v-btn>
               </template>
@@ -131,7 +131,7 @@
 
             <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
+                <v-btn icon v-bind="props" @click="notificationPublish">
                   <v-icon> mdi-publish </v-icon>
                 </v-btn>
               </template>
@@ -141,6 +141,8 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <EntryEditorNotification :notificationData="actions" />
 
     <v-row no-gutters>
       <v-col>
@@ -181,10 +183,32 @@
 <script>
 export default {
   data: () => ({
+    actions: null,
     lock: false,
     title: "",
     post: "",
   }),
+  methods: {
+    notificationLeaving() {
+      this.actions = {
+        title: "Warning",
+        description:
+          "You are leaving the editor, your progress will not be saved",
+        icon: "mdi-warning",
+        action: this.$router.back(),
+      };
+    },
+
+    notificationPublish() {
+      this.actions = {
+        title: "Your about to publish",
+        description:
+          "Congrats! You are about to publish this post, remember to save before to publishing it",
+        icon: "mdi-check-decagram",
+        action: this.$router.back(),
+      };
+    },
+  },
 };
 </script>
 
