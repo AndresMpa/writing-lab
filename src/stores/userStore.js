@@ -19,11 +19,18 @@ const checkAccountPassword = (username, password) =>
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({
+    /*
     id: null,
     image: null,
     username: null,
     nickname: null,
     courses: null,
+    */
+    id: 1,
+    nickname: "jDoe4",
+    username: "Jane Doe",
+    image: "https://randomuser.me/api/portraits/women/80.jpg",
+    courses: ["Course 1", "Course 2", "Course 3", "Course 4"],
   }),
   getters: {
     userId: (state) => state.id,
