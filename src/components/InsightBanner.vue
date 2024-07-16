@@ -2,7 +2,7 @@
   <v-window v-model="onboarding" show-arrows="hover">
     <v-window-item v-for="(item, index) in top" :key="index">
       <v-card
-        class="d-flex align-center justify-center"
+        class="d-flex align-center justify-center py-12"
         elevation="2"
         height="200"
       >
@@ -16,6 +16,7 @@
 
           <v-card-actions>
             <v-btn
+              v-if="item.id"
               :to="{ name: 'entry', params: { id: item.id } }"
               append-icon="mdi-link-variant"
               class="ml-auto"
