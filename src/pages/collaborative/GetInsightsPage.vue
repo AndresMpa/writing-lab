@@ -5,13 +5,15 @@
       <v-col>
         <h2>Last insight posted</h2>
       </v-col>
+      <!--
       <v-col cols="1" class="d-flex">
         <v-spacer></v-spacer>
         <CollaborativeDial :dialActions="dialData" />
       </v-col>
+      -->
     </v-row>
   </v-container>
-  <InsightIterator :loading="fetchingData" :post="postData" />
+  <InsightIterator :post="postData" />
 </template>
 
 <script>
@@ -24,7 +26,6 @@ export default {
     topData: null,
     postData: null,
     dialData: null,
-    fetchingData: true,
   }),
   methods: {
     createDraft() {
@@ -35,7 +36,7 @@ export default {
     },
   },
   created() {
-    postStore.getExample(1);
+    postStore.loadInsight();
     this.postData = postStore.insightPost;
     this.topData = postStore.insightPost;
 
@@ -46,8 +47,6 @@ export default {
         action: this.createDraft,
       },
     ];
-
-    this.fetchingData = false;
   },
 };
 </script>
