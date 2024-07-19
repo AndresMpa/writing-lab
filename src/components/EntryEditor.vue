@@ -70,7 +70,7 @@
             <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
                 <v-btn icon v-bind="props" @click="notificationPublish">
-                  <v-icon> mdi-publish </v-icon>
+                  <v-icon> mdi-invoice-text-send </v-icon>
                 </v-btn>
               </template>
               <span>Publish</span>
