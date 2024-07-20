@@ -68,12 +68,12 @@
 
           <strong> b. Eligibility: </strong>
           The Platform is intended for users who are at least 18 years old. By
-          using the Platform, you represent that you meet this age requirement.
+          using the Platform, you accept that you meet this age requirement.
 
           <strong> c. Prohibited Conduct: </strong>
           You agree not to use the Platform for any unlawful purposes, to
           harass, abuse, or harm another person, or to engage in any conduct
-          that restricts or inhibits anyone’s use or enjoyment of the Platform.
+          that restricts or inhibits anyone's use or enjoyment of the Platform.
 
           <br />
           <br />
@@ -139,7 +139,7 @@
           We reserve the right to terminate or suspend your account and access
           to the Platform, without notice, for conduct that we believe violates
           these Terms or is harmful to other users of the Platform, us, or third
-          parties, or for any other reason in our sole discretion.
+          parties, or for any other reason at our sole discretion.
 
           <br />
           <br />
