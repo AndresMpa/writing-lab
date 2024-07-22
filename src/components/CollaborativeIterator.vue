@@ -46,13 +46,13 @@
               :md="columnsPerPost"
               cols="auto"
             >
-              <InsightIteratorItem
-                :img="item.raw.img"
+              <CollaborativeIteratorItem
+                :img="noImg ? '' : item.raw.img"
                 :title="item.raw.title"
-                :description="item.raw.description"
+                :description="noDescription ? '' : item.raw.description"
                 :level="item.raw.level"
                 :id="item.raw.id"
-              ></InsightIteratorItem>
+              />
             </v-col>
           </v-row>
         </v-container>
@@ -90,6 +90,14 @@
 <script>
 export default {
   props: {
+    noImg: {
+      type: Boolean,
+      default: false,
+    },
+    noDescription: {
+      type: Boolean,
+      default: false,
+    },
     loading: {
       type: Boolean,
       default: false,
