@@ -11,6 +11,14 @@
       </template>
     </v-list-item>
 
+    <v-list-item
+      @click="createDraft"
+      prepend-icon="mdi-draw"
+      title="Write an insight"
+      link
+    >
+    </v-list-item>
+
     <v-dialog v-model="dialogBell" width="auto">
       <v-card
         max-width="400"
@@ -34,5 +42,10 @@ export default {
   data: () => ({
     dialogBell: false,
   }),
+  methods: {
+    createDraft() {
+      this.$router.push({ name: "draft" });
+    },
+  },
 };
 </script>
