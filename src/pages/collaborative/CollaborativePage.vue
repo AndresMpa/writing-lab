@@ -1,6 +1,6 @@
 <template>
-  <collaborativeDescription></collaborativeDescription>
-  <collaborativeSummary></collaborativeSummary>
+  <CollaborativeDescription />
+  <CollaborativeSummary />
 </template>
 
 <script setup></script>

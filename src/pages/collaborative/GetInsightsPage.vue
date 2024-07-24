@@ -1,5 +1,5 @@
 <template>
-  <InsightBanner :top="topData" />
+  <CollaborativeBanner :top="topData" />
   <v-container fluid>
     <v-row class="ma-2">
       <v-col>
@@ -13,7 +13,7 @@
       -->
     </v-row>
   </v-container>
-  <InsightIterator :post="postData" />
+  <CollaborativeIterator :post="postData" class="pb-2" :itemsPerPage="8"/>
 </template>
 
 <script>
@@ -28,9 +28,6 @@ export default {
     dialData: null,
   }),
   methods: {
-    createDraft() {
-      this.$router.push({ name: "draft" });
-    },
     toggleTop() {
       postStore.toggleTopVisibility();
     },
@@ -39,14 +36,6 @@ export default {
     postStore.loadInsight();
     this.postData = postStore.insightPost;
     this.topData = postStore.insightPost;
-
-    this.dialData = [
-      {
-        icon: "mdi-draw",
-        label: "Write an insight",
-        action: this.createDraft,
-      },
-    ];
   },
 };
 </script>
