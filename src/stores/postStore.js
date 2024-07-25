@@ -8,8 +8,10 @@ const createData = (type) => {
       title: "The Sci-Fi Shooter Experience",
       description:
         "Dive into a futuristic world of intense battles and alien encounters.",
-      level: "Course 1",
+      level: { name: "Course 1", id: "C1" },
       entryType: `${type}`,
+      date: "6/12/24",
+      active: true,
     },
     {
       id: "1234",
@@ -17,8 +19,10 @@ const createData = (type) => {
       title: "Epic Adventures in Open Worlds",
       description:
         "Embark on a journey through vast, immersive landscapes and quests.",
-      level: "Course 4",
+      level: { name: "Course 4", id: "C4" },
       entryType: `${type}`,
+      date: "19/08/24",
+      active: true,
     },
     {
       id: "5432423",
@@ -26,8 +30,10 @@ const createData = (type) => {
       title: "Surviving the Space Station Horror",
       description:
         "Navigate a haunted space station in this chilling survival horror game.",
-      level: "Course 6",
+      level: { name: "Course 6", id: "C6" },
       entryType: `${type}`,
+      date: "11/2/24",
+      active: true,
     },
     {
       id: "5435342",
@@ -35,8 +41,10 @@ const createData = (type) => {
       title: "Neon-Lit High-Speed Racing Thrills",
       description:
         "Experience adrenaline-pumping races in a futuristic, neon-soaked city.",
-      level: "Course 2",
+      level: { name: "Course 2", id: "C2" },
       entryType: `${type}`,
+      date: "25/02/24",
+      active: true,
     },
     {
       id: "09543",
@@ -44,8 +52,10 @@ const createData = (type) => {
       title: "Retro-Style Platformer Adventures",
       description:
         "Jump and dash through pixelated worlds in this classic-style platformer.",
-      level: "Course 8",
+      level: { name: "Course 8", id: "C8" },
       entryType: `${type}`,
+      date: "9/10/24",
+      active: true,
     },
     {
       id: "9543",
@@ -53,8 +63,10 @@ const createData = (type) => {
       title: "Medieval Strategic War Campaigns",
       description:
         "Lead armies into epic battles and conquer kingdoms in this strategic game.",
-      level: "Course 5",
+      level: { name: "Course 5", id: "C5" },
       entryType: `${type}`,
+      date: "12/8/24",
+      active: false,
     },
     {
       id: "6454",
@@ -62,8 +74,10 @@ const createData = (type) => {
       title: "Underwater VR Exploration Adventure",
       description:
         "Dive deep into the ocean and discover the mysteries of the underwater world.",
-      level: "Course 5",
+      level: { name: "Course 2", id: "C2" },
       entryType: `${type}`,
+      date: "8/2/24",
+      active: false,
     },
     {
       id: "9532",
@@ -71,8 +85,10 @@ const createData = (type) => {
       title: "1920s Mystery Detective Chronicles",
       description:
         "Solve crimes and uncover secrets in the glamourous 1920s era.",
-      level: "Course 4",
+      level: { name: "Course 7", id: "C7" },
       entryType: `${type}`,
+      date: "1/12/24",
+      active: false,
     },
   ];
 };
