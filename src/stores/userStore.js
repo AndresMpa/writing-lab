@@ -29,8 +29,13 @@ export const useUserStore = defineStore("userStore", {
       nickname: state.nickname,
       courses: state.courses,
     }),
-    checkPassword: (state) => (password) =>
-      checkAccountPassword(state.username, password),
+    notification: (state) => ({
+      notification: state.notification,
+    }),
+    checkPassword: (state) => (password) => {
+      const result = signInWithEmail(state.email, password);
+      return result.status === 200;
+    },
   },
   actions: {
     async createNewUser(email, password, userData) {
@@ -44,6 +49,10 @@ export const useUserStore = defineStore("userStore", {
       if (checkAccountPassword(username, password)) {
         const userData = await getUserData();
 
+        if (userData == null) {
+          this.$router.push({ name: "error" });
+        }
+
         this.id = userData.id;
         this.image = userData.image;
         this.username = userData.username;
@@ -52,7 +61,7 @@ export const useUserStore = defineStore("userStore", {
 
         this.$router.push({ name: "home" });
       } else {
-        return "404";
+        this.$router.push({ name: "error" });
       }
     },
     closeSession() {

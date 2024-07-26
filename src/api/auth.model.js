@@ -13,4 +13,30 @@ async function signUpNewUser(email, password) {
   return error === null;
 }
 
-export { signUpNewUser };
+async function signInWithEmail(email, password) {
+  const { data } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: password,
+  });
+
+  return data;
+}
+
+
+async function updateUserPassword() {
+  await supabase.auth.updateUser({ password: new_password });
+}
+
+// Might be useful
+async function resetPasswordForEmail(email) {
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${BASE_URL}`,
+  });
+}
+
+export {
+  signUpNewUser,
+  signInWithEmail,
+  updateUserPassword,
+  resetPasswordForEmail,
+};
