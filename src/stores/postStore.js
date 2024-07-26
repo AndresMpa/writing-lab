@@ -93,9 +93,29 @@ const createData = (type) => {
   ];
 };
 
+const createAuthor = () => {
+  return [
+    {
+      id: 1,
+      nickname: "jDoe4",
+      username: "Jane Doe",
+      image: "https://randomuser.me/api/portraits/women/80.jpg",
+      courses: ["Course 1", "Course 2", "Course 3", "Course 4"],
+    },
+    {
+      id: 2,
+      nickname: "jhonD",
+      username: "Jhon Doe",
+      image: "https://randomuser.me/api/portraits/men/80.jpg",
+      courses: ["Course 1", "Course 3"],
+    },
+  ];
+};
+
 export const usePostStore = defineStore("postStore", {
   state: () => ({
     selectedLevel: null,
+    postDetail: null,
     experiences: [],
     together: [],
     insight: [],
@@ -103,6 +123,7 @@ export const usePostStore = defineStore("postStore", {
     page: 0,
   }),
   getters: {
+    postDetailData: (state) => state.postDetail,
     insightPost: (state) => state.insight,
     experiencesPost: (state) => state.experiences,
     togetherPost: (state) => state.together,
@@ -110,22 +131,44 @@ export const usePostStore = defineStore("postStore", {
   },
   actions: {
     async loadInsight() {
-      await setTimeout(() => {
-        const data = createData(1);
-        this.insight.push(...data);
-      }, 3000);
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          const data = createData(1);
+          this.insight.push(...data);
+          resolve();
+        }, 3000);
+      });
     },
     async loadExperiences() {
-      await setTimeout(() => {
-        const data = createData(2);
-        this.experiences.push(...data);
-      }, 3000);
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          const data = createData(2);
+          this.experiences.push(...data);
+          resolve();
+        }, 3000);
+      });
     },
     async loadWonder() {
-      await setTimeout(() => {
-        const data = createData(3);
-        this.wonder.push(...data);
-      }, 3000);
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          const data = createData(3);
+          this.wonder.push(...data);
+          resolve();
+        }, 3000);
+      });
+    },
+    async getPostData(id) {
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          const post = createData(3);
+          const author = createAuthor();
+          this.postDetail = {
+            postData: post.find((item) => item.id === id),
+            authorData: author,
+          };
+          resolve();
+        }, 3000);
+      });
     },
     setLevel(level) {
       this.selectedLevel = level;
