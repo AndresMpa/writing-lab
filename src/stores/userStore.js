@@ -1,21 +1,6 @@
 import { defineStore } from "pinia";
-
-const getData = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        id: 1,
-        nickname: "jDoe4",
-        username: "Jane Doe",
-        image: "https://randomuser.me/api/portraits/women/80.jpg",
-        courses: ["Course 1", "Course 2", "Course 3", "Course 4"],
-      });
-    });
-  });
-};
-
-const checkAccountPassword = (username, password) =>
-  username === "jDoe4" && password === "data";
+import { signUpNewUser } from "@/api/auth.model";
+import { createUserRegister, getUserData } from "@/api/user.model";
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({
@@ -44,9 +29,16 @@ export const useUserStore = defineStore("userStore", {
       checkAccountPassword(state.username, password),
   },
   actions: {
+    async createNewUser(email, password, userData) {
+      const signResult = await signUpNewUser(email, password);
+      const userResult = await createUserRegister(userData);
+      signResult && userResult
+        ? this.$router.push({ name: "login" })
+        : this.$router.push({ name: "error" });
+    },
     async initAccount(username, password) {
       if (checkAccountPassword(username, password)) {
-        const userData = await getData();
+        const userData = await getUserData();
 
         this.id = userData.id;
         this.username = userData.username;

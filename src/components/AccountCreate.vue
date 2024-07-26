@@ -75,6 +75,15 @@
 
                     <v-col cols="6">
                       <v-text-field
+                        v-model="userEmail"
+                        :rules="emailRules"
+                        density="compact"
+                        hint="Attach your email"
+                        label="Email"
+                        name="email"
+                      ></v-text-field>
+
+                      <v-text-field
                         @click:append="showPassword = !showPassword"
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         :type="showPassword ? 'text' : 'password'"
@@ -211,14 +220,17 @@
 </template>
 
 <script>
-import AccountCreateTerms from "./AccountCreateTerms.vue";
-import AccountCreateDisclaimer from "./AccountCreateDisclaimer.vue";
+import { useUserStore } from "@/stores/userStore";
+
+const userStore = useUserStore();
 
 export default {
   data: () => ({
+    /*
     fullName: "",
     nickName: "",
     userPicture: "",
+    userEmail: "",
     password: "",
     rePassword: "",
     showPassword: false,
@@ -241,6 +253,36 @@ export default {
 
     step: 0,
     nextStep: 1,
+    */
+
+    fullName: "Andrew Test",
+    nickName: "AT",
+    userPicture:
+      "https://gravatar.com/avatar/7d704c7bc69903ad91212688fc4c3ceb?size=256&cache=1721988374689",
+    userEmail: "ilexwritinglab@gmail.com",
+    password: "Som3%p4ssw0rd",
+    rePassword: "Som3%p4ssw0rd",
+    showPassword: !false,
+    showRePassword: !false,
+
+    nextCourses: ["Course 6", "Course 7", "Course 8"],
+    previousCourses: ["Course 1", "Course 2", "Course 3"],
+
+    courses: [
+      "Course 1",
+      "Course 2",
+      "Course 3",
+      "Course 4",
+      "Course 5",
+      "Course 6",
+      "Course 7",
+      "Course 8",
+    ],
+
+    terms: !false,
+
+    step: 0,
+    nextStep: 1,
   }),
 
   computed: {
@@ -258,6 +300,12 @@ export default {
         (value) => !!value || "Nickname is required",
         (value) =>
           /[^0-9]/.test(value) ? true : "You name can not contain digits.",
+      ];
+    },
+    emailRules() {
+      return [
+        (value) => !!value || "Email is required",
+        (value) => (/[@]/.test(value) ? true : "Verify your email"),
       ];
     },
     passwordRules() {
@@ -289,6 +337,7 @@ export default {
         this.rePassword !== this.password ||
         this.rePassword === "" ||
         this.password === "" ||
+        this.userEmail === "" ||
         this.nickName === "" ||
         this.fullName === ""
       );
@@ -311,15 +360,13 @@ export default {
 
   methods: {
     createUser() {
-      console.log(
-        this.fullName,
-        this.nickName,
-        this.userPicture,
-        this.password,
-
-        this.nextCourses.map((v) => v),
-        this.previousCourses.map((v) => v)
-      );
+      userStore.createNewUser(this.userEmail, this.password, {
+        fullname: this.fullName,
+        nickname: this.nickName,
+        image: this.userPicture,
+        course: this.nextCourses.map((v) => v),
+        old_course: this.previousCourses.map((v) => v),
+      });
     },
   },
 };
