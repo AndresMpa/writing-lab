@@ -12,8 +12,15 @@
         <v-text-field
           prepend-inner-icon="mdi-badge-account"
           placeholder="Username"
-          v-model="username"
           density="compact"
+          v-model="username"
+        ></v-text-field>
+
+        <v-text-field
+          prepend-inner-icon="mdi-email"
+          placeholder="Email"
+          density="compact"
+          v-model="email"
         ></v-text-field>
 
         <div
@@ -36,8 +43,8 @@
           :type="visible ? 'text' : 'password'"
           prepend-inner-icon="mdi-lock-outline"
           placeholder="Enter your password"
-          v-model="password"
           density="compact"
+          v-model="password"
         ></v-text-field>
 
         <v-btn
@@ -75,6 +82,7 @@ export default {
   data: () => ({
     username: "",
     password: "",
+    email: "",
     visible: false,
     mailto: genMailto(),
   }),
@@ -87,6 +95,7 @@ export default {
 
   methods: {
     async logInUser() {
+      userStore.setEmail(this.email);
       await userStore.initAccount(this.username, this.password);
     },
   },

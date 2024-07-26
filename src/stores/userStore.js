@@ -10,12 +10,16 @@ export const useUserStore = defineStore("userStore", {
     username: null,
     nickname: null,
     courses: null,
+    notification: null,
+    email: null
     */
     id: 1,
     nickname: "jDoe4",
     username: "Jane Doe",
     image: "https://randomuser.me/api/portraits/women/80.jpg",
     courses: ["Course 1", "Course 2", "Course 3", "Course 4"],
+    notification: ["Este", "Esto otro"],
+    email: "",
   }),
   getters: {
     userId: (state) => state.id,
@@ -41,9 +45,9 @@ export const useUserStore = defineStore("userStore", {
         const userData = await getUserData();
 
         this.id = userData.id;
+        this.image = userData.image;
         this.username = userData.username;
         this.nickname = userData.nickname;
-        this.image = userData.image;
         this.courses = userData.courses;
 
         this.$router.push({ name: "home" });
@@ -57,8 +61,12 @@ export const useUserStore = defineStore("userStore", {
       this.username = null;
       this.nickname = null;
       this.courses = null;
+      this.email = null;
 
       this.$router.push({ name: "home" });
+    },
+    setEmail(data) {
+      this.email = data;
     },
   },
 });
