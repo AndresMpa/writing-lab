@@ -136,6 +136,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/error",
+    name: "error",
+    component: () => import("@/pages/error/ErrorPage.vue"),
+  },
 ];
 
 const router = createRouter({
