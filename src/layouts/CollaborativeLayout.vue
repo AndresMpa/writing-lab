@@ -12,7 +12,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-menu>
+      <v-menu v-if="this.$route.name !== 'workTogether'">
         <template v-slot:activator="{ props }">
           <v-btn
             :append-icon="props ? 'mdi-chevron-down ' : 'mdi-chevron-up'"
