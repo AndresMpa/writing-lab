@@ -1,7 +1,7 @@
 <template>
   <v-card variant="text" flat>
     <v-data-iterator
-      :items-per-page="(columnsPerPost + 1) * rowsPerPost"
+      :items-per-page="itemsPerPage"
       :loading="loading"
       :search="search"
       :items="post"
@@ -47,11 +47,12 @@
               cols="auto"
             >
               <CollaborativeIteratorItem
-                :img="noImg ? '' : item.raw.img"
-                :title="item.raw.title"
-                :description="noDescription ? '' : item.raw.description"
-                :level="item.raw.level"
                 :id="item.raw.id"
+                :title="item.raw.title"
+                :level="item.raw.level.name"
+                :img="noImg ? '' : item.raw.img"
+                :description="noDescription ? '' : item.raw.description"
+                :date="useDate ? item.raw.date : ''"
               />
             </v-col>
           </v-row>
@@ -59,7 +60,7 @@
       </template>
 
       <template v-slot:footer="{ page, pageCount, prevPage, nextPage }">
-        <div class="d-flex align-center justify-center pa-4">
+        <div class="d-flex align-center justify-center pt-2">
           <v-btn
             @click="prevPage"
             :disabled="page === 1"
@@ -94,6 +95,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    useDate: {
+      type: Boolean,
+      default: false,
+    },
     noDescription: {
       type: Boolean,
       default: false,
@@ -101,6 +106,10 @@ export default {
     loading: {
       type: Boolean,
       default: false,
+    },
+    itemsPerPage: {
+      type: Number,
+      default: 5
     },
     rowsPerPost: {
       type: Number,

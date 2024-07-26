@@ -2,7 +2,7 @@
   <v-card class="pb-3" border flat>
     <v-img :src="img"></v-img>
 
-    <v-list-item :subtitle="description" class="mb-2">
+    <v-list-item class="mb-2">
       <template v-slot:title>
         <strong class="text-h6 mb-2">{{ title }}</strong>
       </template>
@@ -15,12 +15,12 @@
 
       <v-btn
         :to="{ name: 'entry', params: { id: id } }"
-        append-icon="mdi-link-variant"
-        variant="text"
+        :append-icon="date ? 'mdi-calendar' : 'mdi-link-variant'"
+        :color="date ? 'secondary' : 'primary'"
+        :text="date ? `Due to ${date}` : 'Read'"
         class="ml-auto"
-        color="primary"
         size="x-small"
-        text="Read"
+        variant="text"
       />
     </div>
   </v-card>
@@ -29,11 +29,16 @@
 <script>
 export default {
   props: {
-    description: String,
     title: String,
     level: String,
+    date: String,
     img: String,
     id: String,
   },
 };
 </script>
+
+<style scoped lang="sass">
+.title
+  white-space: normal
+</style>

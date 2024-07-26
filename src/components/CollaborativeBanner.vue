@@ -7,7 +7,7 @@
         height="200"
       >
         <div class="text-justify">
-          <v-chip size="x-small" color="primary">{{ item.level }}</v-chip>
+          <v-chip size="x-small" color="primary">{{ item.level.name }}</v-chip>
           <v-card-title class="title">{{ item.title }} </v-card-title>
 
           <v-card-text class="w-75">
