@@ -89,7 +89,7 @@ const postStore = usePostStore();
 
 export default {
   data: () => ({
-    drawer: true,
+    drawer: false,
     profile: null,
     userSession: false,
     selectedCourse: null,
