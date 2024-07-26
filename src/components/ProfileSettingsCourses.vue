@@ -1,13 +1,13 @@
 <template>
   <v-card flat>
-    <v-card-title class="pt-4 ml-1"> ILEX data </v-card-title>
+    <v-card-title class="pt-4 ml-1"> {{ title }} </v-card-title>
     <v-container fluid>
       <v-row>
         <v-col>
           <v-combobox
             :items="courses"
             v-model="nextCourses"
-            label="Courses for the next semester"
+            :label="label"
             multiple
           >
             <template v-slot:selection="data">
@@ -40,14 +40,35 @@
     <v-divider class="mb-2"></v-divider>
 
     <v-card-actions class="ma-2">
-      <v-btn variant="plain" class="ml-auto" text="Discard"></v-btn>
-      <v-btn color="primary" variant="flat" class="ml-4" text="Save"></v-btn>
+      <v-btn
+        @click="nextCourses = null"
+        variant="plain"
+        class="ml-auto"
+        text="Discard"
+      ></v-btn>
+      <v-btn
+        @click="$emit('saveCourses', nextCourses)"
+        color="primary"
+        variant="flat"
+        class="ml-4"
+        text="Save"
+      ></v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
 export default {
+  props: {
+    title: {
+      type: String,
+      default: "ILEX data",
+    },
+    label: {
+      type: String,
+      default: "Courses for the next semester",
+    },
+  },
   data: () => ({
     nextCourses: null,
     courses: [

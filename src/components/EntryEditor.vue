@@ -70,7 +70,7 @@
             <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
                 <v-btn icon v-bind="props" @click="notificationPublish">
-                  <v-icon> mdi-invoice-text-send </v-icon>
+                  <v-icon> mdi-cube-send</v-icon>
                 </v-btn>
               </template>
               <span>Publish</span>
@@ -110,7 +110,7 @@
           name="textarea"
           class="mx-auto"
           auto-grow
-          rows="21"
+          rows="18"
           no-resize
           counter
         ></v-textarea>

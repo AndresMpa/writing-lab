@@ -5,12 +5,6 @@
       <v-col>
         <h2>Last insight posted</h2>
       </v-col>
-      <!--
-      <v-col cols="1" class="d-flex">
-        <v-spacer></v-spacer>
-        <CollaborativeDial :dialActions="dialData" />
-      </v-col>
-      -->
     </v-row>
   </v-container>
   <CollaborativeIterator :post="postData" class="pb-2" :itemsPerPage="8"/>
@@ -27,11 +21,6 @@ export default {
     postData: null,
     dialData: null,
   }),
-  methods: {
-    toggleTop() {
-      postStore.toggleTopVisibility();
-    },
-  },
   created() {
     postStore.loadInsight();
     this.postData = postStore.insightPost;
