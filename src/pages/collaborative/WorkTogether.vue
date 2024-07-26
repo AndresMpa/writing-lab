@@ -14,12 +14,12 @@
   </v-stepper>
 
   <div v-else>
-    <Loading></Loading>
+    <DisplayPicture />
   </div>
 </template>
 
 <script>
-import Loading from "@/components/decoration/Loading";
+import DisplayPicture from "@/components/decoration/DisplayPicture";
 import { useTogetherStore } from "@/stores/togetherStore";
 
 const togetherStore = useTogetherStore();

@@ -14,12 +14,12 @@
     <EntryAuthor :post="postData" :profile="authorData" />
   </div>
   <div v-else>
-    <Loading></Loading>
+    <DisplayPicture />
   </div>
 </template>
 
 <script>
-import Loading from "@/components/decoration/Loading";
+import DisplayPicture from "@/components/decoration/DisplayPicture";
 import { usePostStore } from "@/stores/postStore";
 
 const postStore = usePostStore();
