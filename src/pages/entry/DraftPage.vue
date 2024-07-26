@@ -1,5 +1,5 @@
 <template>
-  <EntryEditor></EntryEditor>
+  <EntryEditor />
 </template>
 
 <script></script>
