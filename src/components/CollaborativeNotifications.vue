@@ -7,29 +7,42 @@
       link
     >
       <template v-slot:append>
-        <v-badge color="primary" content="6" inline></v-badge>
+        <v-badge v-if="notificationCount > 0" color="primary" :content="notificationCount" inline></v-badge>
       </template>
     </v-list-item>
 
     <v-list-item
       @click="createDraft"
       prepend-icon="mdi-draw"
-      title="Write an insight"
+      title="Write an new post"
       link
     >
     </v-list-item>
 
     <v-dialog v-model="dialogBell" width="auto">
-      <v-card
-        max-width="400"
-        prepend-icon="mdi-bell"
-        title="Your notifications"
-      >
+      <v-card width="800" prepend-icon="mdi-bell" title="Your notifications">
+        <v-card
+          class="d-flex justify-space-between"
+          v-for="(item, index) in notificationList"
+          :key="index"
+          flat
+        >
+          <v-card-title>
+            <h4 class="ml-6 mr-3">{{ item }}</h4>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn
+              icon="mdi-check-bold"
+              size="small"
+              @click="checkNotification"
+            ></v-btn>
+          </v-card-actions>
+        </v-card>
         <template v-slot:actions>
           <v-btn
-            class="ms-auto"
             text="Close"
-            @click="dialogBell = false"
+            class="ms-auto"
+            @click="reviewNotifications"
           ></v-btn>
         </template>
       </v-card>
@@ -38,14 +51,32 @@
 </template>
 
 <script>
+import { useUserStore } from "@/stores/userStore";
+
+const userStore = useUserStore();
+
 export default {
   data: () => ({
+    notificationCount: 0,
+    notificationList: [],
     dialogBell: false,
   }),
   methods: {
+    checkNotification(index) {
+      this.notificationList.splice(index, 1);
+      this.notificationCount -= 1;
+    },
+    reviewNotifications() {
+      this.dialogBell = false;
+      userStore.updateNotificationList(this.notificationList);
+    },
     createDraft() {
       this.$router.push({ name: "draft" });
     },
+  },
+  created() {
+    this.notificationCount = userStore.notificationList.length;
+    this.notificationList = userStore.notificationList;
   },
 };
 </script>

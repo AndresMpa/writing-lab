@@ -1,6 +1,10 @@
 import { defineStore } from "pinia";
 import { signUpNewUser } from "@/api/auth.model";
-import { createUserRegister, getUserData } from "@/api/user.model";
+import {
+  createUserRegister,
+  getUserData,
+  updateUserData,
+} from "@/api/user.model";
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({
@@ -29,9 +33,9 @@ export const useUserStore = defineStore("userStore", {
       nickname: state.nickname,
       courses: state.courses,
     }),
-    notification: (state) => ({
-      notification: state.notification,
-    }),
+    notificationList: (state) => {
+      return [...state.notification];
+    },
     checkPassword: (state) => (password) => {
       const result = signInWithEmail(state.email, password);
       return result.status === 200;
@@ -63,6 +67,10 @@ export const useUserStore = defineStore("userStore", {
       } else {
         this.$router.push({ name: "error" });
       }
+    },
+    async updateNotificationList(notificationList) {
+      this.notification = notificationList;
+      updateUserData({ notification: this.notification }, this.id);
     },
     closeSession() {
       this.id = null;
