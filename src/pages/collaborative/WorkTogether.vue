@@ -1,5 +1,5 @@
 <template>
-  <v-stepper v-if="peers" alt-labels :items="['Peers', 'Course']" class="ma-12">
+  <v-stepper v-if="peers.length > 0" alt-labels :items="['Peers', 'Course']" class="ma-12">
     <template v-slot:item.1>
       <ProfileList :peers="peers" @save-peers="savePeers" />
     </template>
@@ -20,9 +20,9 @@
 
 <script>
 import DisplayPicture from "@/components/decoration/DisplayPicture";
-import { useTogetherStore } from "@/stores/togetherStore";
+import { useEditorStore } from "@/stores/editorStore";
 
-const togetherStore = useTogetherStore();
+const editorStore = useEditorStore();
 
 export default {
   data: () => ({
@@ -31,18 +31,17 @@ export default {
   methods: {
     savePeers(peers) {
       const data = [...peers];
-      console.log(data);
+      editorStore.setAuthors(data);
     },
     saveCourses(courses) {
       const data = [...courses];
-      console.log(data);
-
+      editorStore.setCourseLevel(data);
       this.$router.push({ name: "draft" });
     },
   },
   created() {
-    togetherStore.initStore();
-    this.peers = togetherStore.usersData;
+    editorStore.getAuthorsList();
+    this.peers = editorStore.authorsRawData;
   },
 };
 </script>

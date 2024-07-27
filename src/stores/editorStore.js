@@ -1,14 +1,71 @@
 import { defineStore } from "pinia";
 
+const getAuthors = () => {
+  return [
+    {
+      id: 1,
+      nickname: "jDoe4",
+      username: "Jane Doe",
+      image: "https://randomuser.me/api/portraits/women/80.jpg",
+      courses: ["Course 1", "Course 2", "Course 3", "Course 4"],
+    },
+    {
+      id: 2,
+      nickname: "jhonD",
+      username: "Jhon Doe",
+      image: "https://randomuser.me/api/portraits/men/80.jpg",
+      courses: ["Course 1", "Course 3"],
+    },
+    {
+      id: 3,
+      nickname: "Testboy",
+      username: "Teodor Felix",
+      image: "https://randomuser.me/api/portraits/men/8.jpg",
+      courses: ["Course 3", "Course 4"],
+    },
+    {
+      id: 4,
+      nickname: "JijoKramer",
+      username: "Jule Jules",
+      image: "https://randomuser.me/api/portraits/women/8.jpg",
+      courses: ["Course 1", "Course 4"],
+    },
+  ];
+};
+
 export const useEditorStore = defineStore("editorStore", {
   state: () => ({
     loading: false,
     dialog: false,
     actions: null,
+    courseLevel: null,
+    authorList: [],
+    author: null,
     title: "",
     post: "",
   }),
+  getters: {
+    authorsRawData: (state) => state.authorList,
+    authorsData: (state) => state.author,
+    draftData: (state) => ({
+      title: state.title,
+      post: state.post,
+      course: state.courseLevel,
+    }),
+  },
   actions: {
+    async getAuthorsList() {
+      await setTimeout(() => {
+        const data = getAuthors();
+        this.authorList.push(...data);
+      }, 3000);
+    },
+    setAuthors(data) {
+      this.author = data;
+    },
+    setCourseLevel(data) {
+      this.courseLevel = data;
+    },
     notificationLeaving() {
       this.actions = {
         title: "Warning",
@@ -34,6 +91,7 @@ export const useEditorStore = defineStore("editorStore", {
           localStorage.removeItem("draft");
           this.title = "";
           this.post = "";
+          this.author = null;
           this.dialog = false;
         },
       };
@@ -50,7 +108,11 @@ export const useEditorStore = defineStore("editorStore", {
         action: () => {
           localStorage.setItem(
             "draft",
-            JSON.stringify({ title: this.title, post: this.post })
+            JSON.stringify({
+              title: this.title,
+              post: this.post,
+              author: this.author,
+            })
           );
           this.dialog = false;
         },
@@ -72,9 +134,10 @@ export const useEditorStore = defineStore("editorStore", {
     loadDraft() {
       const draft = localStorage.getItem("draft");
       if (draft) {
-        const { title, post } = JSON.parse(draft);
+        const { title, post, author } = JSON.parse(draft);
         this.title = title;
         this.post = post;
+        this.author = author;
       }
     },
     closeDialog() {
