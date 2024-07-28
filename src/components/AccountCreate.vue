@@ -226,7 +226,6 @@ const userStore = useUserStore();
 
 export default {
   data: () => ({
-    /*
     fullName: "",
     nickName: "",
     userPicture: "",
@@ -250,36 +249,6 @@ export default {
     ],
 
     terms: false,
-
-    step: 0,
-    nextStep: 1,
-    */
-
-    fullName: "Andrew Test",
-    nickName: "AT",
-    userPicture:
-      "https://gravatar.com/avatar/7d704c7bc69903ad91212688fc4c3ceb?size=256&cache=1721988374689",
-    userEmail: "ilexwritinglab@gmail.com",
-    password: "Som3%p4ssw0rd",
-    rePassword: "Som3%p4ssw0rd",
-    showPassword: !false,
-    showRePassword: !false,
-
-    nextCourses: ["Course 6", "Course 7", "Course 8"],
-    previousCourses: ["Course 1", "Course 2", "Course 3"],
-
-    courses: [
-      "Course 1",
-      "Course 2",
-      "Course 3",
-      "Course 4",
-      "Course 5",
-      "Course 6",
-      "Course 7",
-      "Course 8",
-    ],
-
-    terms: !false,
 
     step: 0,
     nextStep: 1,
