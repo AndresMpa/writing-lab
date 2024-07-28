@@ -1,11 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import HomePage from "@/pages/init/HomePage.vue";
+import { useUserStore } from "@/stores/userStore";
 
 const routes = [
   {
     path: "/",
     component: DefaultLayout,
+    meta: {
+      public: true,
+    },
     children: [
       {
         path: "",
@@ -22,6 +26,10 @@ const routes = [
   {
     path: "/profile",
     component: DefaultLayout,
+    meta: {
+      public: false,
+      auth: true,
+    },
     children: [
       {
         path: "/settings",
@@ -33,6 +41,10 @@ const routes = [
   {
     path: "/collaborative",
     component: () => import("@/layouts/CollaborativeLayout.vue"),
+    meta: {
+      public: false,
+      auth: true,
+    },
     children: [
       {
         path: "",
@@ -85,11 +97,18 @@ const routes = [
       {
         path: "/draft",
         name: "draft",
+        meta: {
+          public: false,
+          auth: true,
+        },
         component: () => import("@/pages/entry/DraftPage.vue"),
       },
       {
         path: "/:id",
         name: "entry",
+        meta: {
+          public: true,
+        },
         component: () => import("@/pages/entry/PostPage.vue"),
       },
     ],
@@ -97,6 +116,10 @@ const routes = [
   {
     path: "/aw",
     component: DefaultLayout,
+    meta: {
+      public: false,
+      auth: true,
+    },
     children: [
       {
         path: "/basic",
@@ -117,21 +140,33 @@ const routes = [
       {
         path: "",
         name: "login",
+        meta: {
+          public: true,
+        },
         component: () => import("@/pages/login/LoginPage.vue"),
       },
       {
         path: "/logout",
         name: "logout",
+        meta: {
+          public: true,
+        },
         component: () => import("@/pages/login/LogoutPage.vue"),
       },
       {
         path: "/create-account",
         name: "createAccount",
+        meta: {
+          public: true,
+        },
         component: () => import("@/pages/login/CreateAccountPage.vue"),
       },
       {
         path: "/delete-account",
         name: "deleteAccount",
+        meta: {
+          auth: true,
+        },
         component: () => import("@/pages/login/DeleteAccountPage.vue"),
       },
     ],
@@ -139,6 +174,9 @@ const routes = [
   {
     path: "/error",
     name: "error",
+    meta: {
+      public: true,
+    },
     component: () => import("@/pages/error/ErrorPage.vue"),
   },
 ];
@@ -146,6 +184,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
+
+  if (to.matched.some((record) => record.meta.public)) {
+    next();
+  } else if (userStore.userId) {
+    if (to.matched.some((record) => record.meta.auth)) {
+      next();
+    }
+  } else {
+    next({ name: "error" });
+  }
 });
 
 export default router;
