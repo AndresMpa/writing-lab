@@ -9,6 +9,7 @@
         @save-courses="saveCourses"
         title="Course the post is focused on"
         label=""
+        single
       />
     </template>
   </v-stepper>

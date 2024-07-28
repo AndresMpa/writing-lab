@@ -5,10 +5,10 @@
       <v-row>
         <v-col>
           <v-combobox
-            :items="courses"
-            v-model="nextCourses"
             :label="label"
-            multiple
+            :items="courses"
+            :multiple="!single"
+            v-model="nextCourses"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -68,19 +68,26 @@ export default {
       type: String,
       default: "Courses for the next semester",
     },
+    courses: {
+      type: Array,
+      default: [
+        "Course 1",
+        "Course 2",
+        "Course 3",
+        "Course 4",
+        "Course 5",
+        "Course 6",
+        "Course 7",
+        "Course 8",
+      ],
+    },
+    single: {
+      type: Boolean,
+      default: false,
+    },
   },
   data: () => ({
     nextCourses: null,
-    courses: [
-      "Course 1",
-      "Course 2",
-      "Course 3",
-      "Course 4",
-      "Course 5",
-      "Course 6",
-      "Course 7",
-      "Course 8",
-    ],
   }),
 };
 </script>
