@@ -9,11 +9,6 @@
         <div class="text-justify">
           <v-chip size="x-small" color="primary">{{ item.level.name }}</v-chip>
           <v-card-title class="title">{{ item.title }} </v-card-title>
-
-          <v-card-text class="w-75">
-            {{ item.description }}
-          </v-card-text>
-
           <v-card-actions>
             <v-btn
               v-if="item.id"
