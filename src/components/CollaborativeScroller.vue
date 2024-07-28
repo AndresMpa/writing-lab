@@ -10,7 +10,7 @@
           <v-col cols="6" class="my-auto">
             <CollaborativeIteratorItem
               :title="item.title"
-              :level="item.level.name"
+              :level="item.level"
               :img="item.img"
               :id="item.id"
             />
