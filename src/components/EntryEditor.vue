@@ -32,7 +32,7 @@
 
             <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props" @click="lock = !lock">
+                <v-btn icon v-bind="props" @click="lockEditor">
                   <v-icon>
                     {{ lock ? "mdi-lock-open-variant" : "mdi-lock" }}</v-icon
                   >
@@ -58,11 +58,38 @@
 
             <v-tooltip location="bottom">
               <template v-slot:activator="{ props }">
-                <v-btn icon v-bind="props">
+                <v-btn icon v-bind="props" @click="extraKind">
+                  <v-icon> mdi-typewriter </v-icon>
+                </v-btn>
+              </template>
+              <span>Post type</span>
+            </v-tooltip>
+
+            <v-tooltip location="bottom">
+              <template v-slot:activator="{ props }">
+                <v-btn icon v-bind="props" @click="extraCourse">
+                  <v-icon> mdi-school </v-icon>
+                </v-btn>
+              </template>
+              <span>Select course</span>
+            </v-tooltip>
+
+            <v-tooltip location="bottom">
+              <template v-slot:activator="{ props }">
+                <v-btn icon v-bind="props" @click="extraImage">
+                  <v-icon> mdi-image </v-icon>
+                </v-btn>
+              </template>
+              <span>Post image</span>
+            </v-tooltip>
+
+            <v-tooltip location="bottom">
+              <template v-slot:activator="{ props }">
+                <v-btn icon v-bind="props" @click="extraReferences">
                   <v-icon> mdi-link-variant </v-icon>
                 </v-btn>
               </template>
-              <span>Link</span>
+              <span>Reference link</span>
             </v-tooltip>
 
             <v-divider vertical inset></v-divider>
@@ -81,12 +108,13 @@
     </v-row>
 
     <EntryEditorNotification />
+    <EntryEditorExtras />
 
     <v-row no-gutters>
       <v-col>
         <v-textarea
           v-model="title"
-          :disabled="lock"
+          v-show="!lock"
           placeholder="Add your title"
           class="mx-auto my-1"
           variant="underlined"
@@ -103,7 +131,7 @@
       <v-col>
         <v-textarea
           v-model="post"
-          :disabled="lock"
+          v-show="!lock"
           placeholder="Write..."
           variant="underlined"
           autocomplete="on"
@@ -120,7 +148,10 @@
 </template>
 
 <script>
+import { useUserStore } from "@/stores/userStore";
 import { useEditorStore } from "@/stores/editorStore";
+
+const userStore = useUserStore();
 
 export default {
   data: () => ({
@@ -148,6 +179,10 @@ export default {
     },
   },
   methods: {
+    lockEditor() {
+      this.lock = !this.lock;
+      this.$emit("editorPreview");
+    },
     notificationLeaving() {
       this.editorStore.notificationLeaving();
     },
@@ -160,10 +195,32 @@ export default {
     notificationPublish() {
       this.editorStore.notificationPublish();
     },
+    extraKind() {
+      this.editorStore.extraKind();
+    },
+    extraCourse() {
+      this.editorStore.extraCourse();
+    },
+    extraImage() {
+      this.editorStore.extraImage();
+    },
+    extraReferences() {
+      this.editorStore.extraReferences();
+    },
   },
   created() {
     this.editorStore = useEditorStore();
     this.editorStore.loadDraft();
+
+    if (this.editorStore.authorsData == null) {
+      const currentUser = { ...userStore.userId, ...userStore.userData };
+      this.editorStore.setAuthors([currentUser]);
+    }
+
+    if (this.editorStore.level == null) {
+      const level = { name: "Course 1", id: "C-1" };
+      this.editorStore.setCourseLevel([level]);
+    }
   },
 };
 </script>

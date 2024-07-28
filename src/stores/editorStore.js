@@ -42,6 +42,9 @@ export const useEditorStore = defineStore("editorStore", {
     authorList: [],
     author: null,
     level: null,
+    postType: null,
+    postImage: null,
+    extra: null,
     title: "",
     post: "",
   }),
@@ -49,9 +52,13 @@ export const useEditorStore = defineStore("editorStore", {
     authorsRawData: (state) => state.authorList,
     authorsData: (state) => state.author,
     draftData: (state) => ({
-      title: state.title,
-      post: state.post,
+      id: "new",
       level: state.level,
+      title: state.title,
+      image: state.postImage,
+      description: state.post,
+      postType: state.postType,
+      extra: state.extra,
     }),
   },
   actions: {
@@ -92,6 +99,9 @@ export const useEditorStore = defineStore("editorStore", {
           this.post = "";
           this.level = null;
           this.author = null;
+          this.postType = null;
+          this.postImage = null;
+          this.extra = null;
           this.dialog = false;
         },
       };
@@ -113,6 +123,9 @@ export const useEditorStore = defineStore("editorStore", {
               post: this.post,
               level: this.level,
               author: this.author,
+              postType: this.postType,
+              postImage: this.postImage,
+              extra: this.extra,
             })
           );
           this.dialog = false;
@@ -135,6 +148,22 @@ export const useEditorStore = defineStore("editorStore", {
       };
       this.dialog = true;
     },
+    extraKind() {
+      this.actions = {
+        title: "Select your post type",
+        description:
+          "The type defines the section this post is going to be show",
+        icon: "mdi-format-list-bulleted-type",
+        label: "Save type",
+        color: "primary",
+        variant: "postType",
+        action: (postType) => {
+          this.postType = postType;
+          this.dialogExtras = false;
+        },
+      };
+      this.dialogExtras = true;
+    },
     extraCourse() {
       this.actions = {
         title: "What course level is this post?",
@@ -143,7 +172,15 @@ export const useEditorStore = defineStore("editorStore", {
         label: "Save course",
         color: "primary",
         variant: "course",
-        action: () => {
+        action: (course) => {
+          if (typeof course == "string") {
+            this.setCourseLevel([
+              {
+                name: course,
+                id: `C-${course.slice(course.length - 1, course.length)}`,
+              },
+            ]);
+          }
           this.dialogExtras = false;
         },
       };
@@ -158,7 +195,8 @@ export const useEditorStore = defineStore("editorStore", {
         label: "Save image",
         color: "primary",
         variant: "image",
-        action: () => {
+        action: (image) => {
+          this.postImage = image;
           this.dialogExtras = false;
         },
       };
@@ -173,7 +211,8 @@ export const useEditorStore = defineStore("editorStore", {
         label: "Save references",
         color: "primary",
         variant: "reference",
-        action: () => {
+        action: (extra) => {
+          this.extra = extra;
           this.dialogExtras = false;
         },
       };
@@ -182,11 +221,15 @@ export const useEditorStore = defineStore("editorStore", {
     loadDraft() {
       const draft = localStorage.getItem("draft");
       if (draft) {
-        const { title, post, level, author } = JSON.parse(draft);
+        const { title, post, level, author, postType, extra } =
+          JSON.parse(draft);
+
         this.title = title;
         this.post = post;
         this.level = level;
         this.author = author;
+        this.postType = postType;
+        this.extra = extra;
       }
     },
     closeDialog() {

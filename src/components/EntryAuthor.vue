@@ -3,9 +3,15 @@
     <v-card-title>
       <h2 class="h4">{{ post.title }}</h2>
     </v-card-title>
-    <v-card-subtitle>
-      <v-chip>{{ post.level.name }}</v-chip>
+    <v-card-subtitle class="d-flex">
+      <v-chip class="mr-4" variant="outlined" color="primary">
+        {{ post.postType }}
+      </v-chip>
+      <div v-for="item in post.level">
+        <v-chip class="mr-2">{{ item.name }}</v-chip>
+      </div>
     </v-card-subtitle>
+
     <v-container fluid>
       <v-row>
         <v-col v-for="author in profile">

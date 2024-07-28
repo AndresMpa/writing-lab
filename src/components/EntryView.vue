@@ -6,7 +6,7 @@
           height="300"
           max-width="500"
           class="mx-auto"
-          src="../assets/img/logout.svg"
+          :src="item.image || deco"
         />
       </v-col>
       <v-col cols="6" class="my-auto mx-auto">
@@ -27,12 +27,26 @@
         </p>
       </v-col>
     </v-row>
+    <v-row no-gutters>
+      <v-col>
+        <v-card title="References"></v-card>
+        <p v-for="reference in item.extra" class="pa-3">
+          {{ reference }}
+        </p>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
+
 <script>
+import deco from "@/assets/img/deco.png";
+
 export default {
   props: {
     item: Object,
   },
+  data: () => ({
+    deco,
+  }),
 };
 </script>
