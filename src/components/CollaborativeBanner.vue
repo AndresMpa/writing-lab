@@ -7,7 +7,7 @@
         height="200"
       >
         <div class="text-justify">
-          <v-chip size="x-small" color="primary">{{ item.level.name }}</v-chip>
+          <v-chip v-for="course in item.level" size="x-small" color="primary">{{ course.name }}</v-chip>
           <v-card-title class="title">{{ item.title }} </v-card-title>
           <v-card-actions>
             <v-btn

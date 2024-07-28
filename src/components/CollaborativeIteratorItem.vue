@@ -10,7 +10,9 @@
 
     <div class="d-flex justify-space-between px-4">
       <div class="d-flex align-center text-caption text-medium-emphasis me-1">
-        <v-chip class="text-truncate" size="x-small">{{ level }}</v-chip>
+        <v-chip v-for="course in level" class="text-truncate" size="x-small">
+          {{ course.name }}
+        </v-chip>
       </div>
 
       <v-btn

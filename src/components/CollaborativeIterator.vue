@@ -49,7 +49,7 @@
               <CollaborativeIteratorItem
                 :id="item.raw.id"
                 :title="item.raw.title"
-                :level="item.raw.level.name"
+                :level="item.raw.level"
                 :img="noImg ? '' : item.raw.img"
                 :description="noDescription ? '' : item.raw.description"
                 :date="useDate ? item.raw.date : ''"
