@@ -37,10 +37,11 @@ export const useEditorStore = defineStore("editorStore", {
   state: () => ({
     loading: false,
     dialog: false,
+    dialogExtras: false,
     actions: null,
-    courseLevel: null,
     authorList: [],
     author: null,
+    level: null,
     title: "",
     post: "",
   }),
@@ -50,7 +51,7 @@ export const useEditorStore = defineStore("editorStore", {
     draftData: (state) => ({
       title: state.title,
       post: state.post,
-      course: state.courseLevel,
+      level: state.level,
     }),
   },
   actions: {
@@ -64,7 +65,7 @@ export const useEditorStore = defineStore("editorStore", {
       this.author = data;
     },
     setCourseLevel(data) {
-      this.courseLevel = data;
+      this.level = data;
     },
     notificationLeaving() {
       this.actions = {
@@ -81,9 +82,7 @@ export const useEditorStore = defineStore("editorStore", {
     notificationDeleting() {
       this.actions = {
         title: `Deleting ${this.title}`,
-        description: `You are about to delete ${
-          this.title === "" ? "" : ""
-        } are you sure you want to delete it?`,
+        description: `You are about to delete your draft. Are you sure you want to delete it?`,
         icon: "mdi-delete-empty",
         label: "Delete",
         color: "red",
@@ -91,6 +90,7 @@ export const useEditorStore = defineStore("editorStore", {
           localStorage.removeItem("draft");
           this.title = "";
           this.post = "";
+          this.level = null;
           this.author = null;
           this.dialog = false;
         },
@@ -111,6 +111,7 @@ export const useEditorStore = defineStore("editorStore", {
             JSON.stringify({
               title: this.title,
               post: this.post,
+              level: this.level,
               author: this.author,
             })
           );
@@ -127,21 +128,70 @@ export const useEditorStore = defineStore("editorStore", {
         icon: "mdi-check-decagram",
         label: "Publish",
         color: "primary",
-        action: () => this.$router.back(),
+        action: () => {
+          this.$router.back();
+          this.dialog = false;
+        },
       };
       this.dialog = true;
+    },
+    extraCourse() {
+      this.actions = {
+        title: "What course level is this post?",
+        description: "Define the level for your post",
+        icon: "mdi-account-school",
+        label: "Save course",
+        color: "primary",
+        variant: "course",
+        action: () => {
+          this.dialogExtras = false;
+        },
+      };
+      this.dialogExtras = true;
+    },
+    extraImage() {
+      this.actions = {
+        title: "Add an image for your post",
+        description:
+          "Be sure your image is working correctly by checking the preview",
+        icon: "mdi-image-edit",
+        label: "Save image",
+        color: "primary",
+        variant: "image",
+        action: () => {
+          this.dialogExtras = false;
+        },
+      };
+      this.dialogExtras = true;
+    },
+    extraReferences() {
+      this.actions = {
+        title: "Track your references",
+        description:
+          "Congratulations! You are about to publish a new post, this may take a couple of seconds.",
+        icon: "mdi-link-variant-plus",
+        label: "Save references",
+        color: "primary",
+        variant: "reference",
+        action: () => {
+          this.dialogExtras = false;
+        },
+      };
+      this.dialogExtras = true;
     },
     loadDraft() {
       const draft = localStorage.getItem("draft");
       if (draft) {
-        const { title, post, author } = JSON.parse(draft);
+        const { title, post, level, author } = JSON.parse(draft);
         this.title = title;
         this.post = post;
+        this.level = level;
         this.author = author;
       }
     },
     closeDialog() {
       this.dialog = false;
+      this.dialogExtras = false;
     },
     toggleLoading() {
       this.loading = !this.loading;
