@@ -1,58 +1,34 @@
 import { defineStore } from "pinia";
 
-const getAuthors = () => {
-  return [
-    {
-      id: 1,
-      nickname: "jDoe4",
-      username: "Jane Doe",
-      image: "https://randomuser.me/api/portraits/women/80.jpg",
-      courses: ["Course 1", "Course 2", "Course 3", "Course 4"],
-    },
-    {
-      id: 2,
-      nickname: "jhonD",
-      username: "Jhon Doe",
-      image: "https://randomuser.me/api/portraits/men/80.jpg",
-      courses: ["Course 1", "Course 3"],
-    },
-    {
-      id: 3,
-      nickname: "Testboy",
-      username: "Teodor Felix",
-      image: "https://randomuser.me/api/portraits/men/8.jpg",
-      courses: ["Course 3", "Course 4"],
-    },
-    {
-      id: 4,
-      nickname: "JijoKramer",
-      username: "Jule Jules",
-      image: "https://randomuser.me/api/portraits/women/8.jpg",
-      courses: ["Course 1", "Course 4"],
-    },
-  ];
-};
+import { getAuthorsData } from "@/api/user.model";
+import { insertPost, updatePost } from "@/api/post.model";
+
+import { useUserStore } from "./userStore";
 
 export const useEditorStore = defineStore("editorStore", {
   state: () => ({
+    // Utilities
+    error: false,
     loading: false,
     dialog: false,
     dialogExtras: false,
     actions: null,
     authorList: [],
+
+    // Post data
+    postId: "new",
     author: null,
     level: null,
     postType: null,
     postImage: null,
-    extra: null,
+    extra: [],
     title: "",
     post: "",
   }),
   getters: {
     authorsRawData: (state) => state.authorList,
-    authorsData: (state) => state.author,
     draftData: (state) => ({
-      id: "new",
+      id: state.postId,
       level: state.level,
       title: state.title,
       image: state.postImage,
@@ -63,16 +39,9 @@ export const useEditorStore = defineStore("editorStore", {
   },
   actions: {
     async getAuthorsList() {
-      await setTimeout(() => {
-        const data = getAuthors();
-        this.authorList.push(...data);
-      }, 3000);
-    },
-    setAuthors(data) {
-      this.author = data;
-    },
-    setCourseLevel(data) {
-      this.level = data;
+      const data = await getAuthorsData();
+      console.log(data);
+      this.authorList.push(...data);
     },
     notificationLeaving() {
       this.actions = {
@@ -82,7 +51,10 @@ export const useEditorStore = defineStore("editorStore", {
         icon: "mdi-alert",
         label: "Leave",
         color: "red",
-        action: () => this.$router.back(),
+        action: () => {
+          this.dialog = false;
+          this.$router.push({ name: "collaborative" });
+        },
       };
       this.dialog = true;
     },
@@ -94,15 +66,7 @@ export const useEditorStore = defineStore("editorStore", {
         label: "Delete",
         color: "red",
         action: () => {
-          localStorage.removeItem("draft");
-          this.title = "";
-          this.post = "";
-          this.level = null;
-          this.author = null;
-          this.postType = null;
-          this.postImage = null;
-          this.extra = null;
-          this.dialog = false;
+          this.deleteDraftData();
         },
       };
       this.dialog = true;
@@ -141,9 +105,43 @@ export const useEditorStore = defineStore("editorStore", {
         icon: "mdi-check-decagram",
         label: "Publish",
         color: "primary",
-        action: () => {
-          this.$router.back();
+        action: async () => {
+          this.loading = true;
           this.dialog = false;
+
+          const userStorage = useUserStore();
+
+          const postData = {
+            post_type: this.postType,
+            image: this.postImage,
+            title: this.title,
+            description: this.post,
+            level: this.level.map((item) => JSON.stringify({ ...item })),
+            extra: [...this.extra] || null,
+            due_date: null,
+            active: null,
+          };
+
+          let result;
+
+          if (this.postId === "new") {
+            result = await insertPost(
+              userStorage.userId,
+              postData,
+              this.author.map((item) => item.id)
+            );
+          } else {
+            result = await updatePost(this.postId, postData);
+          }
+
+          if (result) {
+            this.loading = false;
+            this.$router.back();
+          } else {
+            this.loading = false;
+            this.error = true;
+            setTimeout(() => (this.error = true), 3000);
+          }
         },
       };
       this.dialog = true;
@@ -218,19 +216,43 @@ export const useEditorStore = defineStore("editorStore", {
       };
       this.dialogExtras = true;
     },
+    deleteDraft() {
+      localStorage.removeItem("draft");
+
+      this.postId = "new";
+      this.title = "";
+      this.post = "";
+      this.level = null;
+      this.author = null;
+      this.postType = null;
+      this.postImage = null;
+      this.extra = null;
+      this.dialog = false;
+    },
     loadDraft() {
       const draft = localStorage.getItem("draft");
       if (draft) {
-        const { title, post, level, author, postType, extra } =
+        const { postType, postImage, title, post, level, extra, author } =
           JSON.parse(draft);
 
+        this.postType = postType;
+        this.postImage = postImage;
         this.title = title;
         this.post = post;
         this.level = level;
-        this.author = author;
-        this.postType = postType;
         this.extra = extra;
+        this.author = author;
       }
+    },
+    loadDataToEdit(postId, postData, authorData) {
+      this.postId = postId;
+      this.postType = postData.postType;
+      this.postImage = postData.postImage;
+      this.title = postData.title;
+      this.post = postData.post;
+      this.level = postData.level;
+      this.extra = postData.extra;
+      this.author = authorData;
     },
     closeDialog() {
       this.dialog = false;
@@ -238,6 +260,12 @@ export const useEditorStore = defineStore("editorStore", {
     },
     toggleLoading() {
       this.loading = !this.loading;
+    },
+    setAuthors(data) {
+      this.author = data;
+    },
+    setCourseLevel(data) {
+      this.level = data;
     },
   },
 });
