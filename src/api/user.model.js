@@ -17,23 +17,40 @@ async function createUserRegister(userData) {
   return stats_error == null && user_error == null;
 }
 
-async function getUserData() {
+async function getAuthorsData() {
   const { data, _ } = await supabase.from("User").select(`
     user_id,
-    stats_id,
     fullname,
     nickname,
     course,
     image,
-    notification,
-    User_Stats ( stats_id, complete )
   `);
+
+  return data;
+}
+
+async function getUserData(nickname) {
+  const { data, _ } = await supabase
+    .from("User")
+    .select(
+      `
+      user_id,
+      stats_id,
+      fullname,
+      nickname,
+      course,
+      image,
+      notification,
+      User_Stats ( stats_id, complete )
+      `
+    )
+    .eq("nickname", nickname);
 
   console.log(data);
   return data;
 }
 
-async function updateUserData(data, user_id) {
+async function updateUserData(user_id, data) {
   const { error } = await supabase
     .from("User")
     .update(data)
@@ -42,4 +59,4 @@ async function updateUserData(data, user_id) {
   return error == null;
 }
 
-export { createUserRegister, getUserData, updateUserData };
+export { createUserRegister, getAuthorsData, getUserData, updateUserData };
