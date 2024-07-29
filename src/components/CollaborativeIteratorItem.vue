@@ -32,7 +32,7 @@
 export default {
   props: {
     title: String,
-    level: String,
+    level: Array,
     date: String,
     img: String,
     id: String,
