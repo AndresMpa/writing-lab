@@ -110,6 +110,18 @@
     <EntryEditorNotification />
     <EntryEditorExtras />
 
+    <v-card
+      v-if="error"
+      variant="tonal"
+      color="red-darken-3"
+      title="Something went wrong try again"
+      class="d-flex pl-2"
+    >
+      <v-card-actions class="ml-auto">
+        <v-btn icon="mdi-close-circle" @click="error = !error"></v-btn>
+      </v-card-actions>
+    </v-card>
+
     <v-row no-gutters>
       <v-col>
         <v-textarea
@@ -160,6 +172,14 @@ export default {
   computed: {
     loading() {
       this.editorStore.loading;
+    },
+    error: {
+      get() {
+        return this.editorStore.error;
+      },
+      set(value) {
+        this.editorStore.error = value;
+      },
     },
     title: {
       get() {
@@ -212,8 +232,8 @@ export default {
     this.editorStore = useEditorStore();
     this.editorStore.loadDraft();
 
-    if (this.editorStore.authorsData == null) {
-      const currentUser = { ...userStore.userId, ...userStore.userData };
+    if (this.editorStore.author == null) {
+      const currentUser = { id: userStore.userId, ...userStore.userData };
       this.editorStore.setAuthors([currentUser]);
     }
 
