@@ -17,7 +17,7 @@ export const useUserStore = defineStore("userStore", {
     notification: null,
     email: null
     */
-    id: 1,
+    id: 8,
     nickname: "jDoe4",
     username: "Jane Doe",
     image: "https://randomuser.me/api/portraits/women/80.jpg",
