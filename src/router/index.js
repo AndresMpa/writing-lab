@@ -104,12 +104,21 @@ const routes = [
         component: () => import("@/pages/entry/DraftPage.vue"),
       },
       {
-        path: "/:id",
+        path: "/post/:id",
         name: "entry",
         meta: {
           public: true,
         },
         component: () => import("@/pages/entry/PostPage.vue"),
+      },
+      {
+        path: "/question/:id",
+        name: "question",
+        meta: {
+          public: false,
+          auth: true,
+        },
+        component: () => import("@/pages/entry/QuestionPage.vue"),
       },
     ],
   },

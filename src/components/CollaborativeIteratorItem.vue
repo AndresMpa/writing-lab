@@ -16,7 +16,11 @@
       </div>
 
       <v-btn
-        :to="{ name: 'entry', params: { id: id } }"
+        :to="
+          date
+            ? { name: 'question', params: { id: id } }
+            : { name: 'entry', params: { id: id } }
+        "
         :append-icon="date ? 'mdi-calendar' : 'mdi-link-variant'"
         :color="date ? 'secondary' : 'primary'"
         :text="date ? `Due to ${date}` : 'Read'"
