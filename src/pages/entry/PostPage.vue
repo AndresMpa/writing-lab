@@ -1,14 +1,7 @@
 <template>
   <div v-if="postData">
     <div class="position-relative">
-      <v-btn
-        @click="logOut"
-        class="position-fixed top-0 left-0 ml-3 mt-3"
-        prepend-icon="mdi-door-open"
-        size="small"
-      >
-        Leave
-      </v-btn>
+      <CollaborativeLeaveButton class="position-fixed top-0 left-0 ml-3 mt-3" />
     </div>
     <div v-if="enableActions" class="dial">
       <CollaborativeDial :dialActions="dialData" />
@@ -23,8 +16,8 @@
 
 <script>
 import DisplayPicture from "@/components/decoration/DisplayPicture";
-import { useEditorStore } from "@/stores/editorStore";
 
+import { useEditorStore } from "@/stores/editorStore";
 import { usePostStore } from "@/stores/postStore";
 import { useUserStore } from "@/stores/userStore";
 
