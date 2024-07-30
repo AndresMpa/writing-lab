@@ -49,6 +49,10 @@
 </template>
 
 <script>
+import { useForumStore } from "@/stores/forumStore";
+
+const forumStore = useForumStore()
+
 export default {
   data: () => ({
     title: "",
@@ -72,7 +76,7 @@ export default {
 
   methods: {
     createPost() {
-      console.log(this.title, this.post);
+      postStore.createQuestion(this.title, this.post);
     },
   },
 };
