@@ -40,10 +40,9 @@ export default {
   methods: {
     async getData(id) {
       await postStore.getPostData(id);
-      const rawData = postStore.postDetail;
 
-      this.postData = rawData.postData;
-      this.authorData = rawData.authorData;
+      this.postData = postStore.postDetail.postData;
+      this.authorData = postStore.postDetail.authorData;
     },
     logOut() {
       this.$router.back();

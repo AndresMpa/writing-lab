@@ -39,7 +39,7 @@ export default {
     level: Array,
     date: String,
     img: String,
-    id: String,
+    id: Number,
   },
 };
 </script>
