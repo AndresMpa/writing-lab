@@ -7,7 +7,13 @@
       </v-col>
     </v-row>
   </v-container>
-  <CollaborativeIterator :post="postData" class="pb-2" :itemsPerPage="8"/>
+  <CollaborativeIterator
+    @page-change="getPosts"
+    :itemsPerPage="itemsPerPage"
+    :loading="loading"
+    :post="postData"
+    class="pb-2"
+  />
 </template>
 
 <script>
@@ -17,14 +23,27 @@ const postStore = usePostStore();
 
 export default {
   data: () => ({
-    topData: null,
-    postData: null,
-    dialData: null,
+    loading: true,
+    itemsPerPage: 8,
+    offset: 5,
   }),
+  computed: {
+    topData() {
+      return postStore.insight;
+    },
+    postData() {
+      return postStore.insight;
+    },
+  },
+  methods: {
+    getPosts(page) {
+      let currentPage = page || 1;
+      postStore.loadInsight(this.offset * this.itemsPerPage * currentPage);
+      this.loading = false;
+    },
+  },
   created() {
-    postStore.loadInsight();
-    this.postData = postStore.insightPost;
-    this.topData = postStore.insightPost;
+    this.getPosts();
   },
 };
 </script>
