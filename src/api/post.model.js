@@ -20,23 +20,31 @@ async function insertPost(userId, postData, authors) {
 
 async function getPostData(postId) {
   const rawData = await supabase
-    .from("Post")
+    .from("Entries")
     .select(
       `
       *,
-      User_Post!inner(
-        post_id
+      User_Post(
+        authors
       )
       `
     )
     .eq("post_id", postId);
 
-  console.log(rawData.data);
+  const authorRequest = rawData.data[0].User_Post[0].authors.map(
+    async (currentId) =>
+      supabase
+        .from("User")
+        .select("course, fullname, image, nickname")
+        .eq("user_id", currentId)
+  );
 
-  const data = {
-    id: rawData.data[0].post_id,
+  const authorData = await Promise.all(authorRequest);
+
+  const postData = {
+    postID: rawData.data[0].post_id,
     postType: rawData.data[0].post_type,
-    img: rawData.data[0].image,
+    image: rawData.data[0].image,
     title: rawData.data[0].title,
     description: rawData.data[0].description,
     level: rawData.data[0].level,
@@ -45,15 +53,28 @@ async function getPostData(postId) {
     extra: rawData.data[0].extra,
   };
 
-  return data;
+  return {
+    post: postData,
+    author: authorData[0].data.map(author => author),
+  };
 }
 
 async function getPosts(from, to, postType) {
-  const { data } = await supabase
-    .from("Post")
+  const rawData = await supabase
+    .from("Entries")
     .select("post_id, post_type, title, image, level")
     .eq("post_type", postType)
     .range(from, to);
+
+  const data = rawData.data.map((item) => {
+    return {
+      postId: item.post_id,
+      postType: item.post_type,
+      title: item.title,
+      image: item.image,
+      level: item.level,
+    };
+  });
 
   return data;
 }
