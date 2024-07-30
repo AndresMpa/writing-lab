@@ -23,7 +23,7 @@
         <v-container class="pa-1" fluid>
           <v-row dense no-gutters>
             <v-col
-              v-for="(_, index) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]"
+              v-for="(_, index) in [0, 1, 2, 3, 4, 5, 6, 7, 8]"
               :md="columnsPerPost"
               :key="index"
               cols="auto"
@@ -47,10 +47,10 @@
               cols="auto"
             >
               <CollaborativeIteratorItem
-                :id="item.raw.id"
+                :id="item.raw.postId"
                 :title="item.raw.title"
                 :level="item.raw.level"
-                :img="noImg ? '' : item.raw.img"
+                :img="noImg ? '' : item.raw.image"
                 :description="noDescription ? '' : item.raw.description"
                 :date="useDate ? item.raw.date : ''"
               />
@@ -109,7 +109,7 @@ export default {
     },
     itemsPerPage: {
       type: Number,
-      default: 5
+      default: 5,
     },
     rowsPerPost: {
       type: Number,

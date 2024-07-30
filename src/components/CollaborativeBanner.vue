@@ -7,7 +7,7 @@
         height="200"
       >
         <div class="text-justify">
-          <v-chip v-for="course in item.level" size="x-small" color="primary">{{ course.name }}</v-chip>
+          <v-chip v-for="course in item.level" size="x-small" color="primary">{{ course }}</v-chip>
           <v-card-title class="title">{{ item.title }} </v-card-title>
           <v-card-actions>
             <v-btn
@@ -32,7 +32,7 @@ export default {
       type: [Object, null],
       default: [
         {
-          level: "Collaborative",
+          level: ["Collaborative"],
           title: "Welcome to ILEX Writing Lab - Get Insights",
           description:
             "Here you will find different ideas to implement then in your classes",

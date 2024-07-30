@@ -2,10 +2,10 @@
 <template>
   <v-avatar>
     <span v-if="profile.image == ''" class="text-h5">
-      {{ profile.username.charAt(0) }}
+      {{ profile.nickname.charAt(0) }}
     </span>
 
-    <v-img v-else :src="profile.image" :alt="profile.username.charAt(0)" />
+    <v-img v-else :src="profile.image" :alt="profile.nickname.charAt(0)" />
   </v-avatar>
 </template>
 

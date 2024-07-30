@@ -8,7 +8,7 @@
         {{ post.postType }}
       </v-chip>
       <div v-for="item in post.level">
-        <v-chip class="mr-2">{{ item.name }}</v-chip>
+        <v-chip class="mr-2">{{ item }}</v-chip>
       </div>
     </v-card-subtitle>
 

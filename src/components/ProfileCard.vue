@@ -5,13 +5,13 @@
     </template>
 
     <v-banner-text>
-      <h2 class="text-h6">{{ profile.username }}</h2>
+      <h2 class="text-h6">{{ profile.fullname }}</h2>
       <p>{{ profile.nickname }}</p>
     </v-banner-text>
 
     <v-divider vertical></v-divider>
 
-    <div v-for="course in profile.courses" class="ml-2">
+    <div v-for="course in profile.course" class="ml-2">
       <v-chip class="ml-1">{{ course }}</v-chip>
     </div>
   </v-banner>
