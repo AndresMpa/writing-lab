@@ -116,7 +116,7 @@ export const useEditorStore = defineStore("editorStore", {
             image: this.postImage,
             title: this.title,
             description: this.post,
-            level: this.level.map((item) => JSON.stringify({ ...item })),
+            level: [...this.level],
             extra: [...this.extra] || null,
             due_date: null,
             active: null,
@@ -172,12 +172,9 @@ export const useEditorStore = defineStore("editorStore", {
         variant: "course",
         action: (course) => {
           if (typeof course == "string") {
-            this.setCourseLevel([
-              {
-                name: course,
-                id: `C-${course.slice(course.length - 1, course.length)}`,
-              },
-            ]);
+            this.setCourseLevel([course]);
+          } else {
+            this.setCourseLevel([...course]);
           }
           this.dialogExtras = false;
         },
