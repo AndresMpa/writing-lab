@@ -10,17 +10,22 @@ const postStore = usePostStore();
 export default {
   name: "MeaningfulExperiencesPage",
   data: () => ({
-    postData: null,
+    offset: 4,
   }),
-  methods: {
-    async loadData({ done }) {
-      postStore.loadExperiences();
-      done("ok");
+  computed: {
+    postData() {
+      return postStore.experiences;
     },
   },
-  created() {
-    postStore.loadExperiences();
-    this.postData = postStore.experiencesPost;
+  methods: {
+    async loadData({ done }) {
+      if (postStore.noData) {
+        done("empty");
+      } else {
+        await postStore.loadExperiences(this.offset);
+        done("ok");
+      }
+    },
   },
 };
 </script>

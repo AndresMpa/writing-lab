@@ -1,9 +1,5 @@
 <template>
-  <v-infinite-scroll
-    :items="items"
-    :height="height"
-    :onLoad="load"
-  >
+  <v-infinite-scroll :items="items" :height="height" :onLoad="load">
     <v-container fluid>
       <v-row>
         <template v-for="(item, index) in items" :key="index">
@@ -11,13 +7,19 @@
             <CollaborativeIteratorItem
               :title="item.title"
               :level="item.level"
-              :img="item.img"
-              :id="item.id"
+              :img="item.image"
+              :id="item.postId"
             />
           </v-col>
         </template>
       </v-row>
     </v-container>
+
+    <template v-slot:empty>
+      <v-alert type="warning">
+        There are no more experiences to show, come back later
+      </v-alert>
+    </template>
   </v-infinite-scroll>
 </template>
 
