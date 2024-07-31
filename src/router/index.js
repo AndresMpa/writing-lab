@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import HomePage from "@/pages/init/HomePage.vue";
 import { useUserStore } from "@/stores/userStore";
+import { usePostStore } from "@/stores/postStore";
 
 const routes = [
   {
@@ -197,6 +198,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const userStore = useUserStore();
+  const postStore = usePostStore();
+
+  if (from.matched.filter((record) => record.path === "/collaborative")) {
+    postStore.refresh();
+  }
 
   if (to.matched.some((record) => record.meta.public)) {
     next();
