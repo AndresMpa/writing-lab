@@ -5,6 +5,7 @@
       :loading="loading"
       :search="search"
       :items="post"
+      :page="page"
     >
       <template v-slot:header>
         <v-toolbar class="px-2" flat>
@@ -23,7 +24,7 @@
         <v-container class="pa-1" fluid>
           <v-row dense no-gutters>
             <v-col
-              v-for="(_, index) in [0, 1, 2, 3, 4, 5, 6, 7, 8]"
+              v-for="(_, index) in [...Array(itemsPerPage).keys()]"
               :md="columnsPerPost"
               :key="index"
               cols="auto"
@@ -59,29 +60,13 @@
         </v-container>
       </template>
 
-      <template v-slot:footer="{ page, pageCount, prevPage, nextPage }">
-        <div class="d-flex align-center justify-center pt-2">
-          <v-btn
-            @click="prevPage"
-            :disabled="page === 1"
-            density="comfortable"
-            icon="mdi-arrow-left"
-            variant="tonal"
-            rounded
-          ></v-btn>
-
-          <div class="mx-2 text-caption">
-            Page {{ page }} of {{ pageCount }}
-          </div>
-
-          <v-btn
-            @click="nextPage"
-            :disabled="page >= pageCount"
-            density="comfortable"
-            icon="mdi-arrow-right"
-            variant="tonal"
-            rounded
-          ></v-btn>
+      <template v-slot:footer>
+        <div class="text-center pt-2">
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+            @update:model-value="pageChange"
+          ></v-pagination>
         </div>
       </template>
     </v-data-iterator>
@@ -125,6 +110,17 @@ export default {
   },
   data: () => ({
     search: "",
+    page: 1,
   }),
+  computed: {
+    pageCount() {
+      return Math.ceil(this.post.length / this.itemsPerPage);
+    },
+  },
+  methods: {
+    pageChange(page) {
+      this.$emit("pageChange", page);
+    },
+  },
 };
 </script>

@@ -3,8 +3,10 @@
     <v-row>
       <v-col cols="8">
         <CollaborativeIterator
+          @page-change="getPosts"
           :post="postData"
-          :itemsPerPage="5"
+          :loading="loading"
+          :itemsPerPage="itemsPerPage"
           :columnsPerPost="12"
           :rowsPerPost="6"
           noDescription
@@ -26,19 +28,25 @@ const postStore = usePostStore();
 
 export default {
   data: () => ({
-    postData: null,
-    statesToFilter: null,
-    states: ["Active", "Closed"],
+    loading: true,
+    itemsPerPage: 5,
+    offset: 5,
   }),
+  computed: {
+    postData() {
+      return postStore.wonder;
+    },
+  },
+  methods: {
+    getPosts(page) {
+      this.loading = true;
+      let currentPage = page || 1;
+      postStore.loadWonder(this.offset * this.itemsPerPage * currentPage);
+      this.loading = false;
+    },
+  },
   created() {
-    postStore.loadWonder();
-    this.postData = postStore.wonderPost;
+    this.getPosts();
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.w-95 {
-  width: 95%;
-}
-</style>

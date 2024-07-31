@@ -25,7 +25,7 @@ export default {
   data: () => ({
     loading: true,
     itemsPerPage: 8,
-    offset: 5,
+    offset: 8,
   }),
   computed: {
     topData() {
@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     getPosts(page) {
+      this.loading = true;
       let currentPage = page || 1;
       postStore.loadInsight(this.offset * this.itemsPerPage * currentPage);
       this.loading = false;

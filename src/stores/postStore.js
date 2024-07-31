@@ -4,10 +4,12 @@ import { getPostData, getPosts } from "@/api/post.model";
 
 export const usePostStore = defineStore("postStore", {
   state: () => ({
+    noData: false,
+
     selectedLevel: null,
+
     postDetail: null,
     experiences: [],
-    together: [],
     insight: [],
     wonder: [],
     page: 0,
@@ -16,7 +18,6 @@ export const usePostStore = defineStore("postStore", {
   actions: {
     async getPostData(id) {
       const data = await getPostData(id);
-      console.log(data);
       this.postDetail = {
         postData: data.post,
         authorData: data.author,
@@ -25,17 +26,32 @@ export const usePostStore = defineStore("postStore", {
     async loadInsight(offset) {
       const data = await getPosts(this.page, this.page + offset, "Insight");
       this.insight = [...this.insight, ...data];
-      this.page += offset;
+      this.page += offset + 1;
     },
-    async loadExperiences() {
+    async loadExperiences(offset) {
       const data = await getPosts(this.page, this.page + offset, "Experience");
-      this.insight = [...this.insight, ...data];
+      if (data.length !== 0) {
+        this.experiences = [...this.experiences, ...data];
+        this.page += offset + 1;
+      } else {
+        this.noData = true;
+      }
+    },
+    async loadWonder(offset) {
+      const data = await getPosts(this.page, this.page + offset, "Wonder");
+      this.wonder = [...this.wonder, ...data];
       this.page += offset;
     },
-    async loadWonder() {
-      const data = await getPosts(this.page, this.page + offset, "Wonder");
-      this.insight = [...this.insight, ...data];
-      this.page += offset;
+    refresh() {
+      this.noData = false;
+
+      this.selectedLevel = null;
+
+      this.postDetail = null;
+      this.experiences = [];
+      this.insight = [];
+      this.wonder = [];
+      this.page = 0;
     },
     setLevel(level) {
       this.selectedLevel = level;
