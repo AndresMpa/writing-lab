@@ -74,7 +74,7 @@
       </div>
     </v-navigation-drawer>
 
-    <v-main>
+    <v-main class="custom-height">
       <router-view />
     </v-main>
   </v-layout>
@@ -95,14 +95,14 @@ export default {
     selectedCourse: null,
     items: [
       { title: "All Course", filter: null },
-      { title: "Course 1", filter: "C1" },
-      { title: "Course 2", filter: "C2" },
-      { title: "Course 3", filter: "C3" },
-      { title: "Course 4", filter: "C4" },
-      { title: "Course 5", filter: "C5" },
-      { title: "Course 6", filter: "C6" },
-      { title: "Course 7", filter: "C7" },
-      { title: "Course 8", filter: "C8" },
+      { title: "Course 1", filter: "Course 1" },
+      { title: "Course 2", filter: "Course 2" },
+      { title: "Course 3", filter: "Course 3" },
+      { title: "Course 4", filter: "Course 4" },
+      { title: "Course 5", filter: "Course 5" },
+      { title: "Course 6", filter: "Course 6" },
+      { title: "Course 7", filter: "Course 7" },
+      { title: "Course 8", filter: "Course 8" },
     ],
   }),
   methods: {
@@ -122,3 +122,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.custom-height {
+  height: 100vh;
+}
+</style>
