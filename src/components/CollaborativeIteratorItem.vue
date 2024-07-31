@@ -4,7 +4,7 @@
 
     <v-list-item class="mb-2">
       <template v-slot:title>
-        <strong class="text-h6 mb-2">{{ title }}</strong>
+        <strong class="text-h6 mb-2 title">{{ title }}</strong>
       </template>
     </v-list-item>
 
