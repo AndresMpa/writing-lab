@@ -35,34 +35,42 @@ async function getPostData(postId) {
     async (currentId) =>
       supabase
         .from("User")
-        .select("course, fullname, image, nickname")
+        .select("user_id, course, fullname, image, nickname")
         .eq("user_id", currentId)
   );
 
   const authorData = await Promise.all(authorRequest);
 
+  const commentRequest = await supabase
+    .from("Comments")
+    .select("post_id, content, author")
+    .eq("post_id", postId);
+
   const postData = {
-    postID: rawData.data[0].post_id,
+    postId: rawData.data[0].post_id,
     postType: rawData.data[0].post_type,
     image: rawData.data[0].image,
     title: rawData.data[0].title,
     description: rawData.data[0].description,
     level: rawData.data[0].level,
-    date: rawData.data[0].due_date,
+    date: rawData.data[0].due_date
+      ? rawData.data[0].due_date.split("T")[0]
+      : null,
     active: rawData.data[0].active,
     extra: rawData.data[0].extra,
   };
 
   return {
     post: postData,
-    author: authorData[0].data.map(author => author),
+    author: authorData[0].data.map((author) => author),
+    comments: [...commentRequest.data],
   };
 }
 
 async function getPosts(from, to, postType) {
   const rawData = await supabase
     .from("Entries")
-    .select("post_id, post_type, title, image, level")
+    .select("post_id, post_type, title, image, level, due_date, active")
     .eq("post_type", postType)
     .range(from, to);
 
@@ -73,6 +81,8 @@ async function getPosts(from, to, postType) {
       title: item.title,
       image: item.image,
       level: item.level,
+      date: item.due_date ? item.due_date.split("T")[0] : null,
+      active: item.active,
     };
   });
 

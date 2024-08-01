@@ -21,6 +21,7 @@ export const usePostStore = defineStore("postStore", {
       this.postDetail = {
         postData: data.post,
         authorData: data.author,
+        commentsData: data.comments
       };
     },
     async loadInsight(offset) {

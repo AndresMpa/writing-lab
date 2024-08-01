@@ -1,5 +1,5 @@
 <template>
-  <v-card flat>
+  <v-card :loading="loading">
     <v-card-title class="d-flex justify-space-between mb-0 mt-2">
       <h3>Write a new question</h3>
     </v-card-title>
@@ -20,7 +20,7 @@
     ></v-textarea>
 
     <v-textarea
-      v-model="post"
+      v-model="description"
       :rules="descriptionState"
       placeholder="Question description"
       variant="underlined"
@@ -36,14 +36,17 @@
     <v-divider class="mt-12 mb-4"></v-divider>
 
     <v-card-actions class="d-flex">
+      <CollaborativeForumForm />
+
       <v-btn
-        class="ml-auto"
-        color="primary"
-        variant="tonal"
-        prepend-icon="mdi-email-newsletter"
         @click="createPost"
-        >Ask</v-btn
-      >
+        :color="canSend ? '' : 'primary'"
+        :disabled="canSend"
+        class="font-weight-regular"
+        prepend-icon="mdi-email-newsletter"
+        variant="tonal"
+        text="Publish"
+      ></v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -51,17 +54,36 @@
 <script>
 import { useForumStore } from "@/stores/forumStore";
 
-const forumStore = useForumStore()
-
 export default {
-  data: () => ({
-    title: "",
-    post: "",
-  }),
-
   computed: {
+    canSend() {
+      return (
+        this.forumStore.title === null ||
+        this.forumStore.description === null ||
+        this.forumStore.dueDate === null
+      );
+    },
+    loading() {
+      return this.forumStore.loading;
+    },
+    title: {
+      get() {
+        return this.forumStore.title;
+      },
+      set(value) {
+        this.forumStore.title = value;
+      },
+    },
+    description: {
+      get() {
+        return this.forumStore.description;
+      },
+      set(value) {
+        this.forumStore.description = value;
+      },
+    },
     titleState() {
-      return [this.title !== "" || "Every question needs a title"];
+      return [(value) => value !== "" || "Every question needs a title"];
     },
     descriptionState() {
       return [
@@ -76,8 +98,11 @@ export default {
 
   methods: {
     createPost() {
-      postStore.createQuestion(this.title, this.post);
+      this.forumStore.createQuestion();
     },
+  },
+  created() {
+    this.forumStore = useForumStore();
   },
 };
 </script>

@@ -54,6 +54,7 @@
                 :img="noImg ? '' : item.raw.image"
                 :description="noDescription ? '' : item.raw.description"
                 :date="useDate ? item.raw.date : ''"
+                :active="item.raw.active"
               />
             </v-col>
           </v-row>

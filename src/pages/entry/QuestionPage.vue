@@ -1,5 +1,5 @@
 <template>
-  <div v-if="question">
+  <div v-if="forumData">
     <v-container fluid>
       <v-row>
         <v-col>
@@ -8,12 +8,14 @@
       </v-row>
       <v-row>
         <v-col>
-          <CollaborativeForum :question="question" :canEnd="enableActions" />
+          <CollaborativeForum
+            :question="forumData.postData"
+            :canEnd="enableActions"
+          />
         </v-col>
       </v-row>
     </v-container>
-
-    <CollaborativeBento :comments="comments" />
+    <CollaborativeBento :comments="forumData.commentsData" />
   </div>
 
   <div v-else>
@@ -22,33 +24,27 @@
 </template>
 
 <script>
-import { useForumStore } from "@/stores/forumStore";
+import { usePostStore } from "@/stores/postStore";
 import { useUserStore } from "@/stores/userStore";
 
-const forumStore = useForumStore();
 const userStore = useUserStore();
 
 export default {
-  data: () => ({
-    question: null,
-    comments: null,
-    authorData: null,
-  }),
   computed: {
     enableActions() {
-      return this.authorData.some((user) => user.id === userStore.id);
+      return this.postStore.postDetail.authorData.some((user) => user.user_id === userStore.userId) || false;
+    },
+    forumData() {
+      return this.postStore.postDetail;
     },
   },
   methods: {
     async getData(id) {
-      await forumStore.getForumDetail(id);
-      const rawData = forumStore.forumDetail;
-
-      this.question = rawData.forumData;
-      this.authorData = rawData.authorData;
+      await this.postStore.getPostData(id);
     },
   },
   created() {
+    this.postStore = usePostStore();
     this.$watch(() => this.$route.params.id, this.getData, {
       immediate: true,
     });

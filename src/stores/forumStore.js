@@ -1,58 +1,17 @@
 import { defineStore } from "pinia";
 
-import { insertPost } from "@/api/post.model";
+import { insertPost, updatePost } from "@/api/post.model";
 
 import { useUserStore } from "./userStore";
 
-const mockComments = () => {
-  return [
-    {
-      author: "Tsetman",
-      content:
-        "aoeuaoeuaoeueaoeuaoeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeauuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",
-    },
-    {
-      author: "Tsetman",
-      content:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat consequuntur voluptatem repellendus possimus dolorem",
-    },
-    {
-      author: "Tsetman",
-      content:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi.",
-    },
-    {
-      author: "Tsetman",
-      content:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi.",
-    },
-    {
-      author: "Tsetman",
-      content:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi.",
-    },
-    {
-      author: "Tsetman",
-      content:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quaerat consequuntur voluptatem repellendus possimus dolorem",
-    },
-    {
-      author: "Tsetman",
-      content:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi. Lorem ipsum dolor, sit amet r, sit amet consectetuo asdfads  asdfasd alores vel quasi. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi.",
-    },
-    {
-      author: "Tsetman",
-      content:
-        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid tenetur doloremque autem id modi atque. Fugit natus facilis, nostrum perferendis officia cumque similique ex. Quae eos in dolores vel quasi.",
-    },
-  ];
-};
-
 export const useForumStore = defineStore("forumStore", {
   state: () => ({
+    error: false,
+    success: false,
+    loading: false,
+
     postId: "new",
-    postType: null,
+    postType: "Wonder",
     title: "",
     description: "",
     author: null,
@@ -62,8 +21,62 @@ export const useForumStore = defineStore("forumStore", {
   }),
   getters: {},
   actions: {
-    getForumData() {},
+    async createQuestion() {
+      this.loading = true;
 
-    getForumDetail() {},
+      const userStore = useUserStore();
+      const userId = userStore.userId;
+
+      const postData = {
+        post_type: this.postType,
+        image: null,
+        title: this.title,
+        description: this.description,
+        level: null,
+        extra: null,
+        due_date: this.dueDate,
+        active: this.active,
+      };
+
+      let result;
+
+      if (this.postId === "new") {
+        result = await insertPost(userId, postData, [userId]);
+      } else {
+        result = await updatePost(this.postId, postData);
+      }
+
+      if (result) {
+        this.success = true;
+        setTimeout(() => (this.success = false), 3000);
+      } else {
+        this.error = true;
+        setTimeout(() => (this.error = false), 3000);
+      }
+      this.loading = false;
+
+      this.clearQuestion();
+    },
+
+    async answerQuestion(postId) {
+      updatePost(postId, {
+        active: false,
+      });
+    },
+
+    async postComment(postId) {
+      console.log(postId);
+    },
+
+    clearQuestion() {
+      this.postId = "new";
+      this.postType = "Wonder";
+      this.title = "";
+      this.description = "";
+      this.author = null;
+      this.level = null;
+      this.dueDate = null;
+      this.active = true;
+    },
   },
 });

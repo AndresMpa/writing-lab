@@ -21,9 +21,9 @@
             ? { name: 'question', params: { id: id } }
             : { name: 'entry', params: { id: id } }
         "
-        :append-icon="date ? 'mdi-calendar' : 'mdi-link-variant'"
-        :color="date ? 'secondary' : 'primary'"
-        :text="date ? `Due to ${date}` : 'Read'"
+        :append-icon="date && !active ? 'mdi-check' : date ? 'mdi-calendar' : 'mdi-link-variant'"
+        :color="date && !active ? 'purple' : date ? 'secondary' : 'primary'"
+        :text="date && !active ? 'Solved' : date ? `Due to ${date}`  : 'Read'"
         class="ml-auto"
         size="x-small"
         variant="text"
@@ -37,6 +37,7 @@ export default {
   props: {
     title: String,
     level: Array,
+    active: Boolean,
     date: String,
     img: String,
     id: Number,

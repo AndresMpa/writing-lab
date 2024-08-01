@@ -34,7 +34,7 @@ export default {
   }),
   computed: {
     enableActions() {
-      return this.authorData.some((user) => user.id === userStore.id);
+      return this.authorData.some((user) => user.id === userStore.userId);
     },
   },
   methods: {

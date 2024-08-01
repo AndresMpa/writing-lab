@@ -9,17 +9,17 @@
     </v-card-title>
     <v-card-text>{{ question.description }}</v-card-text>
     <v-divider></v-divider>
-    <v-card-actions class="d-flex" v-if="canEnd">
+    <v-card-actions class="d-flex" v-if="canEnd && question.active">
       <v-btn
         size="small"
         color="primary"
         class="ml-auto pa-2"
-        @click="answerQuestion(question.id)"
+        @click="answerQuestion(question.postId)"
       >
         Mark as answered
       </v-btn>
     </v-card-actions>
-    <v-card-actions class="d-flex" v-else>
+    <v-card-actions class="d-flex" v-else-if="!canEnd && question.active">
       <v-textarea
         :rules="commentRules"
         v-model="newComment"
@@ -33,7 +33,7 @@
         rows="1"
       ></v-textarea>
       <v-btn
-        @click="postComment(question.id)"
+        @click="postComment(question.postId)"
         :disabled="enableSend"
         class="ml-auto pa-2"
         size="small"
@@ -47,7 +47,7 @@
 <script>
 import { useForumStore } from "@/stores/forumStore";
 
-const forumStore = useForumStore
+const forumStore = useForumStore()
 
 export default {
   props: {
