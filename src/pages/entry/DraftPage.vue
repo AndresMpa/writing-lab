@@ -16,13 +16,17 @@ const editorStore = useEditorStore();
 export default {
   data: () => ({
     showPreview: false,
-    previewData: null,
-    previewAuthor: null,
   }),
+  computed: {
+    previewData() {
+      return editorStore.draftData;
+    },
+    previewAuthor() {
+      return editorStore.author;
+    },
+  },
   methods: {
     showPreviewData() {
-      this.previewData = editorStore.draftData;
-      this.previewAuthor = editorStore.authorsData;
       this.showPreview = !this.showPreview;
     },
   },

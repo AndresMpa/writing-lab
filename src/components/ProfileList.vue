@@ -8,7 +8,7 @@
         </v-chip>
         <v-btn
           @click="$emit('savePeers', selected)"
-          variant="tonal"
+          color="primary"
           class="ml-auto"
         >
           Save
@@ -26,7 +26,7 @@
               <v-checkbox-btn
                 class="d-flex justify-center align-center"
                 v-model="selected"
-                :value="item.id"
+                :value="item"
               />
             </v-col>
           </v-row>
@@ -49,9 +49,9 @@ export default {
   computed: {
     collaborating() {
       const filteredObjects = this.peers.filter((user) =>
-        this.selected.includes(user.id)
+        this.selected.includes(user)
       );
-      const usernames = filteredObjects.map((obj) => obj.username);
+      const usernames = filteredObjects.map((user) => user.nickname);
       return usernames;
     },
   },

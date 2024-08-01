@@ -1,5 +1,10 @@
 <template>
-  <v-stepper v-if="peers.length > 0" alt-labels :items="['Peers', 'Course']" class="ma-12">
+  <v-stepper
+    v-if="peers.length > 0"
+    :items="['Peers', 'Course']"
+    class="ma-12"
+    alt-labels
+  >
     <template v-slot:item.1>
       <ProfileList :peers="peers" @save-peers="savePeers" />
     </template>
@@ -21,28 +26,37 @@
 
 <script>
 import DisplayPicture from "@/components/decoration/DisplayPicture";
+
 import { useEditorStore } from "@/stores/editorStore";
 
 const editorStore = useEditorStore();
 
 export default {
-  data: () => ({
-    peers: null,
-  }),
+  computed: {
+    peers() {
+      return editorStore.authorsRawData;
+    },
+  },
   methods: {
     savePeers(peers) {
-      const data = [...peers];
+      const data = peers.map((peer) => {
+        return { id: peer.user_id, username: peer.fullname, ...peer };
+      });
       editorStore.setAuthors(data);
     },
     saveCourses(courses) {
-      const data = [...courses];
+      let data;
+      if (typeof courses === "string") {
+        data = [courses];
+      } else {
+        data = [...courses];
+      }
       editorStore.setCourseLevel(data);
       this.$router.push({ name: "draft" });
     },
   },
   created() {
     editorStore.getAuthorsList();
-    this.peers = editorStore.authorsRawData;
   },
 };
 </script>

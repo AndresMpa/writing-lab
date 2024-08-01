@@ -40,7 +40,6 @@ export const useEditorStore = defineStore("editorStore", {
   actions: {
     async getAuthorsList() {
       const data = await getAuthorsData();
-      console.log(data);
       this.authorList.push(...data);
     },
     notificationLeaving() {

@@ -235,11 +235,13 @@ export default {
     if (this.editorStore.author == null) {
       const currentUser = { id: userStore.userId, ...userStore.userData };
       this.editorStore.setAuthors([currentUser]);
+    } else {
+      const currentUser = { id: userStore.userId, ...userStore.userData };
+      this.editorStore.author.push(currentUser);
     }
 
     if (this.editorStore.level == null) {
-      const level = { name: "Course 1", id: "C-1" };
-      this.editorStore.setCourseLevel([level]);
+      this.editorStore.setCourseLevel(["Course 1"]);
     }
   },
 };
