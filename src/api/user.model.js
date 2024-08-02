@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabaseClient";
 
 async function createUserRegister(userData) {
-  const { data, stats_error } = await supabase
+  const { data, error } = await supabase
     .from("User_Stats")
     .insert({
       complete: 0,
@@ -12,25 +12,27 @@ async function createUserRegister(userData) {
     ...userData,
     stats_id: data[0].stats_id,
   };
-  const { _, user_error } = await supabase.from("User").insert(userData);
+  const userRequest = await supabase.from("User").insert(userData);
 
-  return stats_error == null && user_error == null;
+  return userRequest.error === null && error === null;
 }
 
 async function getAuthorsData() {
-  const { data, _ } = await supabase.from("User").select(`
-    user_id,
-    fullname,
-    nickname,
-    course,
-    image,
-  `);
+  const { data } = await supabase.from("User").select(
+    `
+      user_id, 
+      fullname, 
+      nickname, 
+      course, 
+      image
+      `
+  );
 
   return data;
 }
 
 async function getUserData(nickname) {
-  const { data, _ } = await supabase
+  const { data } = await supabase
     .from("User")
     .select(
       `
@@ -50,7 +52,7 @@ async function getUserData(nickname) {
   return data;
 }
 
-async function updateUserData(user_id, data) {
+async function updateUserData(data, user_id) {
   const { error } = await supabase
     .from("User")
     .update(data)
@@ -59,4 +61,26 @@ async function updateUserData(user_id, data) {
   return error == null;
 }
 
-export { createUserRegister, getAuthorsData, getUserData, updateUserData };
+async function deleteAccount(user_id) {
+  const responseUser = await supabase
+    .from("User")
+    .delete()
+    .eq("user_id", user_id)
+    .select();
+
+  const responseStats = await supabase
+    .from("User_Stats")
+    .delete()
+    .eq("stats_id", responseUser.data[0].stats_id)
+    .select();
+
+  return responseStats.data && responseUser.data;
+}
+
+export {
+  createUserRegister,
+  getAuthorsData,
+  getUserData,
+  updateUserData,
+  deleteAccount,
+};
