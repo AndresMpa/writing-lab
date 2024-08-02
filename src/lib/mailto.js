@@ -22,3 +22,19 @@ export const genContactUs = () => {
 
   return `mailto:${contactMail}?subject=${contactSubject}&body=${contactBody}`;
 };
+
+export const deleteEmail = (mailId) => {
+  const deleteMail = import.meta.env.VITE_DELETE_MAIL.replaceAll(" ", "%20");
+  const deleteSubject = import.meta.env.VITE_DELETE_SUBJECT_MAIL.replaceAll(
+    " ",
+    "%20"
+  );
+  const deleteBody = import.meta.env.VITE_DELETE_BODY_MAIL.replaceAll(
+    " ",
+    "%20"
+  );
+
+  return `mailto:${deleteMail}?subject=${
+    deleteSubject + " - " + mailId
+  }&body=${deleteBody}`;
+};
