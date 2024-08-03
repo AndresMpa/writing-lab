@@ -1,7 +1,13 @@
 import { defineStore } from "pinia";
-import { signUpNewUser } from "@/api/auth.model";
+
+import {
+  signInWithEmail,
+  signUpNewUser,
+  updateUserPassword,
+} from "@/api/auth.model";
 import {
   createUserRegister,
+  deleteAccount,
   getUserData,
   updateUserData,
 } from "@/api/user.model";
@@ -11,15 +17,15 @@ export const useUserStore = defineStore("userStore", {
     /*
     id: null,
     image: null,
-    username: null,
+    fullname: null,
     nickname: null,
     courses: null,
     notification: null,
     email: null
     */
-    id: 8,
+    id: 21,
     nickname: "jDoe4",
-    username: "Jane Doe",
+    fullname: "Jane Doe",
     image: "https://randomuser.me/api/portraits/women/80.jpg",
     courses: ["Course 1", "Course 2", "Course 3", "Course 4"],
     notification: ["Este", "Esto otro"],
@@ -29,16 +35,16 @@ export const useUserStore = defineStore("userStore", {
     userId: (state) => state.id,
     userData: (state) => ({
       image: state.image,
-      username: state.username,
+      fullname: state.fullname,
       nickname: state.nickname,
-      courses: state.courses,
+      course: state.courses,
     }),
     notificationList: (state) => {
       return [...state.notification];
     },
     checkPassword: (state) => (password) => {
       const result = signInWithEmail(state.email, password);
-      return result.status === 200;
+      return result === null;
     },
   },
   actions: {
@@ -49,9 +55,14 @@ export const useUserStore = defineStore("userStore", {
         ? this.$router.push({ name: "login" })
         : this.$router.push({ name: "error" });
     },
-    async initAccount(username, password) {
-      if (checkAccountPassword(username, password)) {
-        const userData = await getUserData();
+
+    async initAccount(email, password) {
+      console.log("email, password", email, password);
+      const isLogged = await signInWithEmail(email, password);
+      console.log("isLogged ", isLogged);
+      if (isLogged) {
+        const userData = await getUserData(this.nickname);
+        console.log("userData ", userData);
 
         if (userData == null) {
           this.$router.push({ name: "error" });
@@ -68,10 +79,19 @@ export const useUserStore = defineStore("userStore", {
         this.$router.push({ name: "error" });
       }
     },
-    async updateNotificationList(notificationList) {
-      this.notification = notificationList;
-      updateUserData({ notification: this.notification }, this.id);
+
+    async updateField(data) {
+      await updateUserData(data, this.id);
     },
+
+    async updateNotificationList() {
+      await updateUserData({ notification: this.notification }, this.id);
+    },
+
+    async deleteAccount() {
+      await deleteAccount(this.id);
+    },
+
     closeSession() {
       this.id = null;
       this.image = null;
