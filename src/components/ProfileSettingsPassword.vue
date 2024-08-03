@@ -62,6 +62,7 @@
 
     <v-card-actions class="ma-2">
       <v-btn
+        @click="discard"
         :disabled="disablePassword"
         variant="plain"
         class="ml-auto"
@@ -69,6 +70,7 @@
       ></v-btn>
 
       <v-btn
+        @click="save"
         :variant="disablePassword ? 'outlined' : 'flat'"
         :disabled="disablePassword"
         color="primary"
@@ -80,6 +82,10 @@
 </template>
 
 <script>
+import { useUserStore } from "@/stores/userStore";
+
+const userStore = useUserStore();
+
 export default {
   data: () => ({
     password: "",
@@ -123,9 +129,21 @@ export default {
 
   methods: {
     checkPassword() {
-      if (this.oldPassword === "data") {
+      if (userStore.checkPassword(this.oldPassword)) {
         this.disablePassword = false;
       }
+    },
+    save() {
+      userStore.updateUserPassword(this.password);
+    },
+    discard() {
+      this.password = "";
+      this.rePassword = "";
+      this.oldPassword = "";
+      this.showPassword = false;
+      this.showRePassword = false;
+      this.showOldPassword = false;
+      this.disablePassword = true;
     },
   },
 };
