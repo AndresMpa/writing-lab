@@ -14,22 +14,15 @@ import {
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({
-    /*
     id: null,
     image: null,
     fullname: null,
     nickname: null,
     courses: null,
     notification: null,
-    email: null
-    */
-    id: 21,
-    nickname: "jDoe4",
-    fullname: "Jane Doe",
-    image: "https://randomuser.me/api/portraits/women/80.jpg",
-    courses: ["Course 1", "Course 2", "Course 3", "Course 4"],
-    notification: ["Este", "Esto otro"],
-    email: "",
+    email: null,
+    complete: 0,
+    statsId: null,
   }),
   getters: {
     userId: (state) => state.id,
@@ -38,6 +31,8 @@ export const useUserStore = defineStore("userStore", {
       fullname: state.fullname,
       nickname: state.nickname,
       course: state.courses,
+      complete: state.complete,
+      statsId: state.statsId,
     }),
     notificationList: (state) => {
       return [...state.notification];
@@ -57,22 +52,22 @@ export const useUserStore = defineStore("userStore", {
     },
 
     async initAccount(email, password) {
-      console.log("email, password", email, password);
       const isLogged = await signInWithEmail(email, password);
-      console.log("isLogged ", isLogged);
       if (isLogged) {
         const userData = await getUserData(this.nickname);
-        console.log("userData ", userData);
 
         if (userData == null) {
           this.$router.push({ name: "error" });
         }
 
-        this.id = userData.id;
-        this.image = userData.image;
-        this.username = userData.username;
-        this.nickname = userData.nickname;
-        this.courses = userData.courses;
+        this.id = userData[0].user_id;
+        this.image = userData[0].image;
+        this.fullname = userData[0].fullname;
+        this.nickname = userData[0].nickname;
+        this.courses = userData[0].course;
+        this.notification = userData[0].notification;
+        this.complete = userData[0].User_Stats.complete;
+        this.statsId = userData[0].User_Stats.stats_id;
 
         this.$router.push({ name: "home" });
       } else {
@@ -104,6 +99,9 @@ export const useUserStore = defineStore("userStore", {
     },
     setEmail(data) {
       this.email = data;
+    },
+    setNickname(data) {
+      this.nickname = data;
     },
   },
 });
