@@ -14,7 +14,13 @@ export default {
   }),
   computed: {
     postData() {
-      return postStore.experiences;
+      if (postStore.selectedLevel) {
+        return postStore.experiences.filter((data) =>
+          data.level.includes(postStore.selectedLevel)
+        );
+      } else {
+        return postStore.experiences;
+      }
     },
   },
   methods: {

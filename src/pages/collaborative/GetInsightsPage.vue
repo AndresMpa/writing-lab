@@ -32,7 +32,13 @@ export default {
       return postStore.insight;
     },
     postData() {
-      return postStore.insight;
+      if (postStore.selectedLevel) {
+        return postStore.insight.filter((data) =>
+          data.level.includes(postStore.selectedLevel)
+        );
+      } else {
+        return postStore.insight;
+      }
     },
   },
   methods: {
