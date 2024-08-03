@@ -3,14 +3,14 @@ import { supabase } from "@/lib/supabaseClient";
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 async function signUpNewUser(email, password) {
-  const { _, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: email,
     password: password,
     options: {
       emailRedirectTo: `${BASE_URL}`,
     },
   });
-  return error === null;
+  return error;
 }
 
 async function signInWithEmail(email, password) {
@@ -22,9 +22,9 @@ async function signInWithEmail(email, password) {
   return data;
 }
 
-
-async function updateUserPassword() {
-  await supabase.auth.updateUser({ password: new_password });
+async function updateUserPassword(new_password) {
+  const result = await supabase.auth.updateUser({ password: new_password });
+  return result;
 }
 
 // Might be useful

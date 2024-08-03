@@ -11,9 +11,9 @@
 
         <v-text-field
           prepend-inner-icon="mdi-badge-account"
-          placeholder="Username"
+          placeholder="Nickname"
           density="compact"
-          v-model="username"
+          v-model="nickname"
         ></v-text-field>
 
         <v-text-field
@@ -80,7 +80,7 @@ const userStore = useUserStore();
 export default {
   name: "AccountLogIn",
   data: () => ({
-    username: "",
+    nickname: "",
     password: "",
     email: "",
     visible: false,
@@ -89,14 +89,15 @@ export default {
 
   computed: {
     enable() {
-      return this.username !== "" || this.password !== "";
+      return this.nickname !== "" || this.email !== "" || this.password !== "";
     },
   },
 
   methods: {
     async logInUser() {
       userStore.setEmail(this.email);
-      await userStore.initAccount(this.username, this.password);
+      userStore.setNickname(this.nickname);
+      await userStore.initAccount(this.email, this.password);
     },
   },
 };
