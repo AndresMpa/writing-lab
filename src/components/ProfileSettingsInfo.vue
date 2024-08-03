@@ -38,14 +38,27 @@
     <v-divider class="mb-2"></v-divider>
 
     <v-card-actions class="ma-2">
-      <v-btn variant="plain" class="ml-auto" text="Discard"></v-btn>
+      <v-btn
+        @click="discard"
+        variant="plain"
+        class="ml-auto"
+        text="Discard"
+      ></v-btn>
 
-      <v-btn color="primary" variant="flat" class="ml-4" text="Save"></v-btn>
+      <v-btn
+        @click="save"
+        color="primary"
+        variant="flat"
+        class="ml-4"
+        text="Save"
+      ></v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import { useUserStore } from '@/stores/userStore';
+
 export default {
   data: () => ({
     fullName: "",
@@ -69,6 +82,23 @@ export default {
         (value) =>
           /[^0-9]/.test(value) ? true : "You name can not contain digits.",
       ];
+    },
+  },
+
+  methods: {
+    save() {
+      const userStore  = useUserStore()
+      const data = {
+        fullname: this.fullName || userStore.fullname,
+        nickname: this.nickName  || userStore.nickname,
+        image: this.userPicture || userStore.image,
+      };
+      userStore.updateField(data)
+    },
+    discard() {
+      this.fullName = "";
+      this.nickName = "";
+      this.userPicture = "";
     },
   },
 };

@@ -12,15 +12,15 @@
 
     <v-spacer class="my-6"></v-spacer>
 
-    <ProfileSettingsCourses></ProfileSettingsCourses>
+    <ProfileSettingsCourses @save-courses="saveCourses" />
 
     <v-spacer class="my-6"></v-spacer>
 
-    <ProfileSettingsPassword></ProfileSettingsPassword>
+    <ProfileSettingsPassword />
 
     <v-spacer class="my-6"></v-spacer>
 
-    <ProfileSettingsDelete></ProfileSettingsDelete>
+    <ProfileSettingsDelete />
 
     <v-spacer class="my-6"></v-spacer>
   </v-container>
@@ -29,13 +29,21 @@
 <script>
 import { useUserStore } from "@/stores/userStore";
 
+const userStore = useUserStore();
+
 export default {
   data: () => ({
     loading: false,
     profileData: null,
   }),
+  methods: {
+    saveCourses(courses) {
+      userStore.updateField({
+        course: [...courses],
+      });
+    },
+  },
   created() {
-    const userStore = useUserStore();
     this.profileData = userStore.userData;
   },
 };
