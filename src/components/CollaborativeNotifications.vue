@@ -7,7 +7,12 @@
       link
     >
       <template v-slot:append>
-        <v-badge v-if="notificationCount > 0" color="primary" :content="notificationCount" inline></v-badge>
+        <v-badge
+          v-if="notificationCount > 0"
+          color="primary"
+          :content="notificationCount"
+          inline
+        ></v-badge>
       </template>
     </v-list-item>
 
@@ -57,26 +62,32 @@ const userStore = useUserStore();
 
 export default {
   data: () => ({
-    notificationCount: 0,
-    notificationList: [],
     dialogBell: false,
   }),
+  computed: {
+    notificationCount() {
+      return userStore.notification.length;
+    },
+    notificationList: {
+      get() {
+        return userStore.notification;
+      },
+      set(value) {
+        userStore.notification = value;
+      },
+    },
+  },
   methods: {
     checkNotification(index) {
       this.notificationList.splice(index, 1);
-      this.notificationCount -= 1;
     },
     reviewNotifications() {
       this.dialogBell = false;
-      userStore.updateNotificationList(this.notificationList);
+      userStore.updateNotificationList();
     },
     createDraft() {
       this.$router.push({ name: "draft" });
     },
-  },
-  created() {
-    this.notificationCount = userStore.notificationList.length;
-    this.notificationList = userStore.notificationList;
   },
 };
 </script>
