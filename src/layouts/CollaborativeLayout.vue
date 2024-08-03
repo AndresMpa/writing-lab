@@ -48,7 +48,7 @@
       <template v-slot:prepend>
         <v-list-item
           :subtitle="profile.nickname"
-          :title="profile.username"
+          :title="profile.fullname"
           lines="two"
         >
           <template v-slot:prepend>
