@@ -14,7 +14,7 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn :to="{ name: 'collaborative' }" color="primary" variant="outlined">
+      <v-btn :to="{ name: 'login' }" color="primary" variant="outlined">
         Start collaborating
       </v-btn>
     </v-card-actions>
