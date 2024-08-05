@@ -28,7 +28,7 @@
             :width="300"
             class="mx-auto"
             aspect-ratio="4/3"
-            src="../../assets/img/deco_alt.png"
+            src="../../assets/img/deco.png"
           ></v-img>
         </v-col>
       </v-row>
