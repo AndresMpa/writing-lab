@@ -4,7 +4,7 @@
       class="text-h4 font-weight-black greeter-title"
       color="primary"
     >
-      Collaborate with your peers to make better strategist
+      Collaborate with your peers to become a better strategist
     </v-card-title>
 
     <v-card-text class="font-weight-thin text-body-1 my-3">

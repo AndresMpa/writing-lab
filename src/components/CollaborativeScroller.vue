@@ -17,7 +17,7 @@
 
     <template v-slot:empty>
       <v-alert type="warning">
-        There are no more experiences to show, come back later
+        There are no experiences to show, come back later
       </v-alert>
     </template>
   </v-infinite-scroll>
