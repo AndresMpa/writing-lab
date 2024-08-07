@@ -119,7 +119,7 @@
                 <v-combobox
                   :items="courses"
                   v-model="nextCourses"
-                  label="Courses for the next semester"
+                  label="Courses for this semester"
                   multiple
                 >
                   <template v-slot:selection="data">
