@@ -58,6 +58,12 @@ export const useForumStore = defineStore("forumStore", {
       this.clearQuestion();
     },
 
+    async deleteQuestion(postId) {
+      updatePost(postId, {
+        active: false,
+      });
+    },
+
     async answerQuestion(postId) {
       updatePost(postId, {
         active: false,

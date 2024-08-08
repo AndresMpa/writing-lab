@@ -19,7 +19,7 @@ export const useUserStore = defineStore("userStore", {
     fullname: null,
     nickname: null,
     courses: null,
-    notification: null,
+    notification: [],
     email: null,
     complete: 0,
     statsId: null,

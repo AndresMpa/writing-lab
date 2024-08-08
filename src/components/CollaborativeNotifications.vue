@@ -19,7 +19,7 @@
     <v-list-item
       @click="createDraft"
       prepend-icon="mdi-draw"
-      title="Write an new post"
+      title="Write a new post"
       link
     >
     </v-list-item>

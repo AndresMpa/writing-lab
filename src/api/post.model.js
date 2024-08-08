@@ -106,13 +106,19 @@ async function deletePost(postId) {
     .eq("post_id", postId)
     .select();
 
+  const commentsResponse = await supabase
+    .from("Comments")
+    .delete()
+    .eq("post_id", postId)
+    .select();
+
   const userPostResponse = await supabase
     .from("User_Post")
     .delete()
     .eq("post_id", postId)
     .select();
 
-  return entryResponse.data && userPostResponse.data;
+  return entryResponse.data && userPostResponse.data && commentsResponse.data;
 }
 
 export { insertPost, getPostData, getPosts, updatePost, deletePost };

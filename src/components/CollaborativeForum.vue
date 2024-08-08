@@ -12,8 +12,16 @@
     <v-card-actions class="d-flex" v-if="canEnd && question.active">
       <v-btn
         size="small"
-        color="primary"
+        color="secondary"
         class="ml-auto pa-2"
+        @click="answerQuestion(question.postId)"
+      >
+        Delete question
+      </v-btn>
+      <v-btn
+        size="small"
+        color="primary"
+        class="pa-2"
         @click="answerQuestion(question.postId)"
       >
         Mark as answered
@@ -47,7 +55,7 @@
 <script>
 import { useForumStore } from "@/stores/forumStore";
 
-const forumStore = useForumStore()
+const forumStore = useForumStore();
 
 export default {
   props: {
@@ -76,6 +84,9 @@ export default {
     },
   },
   methods: {
+    deleteQuestion(postId) {
+      forumStore.deleteQuestion(postId);
+    },
     answerQuestion(postId) {
       forumStore.answerQuestion(postId);
     },
