@@ -1,5 +1,5 @@
 <template>
-  <v-card :width="500" variant="text" class="ml-8 mt-8">
+  <v-card :width="800" variant="text" class="ml-8 mt-8">
     <v-card-title
       class="text-h4 font-weight-black greeter-title"
       color="primary"

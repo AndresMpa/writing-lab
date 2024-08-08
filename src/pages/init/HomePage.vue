@@ -1,14 +1,18 @@
 <template>
   <div v-if="userSession" class="mx-2">
-    <v-container class="mx-auto pt-6" fluid>
+    <v-container class="mx-auto py-12 my-12" fluid>
       <v-row>
         <v-col>
           <HomeLogged />
         </v-col>
         <v-col>
-          <v-card class="my-12 py-12">
-            <HomeStats />
-          </v-card>
+          <v-img
+            cover
+            :width="300"
+            class="mx-auto"
+            aspect-ratio="4/3"
+            src="../../assets/img/deco.png"
+          ></v-img>
         </v-col>
       </v-row>
     </v-container>
