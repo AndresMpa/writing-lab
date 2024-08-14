@@ -46,7 +46,7 @@
             location="bottom end"
             transition="fade-transition"
           >
-            <CollaborativeRouter></CollaborativeRouter>
+            <CollaborativeRouter />
           </v-menu>
         </v-btn>
         <ProfileBubble :profile="profile"></ProfileBubble>

@@ -40,7 +40,7 @@ const routes = [
     ],
   },
   {
-    path: "/collaborative",
+    path: "/collaborate",
     component: () => import("@/layouts/CollaborativeLayout.vue"),
     meta: {
       public: false,
@@ -49,9 +49,9 @@ const routes = [
     children: [
       {
         path: "",
-        name: "collaborative",
+        name: "collaborate",
         meta: {
-          nickname: "Collaborative",
+          nickname: "Collaborate",
         },
         component: () => import("@/pages/collaborative/CollaborativePage.vue"),
       },
@@ -200,7 +200,7 @@ router.beforeEach((to, from, next) => {
   const userStore = useUserStore();
   const postStore = usePostStore();
 
-  if (from.matched.filter((record) => record.path === "/collaborative")) {
+  if (from.matched.filter((record) => record.path === "/collaborate")) {
     postStore.refresh();
   }
 

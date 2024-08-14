@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { getPostData, getPosts } from "@/api/post.model";
+import { deletePost, getPostData, getPosts } from "@/api/post.model";
 
 export const usePostStore = defineStore("postStore", {
   state: () => ({
@@ -42,6 +42,10 @@ export const usePostStore = defineStore("postStore", {
       const data = await getPosts(this.page, this.page + offset, "Wonder");
       this.wonder = [...this.wonder, ...data];
       this.page += offset;
+    },
+    async deletePost(id) {
+      const data = await deletePost(id);
+      return data === null;
     },
     refresh() {
       this.noData = false;

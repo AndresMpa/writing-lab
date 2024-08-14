@@ -59,11 +59,11 @@
 
       <v-divider></v-divider>
 
-      <CollaborativeRouter></CollaborativeRouter>
+      <CollaborativeRouter />
 
       <v-divider></v-divider>
 
-      <CollaborativeNotifications></CollaborativeNotifications>
+      <CollaborativeNotifications />
 
       <v-divider></v-divider>
 

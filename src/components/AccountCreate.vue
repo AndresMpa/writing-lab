@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto pa-6" max-width="1000" elevation="8" rounded="lg">
+  <v-card class="mx-auto pa-6" max-width="1000" elevation="8" rounded="lg" :loading="creating">
     <v-form fast-fail @submit.prevent>
       <v-stepper editable non-linear v-model="step">
         <template v-slot:default="{ prev, next }">
@@ -186,7 +186,7 @@
 
                   <div>
                     <v-btn
-                      :disabled="!terms"
+                      :disabled="!terms || creating"
                       :variant="terms ? 'outlined' : 'text'"
                       :color="terms ? 'primary' : ''"
                       :prepend-icon="
@@ -249,6 +249,7 @@ export default {
     ],
 
     terms: false,
+    creating: false,
 
     step: 0,
     nextStep: 1,
@@ -329,6 +330,7 @@ export default {
 
   methods: {
     createUser() {
+      this.creating = true;
       userStore.createNewUser(this.userEmail, this.password, {
         fullname: this.fullName,
         nickname: this.nickName,

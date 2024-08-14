@@ -32,7 +32,7 @@ export default {
       type: [Object, null],
       default: [
         {
-          level: ["Collaborative"],
+          level: ["Collaborate"],
           title: "Welcome to ILEX Writing Lab - Get Insights",
           description:
             "Here you will find different ideas to implement then in your classes",

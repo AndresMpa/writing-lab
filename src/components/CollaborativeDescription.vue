@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto pa-8">
     <template v-slot:title>
-      <h1 class="">Welcome to Collaborative</h1>
+      <h1 class="">Welcome to Collaborate</h1>
     </template>
 
     <v-card-text class="bg-surface-light pt-4">

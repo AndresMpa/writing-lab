@@ -1,20 +1,5 @@
 <template>
   <div>
-    <v-card flat>
-      <v-card-title class="d-flex">
-        Collaborate with:
-        <v-chip v-for="user in collaborating" :key="user" class="mx-2">
-          {{ user }}
-        </v-chip>
-        <v-btn
-          @click="$emit('savePeers', selected)"
-          color="primary"
-          class="ml-auto"
-        >
-          Save
-        </v-btn>
-      </v-card-title>
-    </v-card>
     <v-list lines="three">
       <v-list-item v-for="(item, index) in peers" :key="index">
         <v-container fluid>
@@ -33,6 +18,21 @@
         </v-container>
       </v-list-item>
     </v-list>
+    <v-card flat>
+      <v-card-title class="d-flex pr-0">
+        Collaborate with:
+        <v-chip v-for="user in collaborating" :key="user" class="mx-2">
+          {{ user }}
+        </v-chip>
+        <v-btn
+          @click="$emit('savePeers', selected)"
+          color="primary"
+          class="ml-auto"
+        >
+          Save
+        </v-btn>
+      </v-card-title>
+    </v-card>
   </div>
 </template>
 

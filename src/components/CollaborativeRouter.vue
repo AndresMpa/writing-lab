@@ -1,9 +1,9 @@
 <template>
   <v-list density="compact" min-width="250" rounded="lg" slim nav>
     <v-list-item
-      :to="{ name: 'collaborative' }"
+      :to="{ name: 'collaborate' }"
       prepend-icon="mdi-home"
-      title="Collaborative"
+      title="Collaborate"
     ></v-list-item>
 
     <v-divider class="my-2"></v-divider>

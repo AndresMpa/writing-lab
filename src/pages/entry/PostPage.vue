@@ -34,7 +34,7 @@ export default {
   }),
   computed: {
     enableActions() {
-      return this.authorData.some((user) => user.id === userStore.userId);
+      return this.authorData.some((user) => user.user_id === userStore.userId);
     },
   },
   methods: {
@@ -48,10 +48,14 @@ export default {
       this.$router.back();
     },
     loadDataToEdit() {
-      editorStore.loadDataToEdit();
+      editorStore.loadDataToEdit(
+        this.postData.postId,
+        this.postData,
+        this.authorData
+      );
     },
-    deletePost(id) {
-      postStore.deletePost(id);
+    deletePost() {
+      postStore.deletePost(this.postData.postId);
     },
   },
   created() {

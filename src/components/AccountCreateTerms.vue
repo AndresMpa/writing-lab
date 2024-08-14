@@ -216,8 +216,8 @@
           <v-spacer></v-spacer>
 
           <v-btn
-            text="Agree"
             variant="flat"
+            text="I understand"
             color="surface-variant"
             @click="isActive.value = false"
           ></v-btn>

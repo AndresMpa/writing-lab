@@ -24,31 +24,36 @@
 </template>
 
 <script>
+import insightImage from "../assets/img/insight.svg";
+import experiencesImage from "../assets/img/experiences.svg";
+import togetherImage from "../assets/img/together.svg";
+import wonderImage from "../assets/img/wonder.svg";
+
 export default {
   data: () => ({
     items: [
       {
         title: "Get insights",
-        image: "/src/assets/img/insight.svg",
+        image: insightImage,
         label: "Get inspiring ideas from your peers",
         to: "getInsights",
       },
       {
         title: "Meaningful experiences",
-        image: "/src/assets/img/experiences.svg",
+        image: experiencesImage,
         label: "Explore and share students' work",
         to: "meaningfulExperiences",
       },
       {
         title: "I wonder how I could",
-        image: "/src/assets/img/together.svg",
+        image: togetherImage,
         label:
           "In trouble teaching Academic Writing? Get advice from your peers!",
         to: "wonderHowCould",
       },
       {
         title: "Let's work together",
-        image: "/src/assets/img/wonder.svg",
+        image: wonderImage,
         label: "Join your peers to collaborate in Academic Writing projects",
         to: "workTogether",
       },

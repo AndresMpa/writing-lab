@@ -40,7 +40,11 @@ export const useEditorStore = defineStore("editorStore", {
   actions: {
     async getAuthorsList() {
       const data = await getAuthorsData();
-      this.authorList.push(...data);
+      data.forEach((newAuthor) => {
+        if (!this.authorList.includes(newAuthor)) {
+          this.authorList.push(newAuthor);
+        }
+      });
     },
     notificationLeaving() {
       this.actions = {
@@ -52,7 +56,7 @@ export const useEditorStore = defineStore("editorStore", {
         color: "red",
         action: () => {
           this.dialog = false;
-          this.$router.push({ name: "collaborative" });
+          this.$router.push({ name: "collaborate" });
         },
       };
       this.dialog = true;
@@ -134,6 +138,7 @@ export const useEditorStore = defineStore("editorStore", {
           }
 
           if (result) {
+            this.deleteDraft();
             this.loading = false;
             this.$router.back();
           } else {
@@ -243,12 +248,14 @@ export const useEditorStore = defineStore("editorStore", {
     loadDataToEdit(postId, postData, authorData) {
       this.postId = postId;
       this.postType = postData.postType;
-      this.postImage = postData.postImage;
+      this.postImage = postData.image;
       this.title = postData.title;
-      this.post = postData.post;
+      this.post = postData.description;
       this.level = postData.level;
       this.extra = postData.extra;
       this.author = authorData;
+
+      this.$router.push({ name: "draft" })
     },
     closeDialog() {
       this.dialog = false;

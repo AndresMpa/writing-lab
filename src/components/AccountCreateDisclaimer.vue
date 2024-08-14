@@ -9,9 +9,9 @@
       variant="tonal"
       closable
     >
-      To create your account we require you to read the terms of usage of this
-      platform, by clicking the checkbox below we are assuming you read the
-      terms and conditions of usage
+      To create your account, we require you to read the terms of usage of this
+      platform. By clicking the checkbox below we are assuming you read the
+      terms and conditions of usage.
     </v-alert>
   </div>
 </template>
