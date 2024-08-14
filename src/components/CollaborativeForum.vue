@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-2">
+  <v-card class="ma-2" :loading="loading">
     <v-card-title class="d-flex align-center">
       <h2>{{ question.title }}</h2>
 
@@ -14,7 +14,7 @@
         size="small"
         color="secondary"
         class="ml-auto pa-2"
-        @click="answerQuestion(question.postId)"
+        @click="deleteQuestion(question.postId)"
       >
         Delete question
       </v-btn>
@@ -41,7 +41,7 @@
         rows="1"
       ></v-textarea>
       <v-btn
-        @click="postComment(question.postId)"
+        @click="postComment(question.postId, newComment)"
         :disabled="enableSend"
         class="ml-auto pa-2"
         size="small"
@@ -54,8 +54,10 @@
 
 <script>
 import { useForumStore } from "@/stores/forumStore";
+import { useUserStore } from "@/stores/userStore";
 
 const forumStore = useForumStore();
+const userStore = useUserStore();
 
 export default {
   props: {
@@ -70,6 +72,7 @@ export default {
   },
   data: () => ({
     newComment: "",
+    loading: false,
   }),
   computed: {
     commentRules() {
@@ -80,18 +83,24 @@ export default {
       ];
     },
     enableSend() {
-      return this.newComment.length > 1048;
+      return this.newComment.length > 1048 || this.loading;
     },
   },
   methods: {
     deleteQuestion(postId) {
+      this.loading = true;
       forumStore.deleteQuestion(postId);
+      this.loading = false;
     },
     answerQuestion(postId) {
+      this.loading = true;
       forumStore.answerQuestion(postId);
+      this.loading = false;
     },
-    postComment(postId) {
-      forumStore.postComment(postId);
+    postComment(postId, comment) {
+      this.loading = true;
+      forumStore.postComment(postId, comment, userStore.userId);
+      this.loading = false;
     },
   },
 };

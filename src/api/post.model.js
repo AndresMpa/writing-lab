@@ -18,6 +18,15 @@ async function insertPost(userId, postData, authors) {
   return entryResponse.data && userPostResponse.data;
 }
 
+async function insertComment(commentData) {
+  const commentResponse = await supabase
+    .from("Comments")
+    .insert(commentData)
+    .select();
+
+  return commentResponse.data;
+}
+
 async function getPostData(postId) {
   const rawData = await supabase
     .from("Entries")
@@ -121,4 +130,11 @@ async function deletePost(postId) {
   return entryResponse.data && userPostResponse.data && commentsResponse.data;
 }
 
-export { insertPost, getPostData, getPosts, updatePost, deletePost };
+export {
+  insertPost,
+  insertComment,
+  getPostData,
+  getPosts,
+  updatePost,
+  deletePost,
+};

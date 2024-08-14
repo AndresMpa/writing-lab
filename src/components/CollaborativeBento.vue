@@ -5,11 +5,11 @@
         class="my-auto"
         v-for="(item, index) in comments"
         :cols="getCols(item.content.length, index)"
-        :key="index"
+        :key="`${index}_identifier`"
       >
         <v-card class="mx-auto scroll" max-height="210">
-          <v-card-title>@{{ item.author }}</v-card-title>
           <v-card-text> {{ item.content }} </v-card-text>
+          <v-card-title>@{{ item.author.nickname }}</v-card-title>
         </v-card>
       </v-col>
     </v-row>

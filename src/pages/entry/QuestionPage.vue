@@ -32,7 +32,9 @@ const userStore = useUserStore();
 export default {
   computed: {
     enableActions() {
-      return this.postStore.postDetail.authorData.some((user) => user.user_id === userStore.userId) || false;
+      return this.postStore.postDetail.authorData.some(
+        (user) => user.user_id === userStore.userId
+      );
     },
     forumData() {
       return this.postStore.postDetail;

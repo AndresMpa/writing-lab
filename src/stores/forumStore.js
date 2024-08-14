@@ -1,6 +1,11 @@
 import { defineStore } from "pinia";
 
-import { insertPost, updatePost } from "@/api/post.model";
+import {
+  deletePost,
+  insertComment,
+  insertPost,
+  updatePost,
+} from "@/api/post.model";
 
 import { useUserStore } from "./userStore";
 
@@ -59,19 +64,21 @@ export const useForumStore = defineStore("forumStore", {
     },
 
     async deleteQuestion(postId) {
-      updatePost(postId, {
-        active: false,
-      });
+      const data = await deletePost(postId);
+      return data === null;
     },
 
     async answerQuestion(postId) {
-      updatePost(postId, {
-        active: false,
-      });
+      updatePost(postId, { active: false });
     },
 
-    async postComment(postId) {
-      console.log(postId);
+    async postComment(postId, comment, author) {
+      const commentData = {
+        post_id: postId,
+        content: comment,
+        author: author,
+      };
+      await insertComment(commentData);
     },
 
     clearQuestion() {

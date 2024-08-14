@@ -48,7 +48,23 @@ async function getUserData(nickname) {
     )
     .eq("nickname", nickname);
 
-  console.log(data);
+  return data;
+}
+
+async function getUserDataById(userId) {
+  const { data } = await supabase
+    .from("User")
+    .select(
+      `
+      user_id,
+      fullname,
+      nickname,
+      course,
+      image,
+      `
+    )
+    .eq("user_id", userId);
+
   return data;
 }
 
@@ -81,6 +97,7 @@ export {
   createUserRegister,
   getAuthorsData,
   getUserData,
+  getUserDataById,
   updateUserData,
   deleteAccount,
 };

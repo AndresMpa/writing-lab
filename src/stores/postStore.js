@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 import { deletePost, getPostData, getPosts } from "@/api/post.model";
+import { getAuthorsData } from "@/api/user.model";
 
 export const usePostStore = defineStore("postStore", {
   state: () => ({
@@ -18,10 +19,22 @@ export const usePostStore = defineStore("postStore", {
   actions: {
     async getPostData(id) {
       const data = await getPostData(id);
+      const authorData = await getAuthorsData();
+
+      const comments = data.comments.map((comment) => {
+        const newComment = {
+          ...comment,
+          author: authorData.find(
+            (author) => author.user_id == comment.author
+          ),
+        };
+        return newComment;
+      });
+
       this.postDetail = {
         postData: data.post,
         authorData: data.author,
-        commentsData: data.comments,
+        commentsData: comments,
       };
     },
     async loadInsight(offset) {
