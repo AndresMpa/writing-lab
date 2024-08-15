@@ -2,7 +2,7 @@
   <v-card class="pb-3" border flat>
     <v-img :src="img"></v-img>
 
-    <v-list-item class="mb-2">
+    <v-list-item class="mb-2" :href="date ? `question/${id}` : `post/${id}`">
       <template v-slot:title>
         <strong class="text-h6 mb-2 title">{{ title }}</strong>
       </template>
@@ -21,9 +21,15 @@
             ? { name: 'question', params: { id: id } }
             : { name: 'entry', params: { id: id } }
         "
-        :append-icon="date && !active ? 'mdi-check' : date ? 'mdi-calendar' : 'mdi-link-variant'"
+        :append-icon="
+          date && !active
+            ? 'mdi-check'
+            : date
+            ? 'mdi-calendar'
+            : 'mdi-link-variant'
+        "
         :color="date && !active ? 'purple' : date ? 'secondary' : 'primary'"
-        :text="date && !active ? 'Solved' : date ? `Due to ${date}`  : 'Read'"
+        :text="date && !active ? 'Solved' : date ? `Due ${date}` : 'Read'"
         class="ml-auto"
         size="x-small"
         variant="text"

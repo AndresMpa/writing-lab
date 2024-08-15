@@ -1,12 +1,5 @@
 <template>
   <CollaborativeBanner :top="topData" />
-  <v-container fluid>
-    <v-row class="ma-2">
-      <v-col>
-        <h2>Last insight posted</h2>
-      </v-col>
-    </v-row>
-  </v-container>
   <CollaborativeIterator
     @page-change="getPosts"
     :itemsPerPage="itemsPerPage"

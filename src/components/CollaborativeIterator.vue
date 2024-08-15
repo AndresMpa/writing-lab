@@ -59,6 +59,10 @@
             </v-col>
           </v-row>
         </v-container>
+
+        <div v-if="items.length <= 0">
+          <v-alert type="warning"> No post to show </v-alert>
+        </div>
       </template>
 
       <template v-slot:footer>

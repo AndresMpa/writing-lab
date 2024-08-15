@@ -4,7 +4,7 @@
       <CollaborativeLeaveButton class="position-fixed top-0 left-0 ml-3 mt-3" />
     </div>
     <div v-if="enableActions" class="dial">
-      <CollaborativeDial :dialActions="dialData" />
+      <CollaborativeDial :dialActions="dialData" :mainIcon="'mdi-book-edit-outline'" />
     </div>
     <EntryView :item="postData" />
     <EntryAuthor :post="postData" :profile="authorData" />

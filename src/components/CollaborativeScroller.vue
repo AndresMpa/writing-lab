@@ -16,7 +16,7 @@
     </v-container>
 
     <template v-slot:empty>
-      <v-alert type="warning">
+      <v-alert type="warning"  v-if="items.length <= 0">
         There are no experiences to show, come back later
       </v-alert>
     </template>
