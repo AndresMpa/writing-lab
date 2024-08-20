@@ -69,7 +69,8 @@ export const useEditorStore = defineStore("editorStore", {
         label: "Delete",
         color: "red",
         action: () => {
-          this.deleteDraftData();
+          this.deleteDraft();
+          this.$router.push({ name: "collaborate" });
         },
       };
       this.dialog = true;
@@ -255,7 +256,7 @@ export const useEditorStore = defineStore("editorStore", {
       this.extra = postData.extra;
       this.author = authorData;
 
-      this.$router.push({ name: "draft" })
+      this.$router.push({ name: "draft" });
     },
     closeDialog() {
       this.dialog = false;

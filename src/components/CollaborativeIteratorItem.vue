@@ -1,6 +1,6 @@
 <template>
-  <v-card class="pb-3" border flat>
-    <v-img :src="img"></v-img>
+  <v-card class="pb-3 my-auto" border flat>
+    <v-img :src="img" :max-height="200"  aspect-ratio="16/9" class="mx-auto" cover></v-img>
 
     <v-list-item class="mb-2" :href="date ? `question/${id}` : `post/${id}`">
       <template v-slot:title>
