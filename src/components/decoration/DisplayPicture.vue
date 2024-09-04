@@ -72,7 +72,7 @@ export default {
   }),
   methods: {
     returnPreviousPage() {
-      this.$router.back();
+      this.$router.push({ name: "collaborate" });
     },
   },
 };

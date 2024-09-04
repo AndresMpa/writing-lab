@@ -30,8 +30,13 @@
     <v-row no-gutters>
       <v-col>
         <v-card title="References"></v-card>
-        <p v-for="reference in item.extra" class="pa-3">
-          {{ reference }}
+        <p v-for="(reference, index) in item.extra" class="pa-3 font-italic">
+          <a
+            class="cursor-pointer text-body-1 font-weight-thin"
+            :href="reference"
+            target="_blank"
+            >{{ index + 1 }}. {{ reference }}</a
+          >
         </p>
       </v-col>
     </v-row>
