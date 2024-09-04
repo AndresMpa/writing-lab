@@ -27,6 +27,9 @@ const editorStore = useEditorStore();
 
 export default {
   name: "PostPage",
+  components: {
+    DisplayPicture
+  },
   data: () => ({
     postData: null,
     authorData: null,

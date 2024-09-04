@@ -69,9 +69,12 @@ async function getPostData(postId) {
     extra: rawData.data[0].extra,
   };
 
+  const authorList = [];
+  authorData.forEach((author) => authorList.push(author.data[0]));
+
   return {
     post: postData,
-    author: authorData[0].data.map((author) => author),
+    author: authorList,
     comments: [...commentRequest.data],
   };
 }

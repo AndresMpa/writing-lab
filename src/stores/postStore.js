@@ -18,13 +18,13 @@ export const usePostStore = defineStore("postStore", {
   getters: {},
   actions: {
     async getPostData(id) {
-      const data = await getPostData(id);
-      const authorData = await getAuthorsData();
+      const rawData = await getPostData(id);
+      const authorRawData = await getAuthorsData();
 
-      const comments = data.comments.map((comment) => {
+      const comments = rawData.comments.map((comment) => {
         const newComment = {
           ...comment,
-          author: authorData.find(
+          author: authorRawData.find(
             (author) => author.user_id == comment.author
           ),
         };
@@ -32,8 +32,8 @@ export const usePostStore = defineStore("postStore", {
       });
 
       this.postDetail = {
-        postData: data.post,
-        authorData: data.author,
+        postData: rawData.post,
+        authorData: rawData.author,
         commentsData: comments,
       };
     },

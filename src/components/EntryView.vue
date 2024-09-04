@@ -28,7 +28,7 @@
       </v-col>
     </v-row>
     <v-row no-gutters>
-      <v-col v-if="item.extra.length > 0">
+      <v-col v-if="item.extra[0] !== null">
         <v-card title="References"></v-card>
         <p v-for="(reference, index) in item.extra" class="pa-3 font-italic">
           <a
