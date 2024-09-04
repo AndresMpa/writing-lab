@@ -31,7 +31,7 @@
         <v-divider class="mt-3 mb-6"></v-divider>
       </div>
       <div v-if="actions.variant === 'course'">
-        <v-combobox :items="courses" v-model="course" class="w-95 mx-auto">
+        <v-combobox :items="courses" v-model="selectedCourse" class="w-95 mx-auto">
           <template v-slot:selection="data">
             <v-chip
               size="small"
@@ -101,10 +101,6 @@ import { useEditorStore } from "@/stores/editorStore";
 
 export default {
   data: () => ({
-    course: null,
-    postType: null,
-    imageBanner: null,
-    references: [null],
     postTypes: ["Insight", "Experience"],
     courses: [
       "Course 1",
@@ -129,7 +125,7 @@ export default {
         return this.postType;
       }
       if (this.editorStore.actions.variant === "course") {
-        return this.course;
+        return this.selectedCourse;
       }
       if (this.editorStore.actions.variant === "image") {
         return this.imageBanner;
@@ -138,18 +134,40 @@ export default {
         return this.references.splice(1, this.references.length);
       }
     },
+    postType: {
+      get() {
+        return this.editorStore.course;
+      },
+      set(value) {
+        this.editorStore.course = value;
+      },
+    },
+    selectedCourse: {
+      get() {
+        return this.editorStore.level;
+      },
+      set(value) {
+        this.editorStore.level = value;
+      },
+    },
+    imageBanner: {
+      get() {
+        return this.editorStore.postImage;
+      },
+      set(value) {
+        this.editorStore.postImage = value;
+      },
+    },
+    references: {
+      get() {
+        return this.editorStore.extra;
+      },
+      set(value) {
+        this.editorStore.extra = value;
+      },
+    },
   },
   methods: {
-    saveCourses(course) {
-      if (typeof course == "string") {
-        this.editorStore.setCourseLevel([
-          {
-            name: course,
-            id: `C-${course.slice(course.length - 1, course.length)}`,
-          },
-        ]);
-      }
-    },
     closeDialog() {
       this.editorStore.closeDialog();
     },
