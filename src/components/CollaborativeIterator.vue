@@ -45,6 +45,7 @@
               v-for="(item, key) in items"
               :key="`${item.title}-${key}`"
               :md="columnsPerPost"
+              class="my-auto"
               cols="auto"
             >
               <CollaborativeIteratorItem

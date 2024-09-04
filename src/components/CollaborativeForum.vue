@@ -99,6 +99,7 @@ export default {
     },
     postComment(postId, comment) {
       this.loading = true;
+      this.newComment = "";
       forumStore.postComment(postId, comment, userStore.userId);
       this.loading = false;
     },
