@@ -32,6 +32,9 @@ import { useEditorStore } from "@/stores/editorStore";
 const editorStore = useEditorStore();
 
 export default {
+  components: {
+    DisplayPicture,
+  },
   computed: {
     peers() {
       return editorStore.authorsRawData;

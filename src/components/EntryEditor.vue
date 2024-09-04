@@ -236,8 +236,19 @@ export default {
       const currentUser = { id: userStore.userId, ...userStore.userData };
       this.editorStore.setAuthors([currentUser]);
     } else {
-      const currentUser = { id: userStore.userId, ...userStore.userData };
-      this.editorStore.author.push(currentUser);
+      if (
+        !this.editorStore.author.some((item) => item.id === userStore.userId)
+      ) {
+        const currentUser = { id: userStore.userId, ...userStore.userData };
+        const authorList = [];
+
+        this.editorStore.author.forEach((element) =>
+          authorList.push({ ...element })
+        );
+        authorList.push(currentUser);
+
+        this.editorStore.setAuthors(authorList);
+      }
     }
 
     if (this.editorStore.level == null) {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-list lines="three">
-      <v-list-item v-for="(item, index) in peers" :key="index">
+      <v-list-item v-for="(item, index) in peersList" :key="index">
         <v-container fluid>
           <v-row>
             <v-col cols="11">
@@ -37,6 +37,10 @@
 </template>
 
 <script>
+import { useUserStore } from "@/stores/userStore";
+
+const userStore = useUserStore();
+
 export default {
   props: {
     peers: {
@@ -47,6 +51,13 @@ export default {
     selected: [],
   }),
   computed: {
+    peersList() {
+      return this.peers.filter((person) => {
+        if (userStore.userId !== person.user_id) {
+          return person;
+        }
+      });
+    },
     collaborating() {
       const filteredObjects = this.peers.filter((user) =>
         this.selected.includes(user)

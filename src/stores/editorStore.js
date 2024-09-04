@@ -21,7 +21,7 @@ export const useEditorStore = defineStore("editorStore", {
     level: null,
     postType: null,
     postImage: null,
-    extra: [],
+    extra: [null],
     title: "",
     post: "",
   }),
