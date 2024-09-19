@@ -4,7 +4,7 @@
       class="text-h4 font-weight-black greeter-title"
       color="primary"
     >
-      Re-Configuring you Academic Writing Teaching
+      Re-Configuring your Academic Writing Teaching
     </v-card-title>
 
     <v-card-text class="font-weight-thin text-body-1 my-3">
