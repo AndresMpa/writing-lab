@@ -28,7 +28,7 @@ export default {
         },
         {
           value: 45,
-          label: "Collaborative",
+          label: "Collaborate",
           size: 120,
         },
         {

@@ -36,7 +36,7 @@
     <v-divider class="mt-12 mb-4"></v-divider>
 
     <v-card-actions class="d-flex">
-      <CollaborativeForumForm />
+      <CollaborateForumForm />
 
       <v-btn
         @click="createPost"

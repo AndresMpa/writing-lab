@@ -48,7 +48,7 @@
               class="my-auto"
               cols="auto"
             >
-              <CollaborativeIteratorItem
+              <CollaborateIteratorItem
                 :id="item.raw.postId"
                 :title="item.raw.title"
                 :level="item.raw.level"

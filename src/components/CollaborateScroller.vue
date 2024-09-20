@@ -4,7 +4,7 @@
       <v-row>
         <template v-for="(item, index) in items" :key="index">
           <v-col cols="6" class="my-auto">
-            <CollaborativeIteratorItem
+            <CollaborateIteratorItem
               :title="item.title"
               :level="item.level"
               :img="item.image"

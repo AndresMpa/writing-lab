@@ -3,7 +3,7 @@
     <v-list-item
       :to="{ name: 'collaborate' }"
       prepend-icon="mdi-home"
-      title="Collaborate"
+      title="Collaborate home"
     ></v-list-item>
 
     <v-divider class="my-2"></v-divider>
@@ -27,9 +27,9 @@
     ></v-list-item>
 
     <v-list-item
-      :to="{ name: 'workTogether' }"
+      :to="{ name: 'collaborativeActivities' }"
       prepend-icon="mdi-handshake"
-      title="Let's work together"
+      title="Collaborative activities"
     ></v-list-item>
   </v-list>
 </template>

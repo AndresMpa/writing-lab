@@ -24,6 +24,14 @@
     >
     </v-list-item>
 
+    <v-list-item
+      @click="workTogether"
+      prepend-icon="mdi-account-group"
+      title="Let's work together"
+      link
+    >
+    </v-list-item>
+
     <v-dialog v-model="dialogBell" width="auto">
       <v-card width="800" prepend-icon="mdi-bell" title="Your notifications">
         <v-card
@@ -88,6 +96,9 @@ export default {
     createDraft() {
       this.$router.push({ name: "draft" });
     },
+    workTogether() {
+      this.$router.push({ name: "workTogether" });
+    }
   },
 };
 </script>

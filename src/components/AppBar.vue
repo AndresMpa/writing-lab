@@ -17,27 +17,13 @@
         >
           FAQ
         </v-btn>
-        <v-btn prepend-icon="mdi-bookshelf" variant="plain" class="mr-2">
-          AW
-          <v-menu
-            activator="parent"
-            location="bottom end"
-            transition="fade-transition"
-          >
-            <v-list density="compact" min-width="250" rounded="lg" slim>
-              <v-list-item
-                :to="{ name: 'awBasic' }"
-                prepend-icon="mdi-alphabetical-variant"
-                title="Basic"
-              ></v-list-item>
-
-              <v-list-item
-                :to="{ name: 'awTeaching' }"
-                prepend-icon="mdi-human-male-board"
-                title="Teaching"
-              ></v-list-item>
-            </v-list>
-          </v-menu>
+        <v-btn
+          :to="{ name: 'al' }"
+          prepend-icon="mdi-bookshelf"
+          variant="plain"
+          class="mr-2"
+        >
+          Academic Learning
         </v-btn>
         <v-btn prepend-icon="mdi-crowd" variant="text" class="mr-2">
           Collaborate
@@ -46,7 +32,7 @@
             location="bottom end"
             transition="fade-transition"
           >
-            <CollaborativeRouter />
+            <CollaborateRouter />
           </v-menu>
         </v-btn>
         <ProfileBubble :profile="profile"></ProfileBubble>
