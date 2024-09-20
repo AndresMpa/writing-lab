@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import HomePage from "@/pages/init/HomePage.vue";
+
 import { useUserStore } from "@/stores/userStore";
 import { usePostStore } from "@/stores/postStore";
 
@@ -41,7 +42,7 @@ const routes = [
   },
   {
     path: "/collaborate",
-    component: () => import("@/layouts/CollaborativeLayout.vue"),
+    component: () => import("@/layouts/CollaborateLayout.vue"),
     meta: {
       public: false,
       auth: true,
@@ -53,7 +54,7 @@ const routes = [
         meta: {
           nickname: "Collaborate",
         },
-        component: () => import("@/pages/collaborative/CollaborativePage.vue"),
+        component: () => import("@/pages/collaborate/CollaboratePage.vue"),
       },
       {
         path: "/get-insights",
@@ -61,7 +62,7 @@ const routes = [
         meta: {
           nickname: "Get Insights",
         },
-        component: () => import("@/pages/collaborative/GetInsightsPage.vue"),
+        component: () => import("@/pages/collaborate/GetInsightsPage.vue"),
       },
       {
         path: "/meaningful-experiences",
@@ -70,7 +71,7 @@ const routes = [
           nickname: "Meaningful Experiences",
         },
         component: () =>
-          import("@/pages/collaborative/MeaningfulExperiencesPage.vue"),
+          import("@/pages/collaborate/MeaningfulExperiencesPage.vue"),
       },
       {
         path: "/wonder-how-could",
@@ -78,15 +79,15 @@ const routes = [
         meta: {
           nickname: "I Wonder How I Could",
         },
-        component: () => import("@/pages/collaborative/WonderHowCouldPage.vue"),
+        component: () => import("@/pages/collaborate/WonderHowCouldPage.vue"),
       },
       {
-        path: "/work-together",
-        name: "workTogether",
+        path: "/collaborative-activities",
+        name: "collaborativeActivities",
         meta: {
-          nickname: "Let's Work Together",
+          nickname: "Collaborative Activities",
         },
-        component: () => import("@/pages/collaborative/WorkTogether.vue"),
+        component: () => import("@/pages/collaborate/CollaborativeActivities.vue"),
       },
     ],
   },
@@ -103,6 +104,14 @@ const routes = [
           auth: true,
         },
         component: () => import("@/pages/entry/DraftPage.vue"),
+      },
+      {
+        path: "/work-together",
+        name: "workTogether",
+        meta: {
+          nickname: "Let's Work Together",
+        },
+        component: () => import("@/pages/entry/WorkTogether.vue"),
       },
       {
         path: "/post/:id",
@@ -124,7 +133,7 @@ const routes = [
     ],
   },
   {
-    path: "/aw",
+    path: "/academic-learning",
     component: DefaultLayout,
     meta: {
       public: false,
@@ -132,14 +141,9 @@ const routes = [
     },
     children: [
       {
-        path: "/basic",
-        name: "awBasic",
-        component: () => import("@/pages/aw/BasicPage.vue"),
-      },
-      {
-        path: "/teaching",
-        name: "awTeaching",
-        component: () => import("@/pages/aw/TeachingPage.vue"),
+        path: "/",
+        name: "al",
+        component: () => import("@/pages/academicLearning/AcademicLearningPage.vue"),
       },
     ],
   },
