@@ -1,6 +1,6 @@
 <template>
-  <DecorationLog small></DecorationLog>
-  <AccountCreate></AccountCreate>
+  <DecorationLog small />
+  <AccountCreate />
 </template>
 
 <script setup>

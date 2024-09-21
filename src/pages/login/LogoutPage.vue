@@ -1,8 +1,8 @@
 <template>
-  <DecorationLog></DecorationLog>
-  <AccountLogOut></AccountLogOut>
+  <DecorationLog />
+  <AccountLogOut />
 </template>
 
-<script>
+<script setup>
 import DecorationLog from '@/components/decoration/DecorationLog.vue';
 </script>
