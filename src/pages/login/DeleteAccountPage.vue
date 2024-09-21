@@ -1,6 +1,6 @@
 <template>
-  <DecorationLog small></DecorationLog>
-  <AccountDelete></AccountDelete>
+  <DecorationLog small/>
+  <AccountDelete />
 </template>
 
 <script setup>

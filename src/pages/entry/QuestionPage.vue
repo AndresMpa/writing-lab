@@ -3,19 +3,19 @@
     <v-container fluid>
       <v-row>
         <v-col>
-          <CollaborativeLeaveButton />
+          <CollaborateLeaveButton />
         </v-col>
       </v-row>
       <v-row>
         <v-col>
-          <CollaborativeForum
+          <CollaborateForum
             :question="forumData.postData"
             :canEnd="enableActions"
           />
         </v-col>
       </v-row>
     </v-container>
-    <CollaborativeBento :comments="forumData.commentsData" />
+    <CollaborateBento :comments="forumData.commentsData" />
   </div>
 
   <div v-else>
