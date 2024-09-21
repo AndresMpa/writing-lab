@@ -36,6 +36,8 @@
           </v-list-item>
         </v-list>
       </v-menu>
+
+      <CollaborateNotifications />
     </v-app-bar>
 
     <v-navigation-drawer
@@ -59,11 +61,11 @@
 
       <v-divider></v-divider>
 
-      <CollaborativeRouter />
+      <CollaborateRouter />
 
       <v-divider></v-divider>
 
-      <CollaborativeNotifications />
+      <CollaboratePanelActions />
 
       <v-divider></v-divider>
 

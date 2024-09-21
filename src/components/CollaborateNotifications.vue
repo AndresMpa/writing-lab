@@ -1,38 +1,16 @@
 <template>
-  <v-list>
-    <v-list-item
-      @click="dialogBell = !dialogBell"
-      prepend-icon="mdi-bell"
-      title="Notifications"
-      link
-    >
-      <template v-slot:append>
-        <v-badge
-          v-if="notificationCount > 0"
-          color="primary"
-          :content="notificationCount"
-          inline
-        ></v-badge>
-      </template>
-    </v-list-item>
-
-    <v-list-item
-      @click="createDraft"
-      prepend-icon="mdi-draw"
-      title="Write a new post"
-      link
-    >
-    </v-list-item>
-
-    <v-list-item
-      @click="workTogether"
-      prepend-icon="mdi-account-group"
-      title="Let's work together"
-      link
-    >
-    </v-list-item>
-
-    <v-dialog v-model="dialogBell" width="auto">
+  <v-btn icon="mdi-bell" variant="text" @click="dialogBell = !dialogBell">
+    <template v-slot:append>
+      <v-badge
+        v-if="notificationCount > 0"
+        :content="notificationCount"
+        color="primary"
+        inline
+      ></v-badge>
+    </template>
+  </v-btn>
+  <v-dialog v-model="dialogBell" width="auto">
+    <template v-slot:default="{ isActive }">
       <v-card width="800" prepend-icon="mdi-bell" title="Your notifications">
         <v-card
           class="d-flex justify-space-between"
@@ -59,8 +37,8 @@
           ></v-btn>
         </template>
       </v-card>
-    </v-dialog>
-  </v-list>
+    </template>
+  </v-dialog>
 </template>
 
 <script>
@@ -98,7 +76,7 @@ export default {
     },
     workTogether() {
       this.$router.push({ name: "workTogether" });
-    }
+    },
   },
 };
 </script>

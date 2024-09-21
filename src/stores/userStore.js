@@ -82,7 +82,7 @@ export const useUserStore = defineStore("userStore", {
     async updateNotificationList() {
       await updateUserData({ notification: this.notification }, this.id);
     },
-    
+
     async updateUserPassword(password) {
       await updateUserPassword(password)
     },
