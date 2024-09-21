@@ -1,6 +1,6 @@
 <template>
-  <CollaborativeBanner :top="topData" />
-  <CollaborativeIterator
+  <CollaborateBanner :top="topData" />
+  <CollaborateIterator
     @page-change="getPosts"
     :itemsPerPage="itemsPerPage"
     :loading="loading"

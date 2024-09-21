@@ -1,5 +1,5 @@
 <template>
-  <CollaborativeScroller :items="postData" :load="loadData" />
+  <CollaborateScroller :items="postData" :load="loadData" />
 </template>
 
 <script>

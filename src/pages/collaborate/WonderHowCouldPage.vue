@@ -21,7 +21,7 @@
     </v-row>
     <v-row>
       <v-col cols="8">
-        <CollaborativeIterator
+        <CollaborateIterator
           @page-change="getPosts"
           :post="postData"
           :loading="loading"
@@ -34,7 +34,7 @@
         />
       </v-col>
       <v-col>
-        <CollaborativeForumEditor />
+        <CollaborateForumEditor />
       </v-col>
     </v-row>
   </v-container>
