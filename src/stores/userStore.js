@@ -14,10 +14,10 @@ import {
 
 export const useUserStore = defineStore("userStore", {
   state: () => ({
-    id: 27,
+    id: null,
     image: null,
-    fullname: "Some full name",
-    nickname: "Test",
+    fullname: null,
+    nickname: null,
     courses: null,
     notification: [],
     email: null,
