@@ -6,9 +6,10 @@
         <v-col>
           <v-combobox
             :label="label"
-            :items="courses"
+            :items="options"
             :multiple="!single"
-            v-model="nextCourses"
+            :disabled="disabled"
+            v-model="selectedOptions"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -41,13 +42,13 @@
 
     <v-card-actions class="ma-2">
       <v-btn
-        @click="nextCourses = null"
+        @click="selectedOptions = null"
         variant="plain"
         class="ml-auto"
         text="Discard"
       ></v-btn>
       <v-btn
-        @click="$emit('saveCourses', nextCourses)"
+        @click="$emit('saveOptions', selectedOptions)"
         color="primary"
         variant="flat"
         class="ml-4"
@@ -68,7 +69,7 @@ export default {
       type: String,
       default: "Courses for the next semester",
     },
-    courses: {
+    options: {
       type: Array,
       default: [
         "Course 1",
@@ -85,9 +86,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data: () => ({
-    nextCourses: null,
+    selectedOptions: null,
   }),
 };
 </script>
