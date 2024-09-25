@@ -40,8 +40,9 @@ export const useEditorStore = defineStore("editorStore", {
   actions: {
     async getAuthorsList() {
       const data = await getAuthorsData();
+      const authorIds = this.authorList.map((author) => author.user_id);
       data.forEach((newAuthor) => {
-        if (!this.authorList.includes(newAuthor)) {
+        if (!authorIds.includes(newAuthor.user_id)) {
           this.authorList.push(newAuthor);
         }
       });
