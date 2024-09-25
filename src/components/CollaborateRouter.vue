@@ -21,7 +21,7 @@
     ></v-list-item>
 
     <v-list-item
-      :to="{ name: 'wonderHowCould' }"
+      :to="{ name: 'helpYourPeers' }"
       prepend-icon="mdi-forum"
       title="Help your peers"
     ></v-list-item>
