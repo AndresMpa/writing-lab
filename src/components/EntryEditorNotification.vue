@@ -18,7 +18,7 @@
           :text="actions.label"
           class="ms-auto"
         ></v-btn>
-  <v-btn text @click="closeDialog">Cancel</v-btn>
+        <v-btn text @click="closeDialog">Cancel</v-btn>
       </template>
     </v-card>
   </v-dialog>
