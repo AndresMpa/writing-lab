@@ -33,10 +33,10 @@ export default {
       this.$router.push({ name: "draft" });
     },
     createQuestion() {
-      this.$router.push({ name: "question" });
+      this.$router.push({ name: "ask" });
     },
     workTogether() {
-      this.$router.push({ name: "workTogether" });
+      this.$router.push({ name: "together" });
     }
   },
 };
