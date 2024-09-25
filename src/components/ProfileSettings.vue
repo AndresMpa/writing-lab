@@ -12,7 +12,7 @@
 
     <v-spacer class="my-6"></v-spacer>
 
-    <ProfileSettingsCourses @save-courses="saveCourses" />
+    <ComboSearch @save-options="saveCourses" />
 
     <v-spacer class="my-6"></v-spacer>
 
