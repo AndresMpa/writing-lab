@@ -1,54 +1,64 @@
 <template>
-  <v-card :loading="loading">
-    <v-card-title class="d-flex justify-space-between mb-0 mt-2">
-      <h3>Write a new question</h3>
-    </v-card-title>
+  <v-container fluid>
+    <v-row>
+      <v-col>
+        <EntryViewLeave title="Post a question" :loading="loading" />
+      </v-col>
+    </v-row>
 
-    <v-divider class="mt-2 mb-4"></v-divider>
+    <v-row no-gutters>
+      <v-col>
+        <v-textarea
+          v-model="title"
+          :rules="titleState"
+          placeholder="Question title"
+          class="mx-5 my-1"
+          variant="underlined"
+          autocomplete="on"
+          name="textarea"
+          rows="1"
+          auto-grown
+          counter
+        ></v-textarea>
+      </v-col>
+    </v-row>
 
-    <v-textarea
-      v-model="title"
-      :rules="titleState"
-      placeholder="Question title"
-      class="mx-5 my-1"
-      variant="underlined"
-      autocomplete="on"
-      name="textarea"
-      rows="1"
-      auto-grown
-      counter
-    ></v-textarea>
+    <v-row no-gutters>
+      <v-col>
+        <v-textarea
+          v-model="description"
+          :rules="descriptionState"
+          placeholder="Question description"
+          variant="underlined"
+          autocomplete="on"
+          name="textarea"
+          class="mx-5"
+          maxRows="5"
+          rows="12"
+          auto-grown
+          counter
+        ></v-textarea>
+      </v-col>
+    </v-row>
 
-    <v-textarea
-      v-model="description"
-      :rules="descriptionState"
-      placeholder="Question description"
-      variant="underlined"
-      autocomplete="on"
-      name="textarea"
-      class="mx-5"
-      maxRows="5"
-      rows="5"
-      auto-grown
-      counter
-    ></v-textarea>
+    <v-divider class="my-12"></v-divider>
 
-    <v-divider class="mt-12 mb-4"></v-divider>
+    <v-row no-gutters>
+      <v-col class="d-flex">
+        <CollaborateForumForm />
 
-    <v-card-actions class="d-flex">
-      <CollaborateForumForm />
-
-      <v-btn
-        @click="createPost"
-        :color="canSend ? '' : 'primary'"
-        :disabled="canSend"
-        class="font-weight-regular"
-        prepend-icon="mdi-email-newsletter"
-        variant="tonal"
-        text="Publish"
-      ></v-btn>
-    </v-card-actions>
-  </v-card>
+        <v-btn
+          @click="createPost"
+          :color="canSend ? '' : 'primary'"
+          :disabled="canSend"
+          class="font-weight-regular mx-6"
+          prepend-icon="mdi-email-newsletter"
+          variant="tonal"
+          text="Publish"
+        ></v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -99,6 +109,9 @@ export default {
   methods: {
     createPost() {
       this.forumStore.createQuestion();
+      if (!this.forumStore.loading) {
+        this.$router.push({ name: "helpYourPeers" });
+      }
     },
   },
   created() {
