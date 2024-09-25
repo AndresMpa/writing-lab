@@ -1,5 +1,6 @@
 <template>
-  <ComingSoon />
+  <AcademicIterator />
 </template>
 
-<script></script>
+<script>
+</script>
