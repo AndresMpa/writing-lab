@@ -17,6 +17,13 @@
             hide-details
             clearable
           ></v-text-field>
+          <v-btn
+            class="mx-2"
+            prepend-icon="mdi-update"
+            @click="$emit('hotReload')"
+          >
+            Refresh
+          </v-btn>
         </v-toolbar>
       </template>
 
