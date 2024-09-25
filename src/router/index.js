@@ -74,12 +74,12 @@ const routes = [
           import("@/pages/collaborate/MeaningfulExperiencesPage.vue"),
       },
       {
-        path: "/wonder-how-could",
-        name: "wonderHowCould",
+        path: "/help-your-peers",
+        name: "helpYourPeers",
         meta: {
-          nickname: "I Wonder How I Could",
+          nickname: "Help Your Peers",
         },
-        component: () => import("@/pages/collaborate/WonderHowCouldPage.vue"),
+        component: () => import("@/pages/collaborate/HelpYourPeersPage.vue"),
       },
       {
         path: "/collaborative-activities",
@@ -106,12 +106,40 @@ const routes = [
         component: () => import("@/pages/entry/DraftPage.vue"),
       },
       {
-        path: "/work-together",
-        name: "workTogether",
+        path: "/ask",
+        name: "ask",
         meta: {
-          nickname: "Let's Work Together",
+          public: false,
+          auth: true,
         },
-        component: () => import("@/pages/entry/WorkTogether.vue"),
+        component: () => import("@/pages/entry/AskPage.vue"),
+      },
+      {
+        path: "/work-together",
+        name: "together",
+        meta: {
+          public: false,
+          auth: true,
+        },
+        component: () => import("@/pages/entry/TogetherPage.vue"),
+      },
+      {
+        path: "/work-together/new",
+        name: "newTogether",
+        meta: {
+          public: false,
+          auth: true,
+        },
+        component: () => import("@/pages/entry/NewTogetherPage.vue"),
+      },
+      {
+        path: "/work-together/collaborate",
+        name: "collaborateTogether",
+        meta: {
+          public: false,
+          auth: true,
+        },
+        component: () => import("@/pages/entry/CollaborateTogetherPage.vue"),
       },
       {
         path: "/post/:id",
