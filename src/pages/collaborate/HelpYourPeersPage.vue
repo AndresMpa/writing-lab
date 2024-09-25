@@ -20,7 +20,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="8">
+      <v-col cols="12">
         <CollaborateIterator
           @page-change="getPosts"
           :post="postData"
@@ -32,9 +32,6 @@
           useDate
           noImg
         />
-      </v-col>
-      <v-col>
-        <CollaborateForumEditor />
       </v-col>
     </v-row>
   </v-container>

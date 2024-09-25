@@ -12,19 +12,19 @@ export default {
         level: ["Course 1"],
         data: [
           {
-            postId: 1,
+            postId: 56,
             title: "Test",
             image: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
             description: "lorem",
           },
           {
-            postId: 1,
+            postId: 56,
             title: "Test",
             image: "",
             description: "lorem",
           },
           {
-            postId: 1,
+            postId: 56,
             title: "Test",
             image: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
             description: "lorem",
@@ -36,14 +36,14 @@ export default {
         authors: ["Some", "Other"],
         data: [
           {
-            postId: 1,
+            postId: 56,
             title: "Test",
             level: ["data"],
             image: "",
             description: "lorem",
           },
           {
-            postId: 1,
+            postId: 56,
             title: "Test",
             level: ["data"],
             image: "",
