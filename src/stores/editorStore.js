@@ -14,6 +14,7 @@ export const useEditorStore = defineStore("editorStore", {
     dialogExtras: false,
     actions: null,
     authorList: [],
+    collaboration: {},
 
     // Post data
     postId: "new",
@@ -36,6 +37,7 @@ export const useEditorStore = defineStore("editorStore", {
       postType: state.postType,
       extra: state.extra,
     }),
+    collaborationData: (state) => state.collaboration,
   },
   actions: {
     async getAuthorsList() {
@@ -218,6 +220,9 @@ export const useEditorStore = defineStore("editorStore", {
         },
       };
       this.dialogExtras = true;
+    },
+    saveCollaborationData(data) {
+      this.collaboration = { ...this.collaboration, ...data };
     },
     deleteDraft() {
       localStorage.removeItem("draft");
