@@ -1,6 +1,7 @@
 <template>
   <CollaborateBanner :top="topData" />
   <CollaborateIterator
+    @hot-reload="reload"
     @page-change="getPosts"
     :itemsPerPage="itemsPerPage"
     :loading="loading"
@@ -40,6 +41,9 @@ export default {
       let currentPage = page || 1;
       postStore.loadInsight(this.offset * this.itemsPerPage * currentPage);
       this.loading = false;
+    },
+    reload() {
+      this.getPosts();
     },
   },
   created() {

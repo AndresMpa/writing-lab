@@ -22,6 +22,7 @@
     <v-row>
       <v-col cols="12">
         <CollaborateIterator
+          @hot-reload="reload"
           @page-change="getPosts"
           :post="postData"
           :loading="loading"
@@ -77,6 +78,9 @@ export default {
       let currentPage = page || 1;
       postStore.loadWonder(this.offset * this.itemsPerPage * currentPage);
       this.loading = false;
+    },
+    reload() {
+      this.getPosts();
     },
   },
   created() {
