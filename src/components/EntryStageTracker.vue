@@ -3,29 +3,45 @@
     <v-card-text class="d-flex card-line">
       <div>
         <h2 class="font-weight-bold ms-1 mb-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
+          {{ title }}
         </h2>
         <div class="d-flex">
           <div class="mr-6">
-            <v-chip>Course 1</v-chip>
+            <v-chip>
+              {{ course }}
+            </v-chip>
           </div>
-          <div>
-            <v-chip class="mr-2">Course 1</v-chip>
-            <v-chip class="mr-2">Course 1</v-chip>
-            <v-chip class="mr-2">Course 1</v-chip>
+          <div v-for="author in authors" :key="author">
+            <v-chip class="mr-2">{{ author }}</v-chip>
           </div>
         </div>
       </div>
 
       <v-timeline side="end">
         <v-timeline-item
-          v-for="item in items"
-          :key="item.id"
-          :dot-color="item.color"
+          v-for="(entry, index) in entries"
+          :key="entry"
+          :dot-color="stages[index].color"
           size="small"
         >
-          <v-alert :color="item.color" :icon="item.icon" :value="true">
-            Lorem ipsum dolor sit amet, no nam oblique veritus. Commune
+          <v-alert
+            :title="stages[index].title"
+            :icon="stages[index].icon"
+            :color="stages[index].color"
+            :value="true"
+          >
+            <div class="text-h6 text-medium-emphasis">
+              {{ entry.title }}
+            </div>
+            <div class="d-flex justify-end">
+              <v-btn
+                :to="{ name: 'entry', params: { id: entry.postId } }"
+                :append-icon="'mdi-link-variant'"
+                :text="'Check'"
+                size="x-small"
+                variant="text"
+              ></v-btn>
+            </div>
           </v-alert>
         </v-timeline-item>
       </v-timeline>
@@ -35,8 +51,26 @@
 
 <script>
 export default {
+  props: {
+    title: {
+      type: [String],
+      required: true,
+    },
+    course: {
+      type: [String],
+      required: true,
+    },
+    authors: {
+      type: [Array, null],
+      required: true,
+    },
+    entries: {
+      type: [Array, null],
+      required: true,
+    },
+  },
   data: () => ({
-    items: [
+    stages: [
       {
         title: "Planning stage",
         icon: "mdi-notebook-outline",
