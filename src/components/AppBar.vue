@@ -23,7 +23,7 @@
           variant="plain"
           class="mr-2"
         >
-          Academic Learning
+          Academic Literacies
         </v-btn>
         <v-btn prepend-icon="mdi-crowd" variant="text" class="mr-2">
           Collaborate

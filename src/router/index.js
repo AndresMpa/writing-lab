@@ -171,7 +171,7 @@ const routes = [
       {
         path: "/",
         name: "al",
-        component: () => import("@/pages/academicLearning/AcademicLearningPage.vue"),
+        component: () => import("@/pages/academicLiteracy/AcademicLiteracyPage.vue"),
       },
     ],
   },
