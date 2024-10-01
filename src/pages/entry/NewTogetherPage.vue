@@ -8,13 +8,20 @@
     <v-row>
       <v-col>
         <v-stepper
-          :items="['Peers', 'Type', 'Course', 'Topic', 'Review']"
+          :items="['Title', 'Peers', 'Type', 'Course', 'Topic', 'Review']"
           class="mx-12"
           hide-actions
           alt-labels
           editable
         >
           <template v-slot:item.1>
+            <TextField
+              @save-text="saveTitle"
+              title="Name of your project"
+              label="Type your collaboration project title"
+            />
+          </template>
+          <template v-slot:item.2>
             <v-text-field
               density="compact"
               placeholder="Search your peer"
@@ -27,7 +34,7 @@
             <ProfileList :peers="filteredPeers" @save-peers="savePeers" />
           </template>
 
-          <template v-slot:item.2>
+          <template v-slot:item.3>
             <ComboSearch
               @save-options="saveType"
               :options="typeOptions"
@@ -37,7 +44,7 @@
             />
           </template>
 
-          <template v-slot:item.3>
+          <template v-slot:item.4>
             <ComboSearch
               @save-options="saveCourses"
               title="Course the post is focused on"
@@ -46,19 +53,16 @@
             />
           </template>
 
-          <template v-slot:item.4>
-            <v-text-field
-              v-model="typeUnit"
-              density="compact"
-              name="type-unit"
-              label=""
+          <template v-slot:item.5>
+            <TextField
+              @save-text="saveTopic"
+              title="Topic/Unit of the collaboration"
+              label="Type your topic or unit here"
             />
           </template>
 
-          <template v-slot:item.5>
-<v-card>
-
-</v-card>
+          <template v-slot:item.6>
+            <EntryCollaborationReview />
           </template>
         </v-stepper>
       </v-col>
@@ -122,11 +126,17 @@ export default {
         });
       }
     },
+    saveTitle(title) {
+      editorStore.saveCollaborationData({ title: title });
+    },
     savePeers(peers) {
       const data = peers.map((peer) => {
         return { id: peer.user_id, username: peer.fullname, ...peer };
       });
       editorStore.setAuthors(data);
+    },
+    saveType(savedType) {
+      editorStore.saveCollaborationData({ ctype: savedType });
     },
     saveCourses(courses) {
       let data;
@@ -137,8 +147,8 @@ export default {
       }
       editorStore.setCourseLevel(data);
     },
-    createDraft() {
-      this.$router.push({ name: "draft" });
+    saveTopic(topicUnit) {
+      editorStore.saveCollaborationData({ topicUnit: topicUnit });
     },
     leavePage() {
       this.$router.push({ name: "collaborate" });

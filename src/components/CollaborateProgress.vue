@@ -1,6 +1,6 @@
 <template>
   <v-sheet
-    class="d-flex align-center px-4 py-4 ml-auto w-25"
+    class="d-flex align-center px-4 py-4 ml-auto"
     max-height="60"
     color="#181a1b"
     rounded="lg"
