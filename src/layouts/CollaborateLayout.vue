@@ -20,7 +20,7 @@
           >
             {{
               this.selectedCourse === null
-                ? "All Courses"
+                ? "All Course"
                 : this.selectedCourse.title
             }}
           </v-btn>

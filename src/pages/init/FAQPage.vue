@@ -57,7 +57,7 @@ export default {
       },
       {
         title: "Can I filter the posts by course?",
-        text: `Yes, you can definitely do that. Once you access any of the modules of the platform, click on the “All courses” drop-down menu from the top right corner, and then select the course that you are interested in.`,
+        text: `Yes, you can definitely do that. Once you access any of the modules of the platform, click on the “All course” drop-down menu from the top right corner, and then select the course that you are interested in.`,
       },
       {
         title: "Can I add images and links to my posts?",
