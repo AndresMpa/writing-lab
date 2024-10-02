@@ -56,7 +56,7 @@
 
             <v-divider vertical inset></v-divider>
 
-            <v-tooltip location="bottom">
+            <v-tooltip location="bottom" v-if="!collaborationData">
               <template v-slot:activator="{ props }">
                 <v-btn icon v-bind="props" @click="extraKind">
                   <v-icon> mdi-typewriter </v-icon>
@@ -65,7 +65,7 @@
               <span>Post type</span>
             </v-tooltip>
 
-            <v-tooltip location="bottom">
+            <v-tooltip location="bottom" v-if="!collaborationData">
               <template v-slot:activator="{ props }">
                 <v-btn icon v-bind="props" @click="extraCourse">
                   <v-icon> mdi-school </v-icon>
@@ -172,6 +172,9 @@ export default {
   computed: {
     loading() {
       this.editorStore.loading;
+    },
+    collaborationData() {
+      return this.editorStore.collaborationData;
     },
     error: {
       get() {
