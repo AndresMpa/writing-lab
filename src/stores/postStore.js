@@ -11,6 +11,7 @@ export const usePostStore = defineStore("postStore", {
 
     postDetail: null,
     experiences: [],
+    together: [],
     insight: [],
     wonder: [],
     page: 0,
@@ -56,6 +57,32 @@ export const usePostStore = defineStore("postStore", {
       this.wonder = [...this.wonder, ...data];
       this.page += offset;
     },
+    async loadTogether(offset) {
+      const data = await getPosts(this.page, this.page + offset, "Together");
+
+      const groupedData = data.reduce((acc, item) => {
+        const uuid = item.collaboration.uuid;
+        if (!acc[uuid]) {
+          acc[uuid] = {
+            title: item.collaboration.title || "",
+            level: item.level || [],
+            data: [],
+          };
+        }
+        acc[uuid].data.push({
+          postId: item.postId,
+          title: item.title,
+          image: item.image || "",
+          description: item.description || "",
+          level: item.level || [],
+        });
+        return acc;
+      }, {});
+
+      const groupedArray = Object.values(groupedData);
+      this.together = [...this.together, ...groupedArray];
+      this.page += offset;
+    },
     async deletePost(id) {
       const data = await deletePost(id);
       return data === null;
@@ -67,6 +94,7 @@ export const usePostStore = defineStore("postStore", {
 
       this.postDetail = null;
       this.experiences = [];
+      this.together = [];
       this.insight = [];
       this.wonder = [];
       this.page = 0;
