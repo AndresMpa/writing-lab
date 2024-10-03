@@ -3,12 +3,12 @@
     <v-row v-for="(activity, index) in activities" class="mx-2">
       <v-col class="py-4">
         <h2 class="text-h4">
-          {{ activity.title }}
+          {{ activity.collaboration.title }}
         </h2>
         <div class="d-flex pa-3 justify-space-around">
           <div
             class="pa-2 my-auto activity-sizing"
-            v-for="(data, index) in activity.data"
+            v-for="(data, index) in activity.entries"
             @click="sendTo(activity.to)"
           >
             <CollaborateIteratorItem
@@ -37,6 +37,9 @@
             color="primary"
           >
             {{ level }}
+          </v-chip>
+          <v-chip class="pa-2 ml-auto text-truncate" color="secondary">
+            {{ activity.collaboration.ctype }}
           </v-chip>
         </div>
 
