@@ -14,7 +14,7 @@ export const useEditorStore = defineStore("editorStore", {
     dialogExtras: false,
     actions: null,
     authorList: [],
-    collaboration: {},
+    collaboration: null,
 
     // Post data
     postId: "new",
@@ -36,6 +36,7 @@ export const useEditorStore = defineStore("editorStore", {
       description: state.post,
       postType: state.postType,
       extra: state.extra,
+      collaboration: state.collaboration,
     }),
     collaborationData: (state) => state.collaboration,
   },
@@ -97,6 +98,7 @@ export const useEditorStore = defineStore("editorStore", {
               postType: this.postType,
               postImage: this.postImage,
               extra: this.extra,
+              collaboration: this.collaboration,
             })
           );
           this.dialog = false;
@@ -127,6 +129,7 @@ export const useEditorStore = defineStore("editorStore", {
             extra: [...this.extra] || null,
             due_date: null,
             active: null,
+            collaboration: this.collaboration || null,
           };
 
           let result;
@@ -235,13 +238,22 @@ export const useEditorStore = defineStore("editorStore", {
       this.postType = null;
       this.postImage = null;
       this.extra = null;
+      this.collaboration = {};
       this.dialog = false;
     },
     loadDraft() {
       const draft = localStorage.getItem("draft");
       if (draft) {
-        const { postType, postImage, title, post, level, extra, author } =
-          JSON.parse(draft);
+        const {
+          postType,
+          postImage,
+          title,
+          post,
+          level,
+          extra,
+          author,
+          collaboration,
+        } = JSON.parse(draft);
 
         this.postType = postType;
         this.postImage = postImage;
@@ -250,6 +262,7 @@ export const useEditorStore = defineStore("editorStore", {
         this.level = level;
         this.extra = extra;
         this.author = author;
+        this.collaboration = collaboration;
       }
     },
     loadDataToEdit(postId, postData, authorData) {
@@ -261,6 +274,7 @@ export const useEditorStore = defineStore("editorStore", {
       this.level = postData.level;
       this.extra = postData.extra;
       this.author = authorData;
+      this.collaboration = postData.collaboration;
 
       this.$router.push({ name: "draft" });
     },
@@ -273,6 +287,9 @@ export const useEditorStore = defineStore("editorStore", {
     },
     setAuthors(data) {
       this.author = data;
+    },
+    setPostType(data) {
+      this.postType = data;
     },
     setCourseLevel(data) {
       this.level = data;
