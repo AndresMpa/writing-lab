@@ -67,6 +67,7 @@ async function getPostData(postId) {
       : null,
     active: rawData.data[0].active,
     extra: rawData.data[0].extra,
+    collaboration: rawData.data[0].collaboration,
   };
 
   const authorList = [];
@@ -82,7 +83,7 @@ async function getPostData(postId) {
 async function getPosts(from, to, postType) {
   const rawData = await supabase
     .from("Entries")
-    .select("post_id, post_type, title, image, level, due_date, active")
+    .select("post_id, post_type, title, image, level, due_date, active, collaboration")
     .eq("post_type", postType)
     .range(from, to);
 
@@ -95,6 +96,7 @@ async function getPosts(from, to, postType) {
       level: item.level,
       date: item.due_date ? item.due_date.split("T")[0] : null,
       active: item.active,
+      collaboration: item.collaboration,
     };
   });
 
