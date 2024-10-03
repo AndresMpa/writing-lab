@@ -1,7 +1,16 @@
 <template>
   <v-card>
-    <AcademicUpload :isOpen="dialog" @close-dialog="toggleDialog" />
-    <v-data-iterator :items="bucketFiles" :items-per-page="9" :search="search">
+    <AcademicUpload
+      @close-dialog="toggleDialog"
+      @reload="reload"
+      :isOpen="dialog"
+    />
+    <v-data-iterator
+      :items-per-page="itemsPerPage"
+      :items="bucketFiles"
+      :search="search"
+      :page="page"
+    >
       <template v-slot:header>
         <v-toolbar class="px-2">
           <v-text-field
@@ -10,8 +19,8 @@
             placeholder="Browse document"
             prepend-inner-icon="mdi-magnify"
             variant="solo"
-            clearable
             hide-details
+            clearable
           ></v-text-field>
 
           <v-spacer></v-spacer>
@@ -57,10 +66,16 @@
                     Last update: {{ item.raw.update }}
                   </div>
                 </div>
+                <div
+                  class="d-flex align-center text-caption text-medium-emphasis me-1"
+                >
+                  <v-icon icon="mdi-identifier" start></v-icon>
+                  <div class="text-truncate">Identifier: {{ item.raw.fileId }}</div>
+                </div>
               </div>
 
               <v-btn
-                @click="downloadFile"
+                @click="downloadFile(item.raw)"
                 prepend-icon="mdi-download"
                 class="text-none mt-auto"
                 text="Download"
@@ -88,8 +103,16 @@
 </template>
 
 <script>
+import { useBucketStore } from "@/stores/bucketStore";
+
+const bucketStore = useBucketStore();
+
 export default {
   props: {
+    itemsPerPage: {
+      type: Number,
+      default: 8,
+    },
     bucketFiles: {
       type: Array,
     },
@@ -97,16 +120,22 @@ export default {
   data: () => ({
     dialog: false,
     search: "",
+    page: 1,
   }),
+  computed: {
+    pageCount() {
+      return Math.ceil(this.bucketFiles.length / this.itemsPerPage);
+    },
+  },
   methods: {
-    downloadFile(fileUrl, fileName) {
-      const link = document.createElement("a");
-      link.href = fileUrl;
-      link.setAttribute("download", fileName);
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    downloadFile(item) {
+      bucketStore.download(`academicLiteracies/${item.fileName}`);
+    },
+    reload() {
+      bucketStore.list();
+    },
+    pageChange(page) {
+      this.$emit("pageChange", page);
     },
     toggleDialog() {
       this.dialog = !this.dialog;
