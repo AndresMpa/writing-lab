@@ -1,57 +1,35 @@
 <template>
-  <CollaborateActivity :activities="activities" />
+  <CollaborateActivity :activities="postData" />
 </template>
 
 <script>
+import { usePostStore } from "@/stores/postStore";
+
+const postStore = usePostStore();
+
 export default {
   data: () => ({
-    activities: [
-      {
-        title: "Example",
-        authors: ["Some", "Other"],
-        level: ["Course 1"],
-        data: [
-          {
-            postId: 56,
-            title: "Test",
-            image: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-            description: "lorem",
-          },
-          {
-            postId: 56,
-            title: "Test",
-            image: "",
-            description: "lorem",
-          },
-          {
-            postId: 56,
-            title: "Test",
-            image: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-            description: "lorem",
-          },
-        ],
-      },
-      {
-        title: "Example",
-        authors: ["Some", "Other"],
-        data: [
-          {
-            postId: 56,
-            title: "Test",
-            level: ["data"],
-            image: "",
-            description: "lorem",
-          },
-          {
-            postId: 56,
-            title: "Test",
-            level: ["data"],
-            image: "",
-            description: "lorem",
-          },
-        ],
-      },
-    ],
+    offset: 4,
   }),
+  computed: {
+    postData() {
+      if (postStore.selectedLevel) {
+        return postStore.together.filter((data) =>
+          data.level.includes(postStore.selectedLevel)
+        );
+      } else {
+        return postStore.together;
+      }
+    },
+  },
+  methods: {
+    getPosts(page) {
+      let currentPage = page || 1;
+      postStore.loadTogether(this.offset * currentPage);
+    },
+  },
+  created() {
+    this.getPosts();
+  },
 };
 </script>
