@@ -107,6 +107,8 @@ export default {
     uploadFile() {
       bucketStore.setFile(this.filesToBeSend);
       bucketStore.upload(`academicLiteracies/${this.filesToBeSend.name}`);
+      this.$emit("close-dialog");
+      this.$emit("reload");
     },
   },
 };
