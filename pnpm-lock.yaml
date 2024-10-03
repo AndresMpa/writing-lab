@@ -20,6 +20,9 @@ importers:
       core-js:
         specifier: ^3.34.0
         version: 3.38.1
+      crypto-js:
+        specifier: ^4.2.0
+        version: 4.2.0
       roboto-fontface:
         specifier: '*'
         version: 0.10.0
@@ -939,6 +942,9 @@ packages:
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
+
+  crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -3267,7 +3273,7 @@ snapshots:
 
   '@vue/shared@3.5.8': {}
 
-  '@vuetify/loader-shared@2.0.3(vue@3.5.8)(vuetify@3.7.2(vite-plugin-vuetify@2.0.4)(vue@3.5.8))':
+  '@vuetify/loader-shared@2.0.3(vue@3.5.8)(vuetify@3.7.2)':
     dependencies:
       upath: 2.0.1
       vue: 3.5.8
@@ -3545,6 +3551,8 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  crypto-js@4.2.0: {}
 
   cssesc@3.0.0: {}
 
@@ -5290,7 +5298,7 @@ snapshots:
 
   vite-plugin-vuetify@2.0.4(vite@5.4.7(@types/node@22.5.5)(sass@1.79.3))(vue@3.5.8)(vuetify@3.7.2):
     dependencies:
-      '@vuetify/loader-shared': 2.0.3(vue@3.5.8)(vuetify@3.7.2(vite-plugin-vuetify@2.0.4)(vue@3.5.8))
+      '@vuetify/loader-shared': 2.0.3(vue@3.5.8)(vuetify@3.7.2)
       debug: 4.3.7
       upath: 2.0.1
       vite: 5.4.7(@types/node@22.5.5)(sass@1.79.3)
