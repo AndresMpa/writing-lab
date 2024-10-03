@@ -8,7 +8,8 @@
     <v-row>
       <v-col>
         <v-stepper
-          :items="['Title', 'Peers', 'Type', 'Course', 'Topic', 'Review']"
+          :items="['Title', 'Peers', 'Type', 'Course', 'Topic/Unit', 'Review']"
+          v-model="currentStep"
           class="mx-12"
           hide-actions
           alt-labels
@@ -87,6 +88,7 @@ export default {
   },
   data: () => ({
     loading: false,
+    currentStep: 1,
     peerToSearch: "",
     filteredPeers: [],
     typeOptions: [
@@ -128,15 +130,18 @@ export default {
     },
     saveTitle(title) {
       editorStore.saveCollaborationData({ title: title });
+      this.nextStep();
     },
     savePeers(peers) {
       const data = peers.map((peer) => {
         return { id: peer.user_id, username: peer.fullname, ...peer };
       });
       editorStore.setAuthors(data);
+      this.nextStep();
     },
     saveType(savedType) {
       editorStore.saveCollaborationData({ ctype: savedType });
+      this.nextStep();
     },
     saveCourses(courses) {
       let data;
@@ -146,9 +151,16 @@ export default {
         data = [...courses];
       }
       editorStore.setCourseLevel(data);
+      this.nextStep();
     },
     saveTopic(topicUnit) {
       editorStore.saveCollaborationData({ topicUnit: topicUnit });
+      this.nextStep();
+    },
+    nextStep() {
+      if (this.currentStep < 6) {
+        this.currentStep++;
+      }
     },
     leavePage() {
       this.$router.push({ name: "collaborate" });
