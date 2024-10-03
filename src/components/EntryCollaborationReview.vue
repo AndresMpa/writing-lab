@@ -25,9 +25,7 @@
           </div>
         </v-col>
         <v-col>
-          <div>
-            Your Topic or Unit will be "{{ collaboration.topicUnit }}"
-          </div>
+          <div>Your Topic or Unit will be "{{ collaboration.topicUnit }}"</div>
         </v-col>
       </v-row>
     </v-card-text>
@@ -53,6 +51,7 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from "uuid";
 import { useEditorStore } from "@/stores/editorStore";
 
 const editorStore = useEditorStore();
@@ -72,6 +71,11 @@ export default {
   },
   methods: {
     createDraft() {
+      const uuid = uuidv4();
+
+      editorStore.saveCollaborationData({ uuid: uuid });
+      editorStore.setPostType("Together");
+
       this.$router.push({ name: "draft" });
     },
     discordCollaboration() {

@@ -10,11 +10,22 @@
         />
       </v-col>
       <v-col cols="6" class="my-auto mx-auto">
-        <v-card class="mx-auto">
+        <div v-if="item.collaboration && item.collaboration.ctype && item.collaboration.topicUnit">
+          <v-chip color="primary">
+            {{ item.collaboration.ctype }}
+          </v-chip>
+          <v-chip color="secondary" class="mx-4">
+            {{ item.collaboration.topicUnit }}
+          </v-chip>
+        </div>
+        <v-card class="mx-auto my-2">
           <h1 class="h1 pa-3">
             {{ item.title }}
           </h1>
         </v-card>
+        <h4 class="h4" v-if="item.collaboration && item.collaboration.title">
+          From: <i>{{ item.collaboration.title }}</i>
+        </h4>
       </v-col>
     </v-row>
     <v-row class="my-6">

@@ -4,7 +4,7 @@
       <h2 class="h4">{{ post.title }}</h2>
     </v-card-title>
     <v-card-subtitle class="d-flex">
-      <v-chip class="mr-4" variant="outlined" color="primary">
+      <v-chip class="mr-4" color="primary">
         {{ post.postType }}
       </v-chip>
       <div v-for="item in post.level">
