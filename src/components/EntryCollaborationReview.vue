@@ -18,7 +18,7 @@
       <v-row align="center" class="mx-0">
         <v-col>
           <div>
-            You will be focus on
+            You will be focusing on
             <v-chip v-for="course in level" :key="course" class="mx-1">
               {{ course }}
             </v-chip>
@@ -26,7 +26,7 @@
         </v-col>
         <v-col>
           <div>
-            Your Unit or Topic will be "{{ collaboration.topicUnit }}" project
+            Your Topic or Unit will be "{{ collaboration.topicUnit }}"
           </div>
         </v-col>
       </v-row>
