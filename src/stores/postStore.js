@@ -64,17 +64,19 @@ export const usePostStore = defineStore("postStore", {
         const uuid = item.collaboration.uuid;
         if (!acc[uuid]) {
           acc[uuid] = {
-            title: item.collaboration.title || "",
+            collaboration: item.collaboration,
             level: item.level || [],
-            data: [],
+            entries: [],
           };
         }
-        acc[uuid].data.push({
+        acc[uuid].entries.push({
           postId: item.postId,
           title: item.title,
           image: item.image || "",
           description: item.description || "",
-          level: item.level || [],
+          level: item.level,
+          date: item.date,
+          active: item.active,
         });
         return acc;
       }, {});
