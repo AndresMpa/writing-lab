@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabaseClient";
 
 const BUCKET = import.meta.env.VITE_SUPABASE_BUCKET;
 
-async function uploadFile(file, file_path) {
+const uploadFile = async (file, file_path) => {
   const { data, error } = await supabase.storage
     .from(BUCKET)
     .upload(file_path, file);
@@ -12,7 +12,20 @@ async function uploadFile(file, file_path) {
   } else {
     return data;
   }
-}
+};
+
+const downloadFile = async (file_path) => {
+  const { data, error } = await supabase.storage
+    .from(BUCKET)
+    .download(file_path);
+
+  if (error) {
+    return error.message;
+  } else {
+    const url = URL.createObjectURL(data);
+    return url;
+  }
+};
 
 const listFiles = async (dir, from, to) => {
   const { data, error } = await supabase.storage
@@ -26,4 +39,4 @@ const listFiles = async (dir, from, to) => {
   }
 };
 
-export { uploadFile, listFiles };
+export { uploadFile, downloadFile, listFiles };
