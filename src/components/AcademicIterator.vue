@@ -74,29 +74,13 @@
         </div>
       </template>
 
-      <template v-slot:footer="{ page, pageCount, prevPage, nextPage }">
-        <div class="d-flex align-center justify-center pa-4">
-          <v-btn
-            :disabled="page === 1"
-            density="comfortable"
-            icon="mdi-arrow-left"
-            variant="tonal"
-            rounded
-            @click="prevPage"
-          ></v-btn>
-
-          <div class="mx-2 text-caption">
-            Page {{ page }} of {{ pageCount }}
-          </div>
-
-          <v-btn
-            :disabled="page >= pageCount"
-            density="comfortable"
-            icon="mdi-arrow-right"
-            variant="tonal"
-            rounded
-            @click="nextPage"
-          ></v-btn>
+      <template v-slot:footer>
+        <div class="text-center pt-2">
+          <v-pagination
+            v-model="page"
+            :length="pageCount"
+            @update:model-value="pageChange"
+          ></v-pagination>
         </div>
       </template>
     </v-data-iterator>
