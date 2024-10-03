@@ -7,9 +7,9 @@
         </h2>
         <div class="d-flex pa-3 justify-space-around">
           <div
+            class="pa-2 my-auto activity-sizing"
             v-for="(data, index) in activity.data"
             @click="sendTo(activity.to)"
-            class="pa-2 my-auto activity-sizing"
           >
             <CollaborateIteratorItem
               :id="data.postId"
@@ -22,11 +22,11 @@
             />
 
             <v-alert
-              :title="stages[index].title"
               :icon="stages[index].icon"
-              :type="stages[index].color"
+              :title="stages[index].title"
+              :color="stages[index].color"
               class="my-4"
-            ></v-alert>
+            />
           </div>
         </div>
 
@@ -37,13 +37,6 @@
             color="primary"
           >
             {{ level }}
-          </v-chip>
-
-          <v-chip
-            v-for="author in activity.authors"
-            class="pa-2 ml-2 text-truncate"
-          >
-            {{ author }}
           </v-chip>
         </div>
 
