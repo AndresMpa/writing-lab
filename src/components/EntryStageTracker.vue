@@ -7,12 +7,15 @@
         </h2>
         <div class="d-flex">
           <div class="mr-6">
-            <v-chip>
+            <v-chip v-for="course in courses">
               {{ course }}
             </v-chip>
           </div>
-          <div v-for="author in authors" :key="author">
-            <v-chip class="mr-2">{{ author }}</v-chip>
+          <div>
+            <v-chip class="mr-2">{{ topic }}</v-chip>
+          </div>
+          <div>
+            <v-chip class="mr-2">{{ ctype }}</v-chip>
           </div>
         </div>
       </div>
@@ -56,12 +59,16 @@ export default {
       type: [String],
       required: true,
     },
-    course: {
-      type: [String],
+    courses: {
+      type: Array,
       required: true,
     },
-    authors: {
-      type: [Array, null],
+    topic: {
+      type: String,
+      required: true,
+    },
+    ctype: {
+      type: String,
       required: true,
     },
     entries: {
