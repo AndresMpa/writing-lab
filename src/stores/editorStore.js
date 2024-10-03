@@ -60,7 +60,11 @@ export const useEditorStore = defineStore("editorStore", {
         color: "red",
         action: () => {
           this.dialog = false;
-          this.$router.push({ name: "collaborate" });
+      if (window.history.length > 1) {
+        this.$router.back();
+      } else {
+        this.$router.push({ name: "collaborate" });
+      }
         },
       };
       this.dialog = true;
@@ -74,7 +78,11 @@ export const useEditorStore = defineStore("editorStore", {
         color: "red",
         action: () => {
           this.deleteDraft();
-          this.$router.push({ name: "collaborate" });
+      if (window.history.length > 1) {
+        this.$router.back();
+      } else {
+        this.$router.push({ name: "collaborate" });
+      }
         },
       };
       this.dialog = true;
