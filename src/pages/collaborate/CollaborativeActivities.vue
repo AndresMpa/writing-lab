@@ -45,7 +45,7 @@ export default {
     getPosts(page) {
       this.loading = true;
       let currentPage = page || 1;
-      postStore.loadTogether(this.offset * currentPage);
+      postStore.loadTogether(this.offset * this.itemsPerPage * currentPage);
       this.loading = false;
     },
   },
