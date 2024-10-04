@@ -2,7 +2,7 @@
   <v-card class="pb-3 my-auto" border flat>
     <v-img :src="img" :max-height="200"  aspect-ratio="16/9" class="mx-auto" cover></v-img>
 
-    <v-list-item class="mb-2" :href="date ? `question/${id}` : `post/${id}`">
+    <v-list-item class="mb-2" :to="date ? `question/${id}` : `post/${id}`">
       <template v-slot:title>
         <strong class="text-h6 mb-2 title">{{ title }}</strong>
       </template>
