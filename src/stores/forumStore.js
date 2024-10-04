@@ -23,6 +23,7 @@ export const useForumStore = defineStore("forumStore", {
     level: null,
     dueDate: null,
     active: true,
+    level: null
   }),
   getters: {},
   actions: {
@@ -37,7 +38,7 @@ export const useForumStore = defineStore("forumStore", {
         image: null,
         title: this.title,
         description: this.description,
-        level: null,
+        level: this.level,
         extra: null,
         due_date: this.dueDate,
         active: this.active,
@@ -79,6 +80,10 @@ export const useForumStore = defineStore("forumStore", {
         author: author,
       };
       await insertComment(commentData);
+    },
+
+    setCourseLevel(data) {
+      this.level = data;
     },
 
     clearQuestion() {
