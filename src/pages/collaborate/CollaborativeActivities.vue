@@ -1,8 +1,19 @@
 <template>
-  <CollaborateActivity :activities="postData" />
+  <div v-if="postData.length > 0">
+    <CollaborateActivity :activities="postData" />
+  </div>
+  <div v-else>
+    <DisplayPicture
+      currentTitle="Ups... There's not collaborate activities yet"
+      :pictureToShow="4"
+      goBack
+    />
+  </div>
 </template>
 
 <script>
+import DisplayPicture from "@/components/decoration/DisplayPicture.vue";
+
 import { usePostStore } from "@/stores/postStore";
 
 const postStore = usePostStore();

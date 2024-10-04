@@ -30,7 +30,7 @@ export default {
         image: wonderImage,
         label:
           "In trouble teaching Academic Writing? Get advice from your peers!",
-        to: "wonderHowCould",
+        to: "helpYourPeers",
       },
       {
         title: "Collaborative activities",

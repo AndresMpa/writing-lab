@@ -80,7 +80,7 @@
                   <v-icon> mdi-image </v-icon>
                 </v-btn>
               </template>
-              <span>Post image</span>
+              <span>Add image</span>
             </v-tooltip>
 
             <v-tooltip location="bottom">

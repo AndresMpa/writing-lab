@@ -1,8 +1,18 @@
 <template>
-  <CollaborateScroller :items="postData" :load="loadData" />
+  <div v-if="postData.length > 0">
+    <CollaborateScroller :items="postData" :load="loadData" />
+  </div>
+  <div v-else>
+    <DisplayPicture
+      currentTitle="Ups... There're not Meaningful experiences yet"
+      :pictureToShow="4"
+      goBack
+    />
+  </div>
 </template>
 
 <script>
+import DisplayPicture from "@/components/decoration/DisplayPicture.vue";
 import { usePostStore } from "@/stores/postStore";
 
 const postStore = usePostStore();
