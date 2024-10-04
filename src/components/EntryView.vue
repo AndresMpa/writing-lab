@@ -41,9 +41,9 @@
     <v-row no-gutters>
       <v-col v-if="item.extra[0] !== null">
         <v-card title="References"></v-card>
-        <p v-for="(reference, index) in item.extra" class="pa-3 font-italic">
+        <p v-for="(reference, index) in item.extra" class="pa-3 font-weight-black">
           <a
-            class="text-white cursor-pointer text-body-1 font-weight-thin"
+            class="cursor-pointer text-body-1 font-weight-thin"
             :href="reference"
             target="_blank"
             >{{ index + 1 }}. {{ reference }}</a
