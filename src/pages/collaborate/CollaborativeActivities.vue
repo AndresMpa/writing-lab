@@ -1,6 +1,12 @@
 <template>
   <div v-if="postData.length > 0">
-    <CollaborateActivity :activities="postData" />
+    <CollaborateActivity
+      @page-change="getPosts"
+      :itemsPerPage="itemsPerPage"
+      :loading="loading"
+      :post="postData"
+      class="pb-2"
+    />
   </div>
   <div v-else>
     <DisplayPicture
@@ -20,6 +26,8 @@ const postStore = usePostStore();
 
 export default {
   data: () => ({
+    loading: true,
+    itemsPerPage: 4,
     offset: 4,
   }),
   computed: {
@@ -35,8 +43,10 @@ export default {
   },
   methods: {
     getPosts(page) {
+      this.loading = true;
       let currentPage = page || 1;
       postStore.loadTogether(this.offset * currentPage);
+      this.loading = false;
     },
   },
   created() {

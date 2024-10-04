@@ -55,6 +55,16 @@
         </v-row>
       </v-container>
     </template>
+
+    <template v-slot:footer>
+      <div class="text-center pt-2">
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          @update:model-value="pageChange"
+        ></v-pagination>
+      </div>
+    </template>
   </v-data-iterator>
 </template>
 
