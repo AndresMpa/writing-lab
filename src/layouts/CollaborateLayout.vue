@@ -20,7 +20,7 @@
           >
             {{
               this.selectedCourse === null
-                ? "All Course"
+                ? "All Courses"
                 : this.selectedCourse.title
             }}
           </v-btn>
@@ -96,7 +96,7 @@ export default {
     userSession: false,
     selectedCourse: null,
     items: [
-      { title: "All Course", filter: null },
+      { title: "All Courses", filter: null },
       { title: "Course 1", filter: "Course 1" },
       { title: "Course 2", filter: "Course 2" },
       { title: "Course 3", filter: "Course 3" },
