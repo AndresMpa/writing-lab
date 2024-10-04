@@ -19,9 +19,9 @@
         Delete question
       </v-btn>
       <v-btn
+        class="pa-2"
         size="small"
         color="primary"
-        class="pa-2"
         @click="answerQuestion(question.postId)"
       >
         Mark as answered
@@ -44,8 +44,8 @@
         @click="postComment(question.postId, newComment)"
         :disabled="enableSend"
         class="ml-auto pa-2"
-        size="small"
         icon="mdi-send"
+        size="small"
       >
       </v-btn>
     </v-card-actions>
@@ -87,15 +87,24 @@ export default {
     },
   },
   methods: {
+    exit() {
+      if (window.history.length > 1) {
+        this.$router.back();
+      } else {
+        this.$router.push({ name: "collaborate" });
+      }
+    },
     deleteQuestion(postId) {
       this.loading = true;
       forumStore.deleteQuestion(postId);
       this.loading = false;
+      this.exit()
     },
     answerQuestion(postId) {
       this.loading = true;
       forumStore.answerQuestion(postId);
       this.loading = false;
+      this.exit()
     },
     postComment(postId, comment) {
       this.loading = true;

@@ -5,22 +5,30 @@
         v-bind="activatorProps"
         class="ml-auto font-weight-regular"
         prepend-icon="mdi-clock"
-        text="Due date"
+        text="Question information"
         variant="tonal"
         color="primary"
       ></v-btn>
     </template>
     <v-card>
-      <v-date-picker
-        width="600"
-        color="primary"
-        v-model:model-value="date"
-      ></v-date-picker>
+      <v-card-item class="ma-0 pa-0">
+        <v-date-picker
+          width="600"
+          color="primary"
+          v-model:model-value="date"
+        ></v-date-picker>
+
+        <ComboSearch
+          class="px-6"
+          title="Course information"
+          label="Courses for this question"
+          @save-options="saveCourses"
+        />
+      </v-card-item>
+
       <v-card-actions class="d-flex">
-
-      <v-btn @click="dialog = !dialog">Save</v-btn>
+        <v-btn @click="dialog = !dialog">Finish</v-btn>
       </v-card-actions>
-
     </v-card>
   </v-dialog>
 </template>
@@ -40,6 +48,17 @@ export default {
       set(value) {
         this.forumStore.dueDate = value;
       },
+    },
+  },
+  methods: {
+    saveCourses(courses) {
+      let data;
+      if (typeof courses === "string") {
+        data = [courses];
+      } else {
+        data = [...courses];
+      }
+      this.forumStore.setCourseLevel(data);
     },
   },
   created() {

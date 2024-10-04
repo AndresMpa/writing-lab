@@ -109,7 +109,7 @@ export default {
   methods: {
     createPost() {
       this.forumStore.createQuestion();
-      if (!this.forumStore.loading) {
+      if (this.forumStore.loading) {
         this.$router.push({ name: "helpYourPeers" });
       }
     },
