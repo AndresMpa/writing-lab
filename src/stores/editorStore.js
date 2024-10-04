@@ -245,7 +245,7 @@ export const useEditorStore = defineStore("editorStore", {
       this.author = null;
       this.postType = null;
       this.postImage = null;
-      this.extra = null;
+      this.extra = [null];
       this.collaboration = {};
       this.dialog = false;
     },
