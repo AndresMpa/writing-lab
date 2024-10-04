@@ -12,7 +12,9 @@
                 ? loadingImage
                 : pictureToShow === 2
                 ? errorImage
-                : notFoundImage
+                : pictureToShow === 3
+                ? notFoundImage
+                : emptyImage
             "
           />
 
@@ -48,6 +50,7 @@
 import loadingImage from "../../assets/img/loading.svg";
 import errorImage from "../../assets/img/error.svg";
 import notFoundImage from "../../assets/img/404.svg";
+import emptyImage from "../../assets/img/empty.svg";
 
 export default {
   name: "DisplayPicture",
@@ -69,6 +72,7 @@ export default {
     loadingImage,
     notFoundImage,
     errorImage,
+    emptyImage,
   }),
   methods: {
     returnPreviousPage() {
