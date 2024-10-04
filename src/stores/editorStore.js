@@ -60,11 +60,11 @@ export const useEditorStore = defineStore("editorStore", {
         color: "red",
         action: () => {
           this.dialog = false;
-      if (window.history.length > 1) {
-        this.$router.back();
-      } else {
-        this.$router.push({ name: "collaborate" });
-      }
+          if (window.history.length > 1) {
+            this.$router.back();
+          } else {
+            this.$router.push({ name: "collaborate" });
+          }
         },
       };
       this.dialog = true;
@@ -78,11 +78,11 @@ export const useEditorStore = defineStore("editorStore", {
         color: "red",
         action: () => {
           this.deleteDraft();
-      if (window.history.length > 1) {
-        this.$router.back();
-      } else {
-        this.$router.push({ name: "collaborate" });
-      }
+          if (window.history.length > 1) {
+            this.$router.back();
+          } else {
+            this.$router.push({ name: "collaborate" });
+          }
         },
       };
       this.dialog = true;
@@ -118,7 +118,7 @@ export const useEditorStore = defineStore("editorStore", {
       this.actions = {
         title: "You are about to publish",
         description:
-          "Congratulations! You are about to publish a new post, this may take a couple of seconds.",
+          "Congratulations! You are about to publish a new post. This may take a couple of seconds.",
         icon: "mdi-check-decagram",
         label: "Publish",
         color: "primary",
@@ -169,7 +169,7 @@ export const useEditorStore = defineStore("editorStore", {
       this.actions = {
         title: "Select your post type",
         description:
-          "The type defines the section this post is going to be show",
+          "The post type defines the section where this post is going to be shown",
         icon: "mdi-format-list-bulleted-type",
         label: "Save type",
         color: "primary",
@@ -183,8 +183,8 @@ export const useEditorStore = defineStore("editorStore", {
     },
     extraCourse() {
       this.actions = {
-        title: "What course level is this post?",
-        description: "Define the level for your post",
+        title: "What course is this post for?",
+        description: "Select the course for your post",
         icon: "mdi-account-school",
         label: "Save course",
         color: "primary",
@@ -202,7 +202,7 @@ export const useEditorStore = defineStore("editorStore", {
     },
     extraImage() {
       this.actions = {
-        title: "Add an image for your post",
+        title: "Add an image to your post",
         description:
           "Be sure your image is working correctly by checking the preview",
         icon: "mdi-image-edit",
@@ -220,9 +220,9 @@ export const useEditorStore = defineStore("editorStore", {
       this.actions = {
         title: "Track your references",
         description:
-          "Congratulations! You are about to publish a new post, this may take a couple of seconds.",
+          "Add links to your external references to guide your peers to learn more about your post",
         icon: "mdi-link-variant-plus",
-        label: "Save references",
+        label: "Add link(s) to the post",
         color: "primary",
         variant: "reference",
         action: (extra) => {
