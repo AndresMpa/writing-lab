@@ -38,6 +38,7 @@
         </div>
 
         <v-text-field
+          @keyup.enter="logInUser"
           @click:append-inner="visible = !visible"
           :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
           :type="visible ? 'text' : 'password'"
