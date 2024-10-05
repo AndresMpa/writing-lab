@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid v-if="postData.length > 0">
+  <v-container fluid>
     <v-row v-if="success || error">
       <v-col>
         <v-alert
@@ -36,13 +36,6 @@
       </v-col>
     </v-row>
   </v-container>
-  <div v-else>
-    <DisplayPicture
-      currentTitle="It seems nobody have doubts yet... Come later!"
-      :pictureToShow="4"
-      goBack
-    />
-  </div>
 </template>
 
 <script>

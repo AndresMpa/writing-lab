@@ -1,14 +1,5 @@
 <template>
-  <div v-if="postData.length > 0">
-    <CollaborateScroller :items="postData" :load="loadData" />
-  </div>
-  <div v-else>
-    <DisplayPicture
-      currentTitle="Ups... There're not Meaningful experiences yet"
-      :pictureToShow="4"
-      goBack
-    />
-  </div>
+  <CollaborateScroller :items="postData" :load="loadData" />
 </template>
 
 <script>

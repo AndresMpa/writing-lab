@@ -1,27 +1,16 @@
 <template>
-  <div v-if="postData.length > 0">
-    <CollaborateBanner :top="topData" />
-    <CollaborateIterator
-      @hot-reload="reload"
-      @page-change="getPosts"
-      :itemsPerPage="itemsPerPage"
-      :loading="loading"
-      :post="postData"
-      class="pb-2"
-    />
-  </div>
-  <div v-else>
-    <DisplayPicture
-      currentTitle="Oh... There're not insight yet"
-      :pictureToShow="4"
-      goBack
-    />
-  </div>
+  <CollaborateBanner :top="topData" />
+  <CollaborateIterator
+    @hot-reload="reload"
+    @page-change="getPosts"
+    :itemsPerPage="itemsPerPage"
+    :loading="loading"
+    :post="postData"
+    class="pb-2"
+  />
 </template>
 
 <script>
-import DisplayPicture from "@/components/decoration/DisplayPicture.vue";
-
 import { usePostStore } from "@/stores/postStore";
 
 const postStore = usePostStore();
