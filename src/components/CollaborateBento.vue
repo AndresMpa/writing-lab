@@ -25,13 +25,11 @@ export default {
       default: () => [],
     },
   },
-  data: () => ({
-    colsRemaining: 12,
-    currentRow: 0,
-  }),
   methods: {
     getCols(commentLength, index) {
       let cols;
+      let colsRemaining = 12;
+      let currentRow = Math.floor(index / 3);
 
       if (commentLength > 500) {
         cols = 12;
@@ -45,26 +43,23 @@ export default {
         cols = 4;
       }
 
-      if (index === 0 || this.currentRow !== Math.floor(index / 3)) {
+      if (index === 0 || currentRow !== Math.floor((index - 1) / 3)) {
         cols = 12;
-        this.colsRemaining = 0;
-        this.currentRow = Math.floor(index / 3);
+        colsRemaining = 0;
       } else {
-        if (cols > this.colsRemaining) {
-          cols = this.colsRemaining;
-          this.colsRemaining = 0;
+        if (cols > colsRemaining) {
+          cols = colsRemaining;
+          colsRemaining = 0;
         } else {
-          this.colsRemaining -= cols;
+          colsRemaining -= cols;
         }
       }
 
       if ((index + 1) % 3 === 0 || index === this.comments.length - 1) {
-        if (this.colsRemaining > 0) {
-          cols = this.colsRemaining;
-          this.colsRemaining = 12;
-        } else {
-          this.colsRemaining = 12;
+        if (colsRemaining > 0) {
+          cols = colsRemaining;
         }
+        colsRemaining = 12;
       }
 
       return cols;
