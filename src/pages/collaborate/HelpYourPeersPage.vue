@@ -39,8 +39,6 @@
 </template>
 
 <script>
-import DisplayPicture from "@/components/decoration/DisplayPicture.vue";
-
 import { useForumStore } from "@/stores/forumStore";
 import { usePostStore } from "@/stores/postStore";
 
@@ -52,6 +50,7 @@ export default {
     loading: true,
     itemsPerPage: 5,
     offset: 5,
+    currentPage: 1,
   }),
   computed: {
     postData() {
@@ -77,12 +76,12 @@ export default {
   methods: {
     getPosts(page) {
       this.loading = true;
-      let currentPage = page || 1;
-      postStore.loadWonder(this.offset * this.itemsPerPage * currentPage);
+      this.currentPage = page || 1;
+      postStore.loadWonder(this.offset * this.itemsPerPage * this.currentPage);
       this.loading = false;
     },
     reload() {
-      this.getPosts();
+      this.getPosts(this.currentPage);
     },
   },
   created() {

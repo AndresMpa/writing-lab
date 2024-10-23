@@ -1,11 +1,13 @@
 <template>
   <v-card class="ma-2" :loading="loading">
-    <v-card-title class="d-flex align-center">
-      <h2>{{ question.title }}</h2>
+    <v-card-title class="d-flex">
+      <h2 class="text-wrap">{{ question.title }}</h2>
 
-      <v-chip class="ml-auto" :color="question.active ? 'primary' : 'purple'">
-        {{ question.date }}
-      </v-chip>
+      <div class="d-flex mt-2 ml-auto">
+        <v-chip :color="question.active ? 'primary' : 'purple'">
+          {{ question.date }}
+        </v-chip>
+      </div>
     </v-card-title>
     <v-card-text>{{ question.description }}</v-card-text>
     <v-divider></v-divider>
@@ -98,18 +100,19 @@ export default {
       this.loading = true;
       forumStore.deleteQuestion(postId);
       this.loading = false;
-      this.exit()
+      this.exit();
     },
     answerQuestion(postId) {
       this.loading = true;
       forumStore.answerQuestion(postId);
       this.loading = false;
-      this.exit()
+      this.exit();
     },
-    postComment(postId, comment) {
+    async postComment(postId, comment) {
       this.loading = true;
       this.newComment = "";
-      forumStore.postComment(postId, comment, userStore.userId);
+      await forumStore.postComment(postId, comment, userStore.userId);
+      this.$emit("reload-comments", postId);
       this.loading = false;
     },
   },

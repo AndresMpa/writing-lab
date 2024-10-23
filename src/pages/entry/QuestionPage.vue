@@ -9,6 +9,7 @@
       <v-row>
         <v-col>
           <CollaborateForum
+            @reload-comments="getData"
             :question="forumData.postData"
             :canEnd="enableActions"
           />
