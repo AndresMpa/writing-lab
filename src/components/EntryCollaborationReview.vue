@@ -59,7 +59,7 @@ const editorStore = useEditorStore();
 export default {
   computed: {
     peers() {
-      return editorStore.authorsRawData;
+      return editorStore.author;
     },
     level() {
       const { level } = editorStore.draftData;
